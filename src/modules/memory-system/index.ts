@@ -1,64 +1,111 @@
 /**
- * 记忆系统模块导出
- * Memory System Module - Index
+ * Memory System Module
+ * 
+ * Integrated memory system with FTS5 full-text search capabilities
+ * and Active Memory for proactive context injection.
  */
 
-// 核心接口
-export {
-  MemoryTier,
-  ImportanceLevel,
-  MemoryRelationType,
-  MemorySystemEvent,
-  DEFAULT_RETENTION_POLICY,
-  type IMemory,
-  type IMemoryMetadata,
-  type IMemoryRetrieveOptions,
-  type IMemorySearchResult,
-  type IMemoryStoreConfig,
-  type IRetentionPolicy,
-  type IImportanceScorer,
-  type IMemoryLink,
-  type IMemorySystem,
-  type IMemorySystemConfig,
-  type IVectorStoreConfig,
-  type IMemorySystemStats,
-  type MemoryStoreHook,
-  type MemoryRetrieveHook,
-  type MemoryMigrationHook,
-  type MemoryCleanupHook,
-} from './interfaces';
-
-// 主类
+// Core Memory System
 export { MemorySystem } from './MemorySystem';
+export type { MemorySystemOptions, RecallTrackingStats, RecallSessionResult } from './MemorySystem';
 
-// 存储
-export { MemoryStore, type MemorySearchOptions } from './storage/MemoryStore';
+// FTS5 Components
+export { 
+  FTS5Indexer, 
+  CrossSessionSearch, 
+  SessionMemoryStore 
+} from './fts5';
+export type { MemoryEntry, SearchResult, IndexStats, SessionMemory } from './fts5';
 
-// 索引
-export { MemoryIndexer, type IndexEntry } from './indexing/MemoryIndexer';
-
-// 检索
-export { MemoryRetriever, type RetrievalConfig } from './retrieval/MemoryRetriever';
-
-// 处理
-export { MemoryProcessor, type ProcessingResult, type ProcessorConfig } from './processing/MemoryProcessor';
-export { MemoryConsolidator, type ConsolidationResult, type ConsolidationPolicy } from './processing/MemoryConsolidator';
-export { MemoryPruner, type PruneResult } from './processing/MemoryPruner';
-
-// 评分
-export { ImportanceScorer, type ScoringStrategy } from './scoring/ImportanceScorer';
-
-// 关联
-export { MemoryLinker, type LinkDiscoveryConfig } from './linking/MemoryLinker';
-
-// 适配器
+// Active Memory System
 export {
-  VectorStoreAdapter,
-  VectorStoreAdapterFactory,
-  type VectorSearchResult,
-  type VectorSearchOptions,
-  type VectorUpsertItem,
-  type VectorStoreConfig,
-} from './adapters/VectorStoreAdapter';
+  ActiveMemoryManager,
+  PreferenceTracker,
+  KnowledgeGapDetector,
+} from './active';
+export { DEFAULT_ACTIVE_MEMORY_CONFIG } from './active';
 
-export { QdrantAdapter, type QdrantConfig } from './adapters/QdrantAdapter';
+// Active Memory Types
+export type {
+  ActiveMemoryConfig,
+  ActiveMemoryManagerState,
+  RecallResult,
+  RecallContext,
+  ConversationContext,
+  ActiveMemoryEvent,
+  ActiveMemoryEventType,
+  MemoryRecalledEventData,
+  PreferenceDetectedEventData,
+  GapDetectedEventData,
+  HeartbeatTickEventData,
+  SessionEventData,
+  UserPreference,
+  PreferenceEvidence,
+  PreferenceTrackerState,
+  PreferenceTrackingConfig,
+  PreferenceChangeType,
+  KnowledgeGap,
+  KnowledgeGapDetectorState,
+  KnowledgeGapConfig,
+  GapSeverity,
+  KnowledgeDomain,
+  MemoryEntry as ActiveMemoryEntry,
+  SearchDebugInfo,
+  RecallStatus,
+  QueryMode,
+  PromptStyle,
+  ThinkingLevel,
+  ChatType,
+  ModelFallbackPolicy,
+} from './active';
+
+
+// ============== Recall Tracking Module ==============
+// Recall tracking for Dreaming scoring
+export {
+  RecallTracker,
+  createRecallTracker,
+  getGlobalRecallTracker,
+  setGlobalRecallTracker,
+  RecallSignalRecorder,
+  defaultRecorder,
+  RecallStatistics,
+  defaultStatistics,
+} from './tracking';
+
+// ============== Dreaming System Module ==============
+// Memory consolidation and dreaming for memory integration
+export {
+  DreamingSystem,
+  createDreamingSystem,
+  DreamingScheduler,
+  SevenSignalScorer,
+  MemoryConsolidator,
+  DreamingPhase,
+} from './dreaming';
+
+// ============== Feedback Memory System Module ==============
+// Memory Loop - Q&A → Markdown → Graph Enrichment
+export {
+  MemoryLoop,
+  createMemoryLoop,
+  MemoryFileWatcher,
+  createFileWatcher,
+  createMemoryFeedbackSystem,
+} from './feedback';
+
+export type {
+  MemoryRecord,
+  ExtractedKnowledge,
+  KnowledgeRelation,
+  MemoryLoopConfig,
+  GraphInjector,
+  FileWatcherConfig,
+  FileWatcherEvent,
+  FileChangeEvent,
+  MemoryLoopStats,
+  MarkdownFormatOptions,
+  WatcherProcessedEvent,
+  WatcherErrorEvent,
+  MemoryFeedbackSystem,
+} from './feedback';

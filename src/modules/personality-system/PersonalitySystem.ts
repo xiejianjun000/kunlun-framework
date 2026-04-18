@@ -22,7 +22,9 @@ import {
   ExtractedTrait,
   PersonalityDimension,
   TraitType,
-  PersonalityDimensions
+  PersonalityDimensions,
+  DecisionStyle,
+  InformationProcessingStyle
 } from '../../core/interfaces/IPersonalitySystem';
 
 import { PersonalityModel } from './PersonalityModel';
@@ -85,6 +87,42 @@ const DEFAULT_DIMENSIONS: PersonalityDimensions = {
         label: '中立',
         confidence: 0,
         evidence: []
+      },
+      [TraitType.DECISION_STYLE]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
+      },
+      [TraitType.INFORMATION_PROCESSING]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
+      },
+      [TraitType.AUTHORITY_ORIENTATION]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
+      },
+      [TraitType.CAUSALITY_BELIEF]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
+      },
+      [TraitType.SYSTEM_COMPLEXITY]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
+      },
+      [TraitType.TEMPORAL_ORIENTATION]: {
+        value: 0.5,
+        label: '中立',
+        confidence: 0,
+        evidence: []
       }
     },
     stableTraits: []
@@ -92,13 +130,13 @@ const DEFAULT_DIMENSIONS: PersonalityDimensions = {
   perspective: {
     dimensions: {
       decisionStyle: {
-        value: 'deliberate' as any,
+        value: DecisionStyle.DELIBERATE,
         label: '中立',
         confidence: 0,
         evidence: []
       },
       informationProcessing: {
-        value: 'systematic' as any,
+        value: InformationProcessingStyle.SYSTEMATIC,
         label: '中立',
         confidence: 0,
         evidence: []
@@ -271,12 +309,12 @@ export class PersonalitySystem extends EventEmitter implements IPersonalitySyste
     // 初始化适配器
     if (this.config.databaseAdapter) {
       this.dbAdapter = this.config.databaseAdapter;
-      await this.dbAdapter.initialize();
+      await this.dbAdapter!.initialize();
     }
 
     if (this.config.vectorDbAdapter) {
       this.vectorDbAdapter = this.config.vectorDbAdapter;
-      await this.vectorDbAdapter.initialize();
+      await this.vectorDbAdapter!.initialize();
     }
 
     // 初始化子模块
@@ -567,9 +605,10 @@ export class PersonalitySystem extends EventEmitter implements IPersonalitySyste
     }
 
     // 使用蒸馏器更新画像
+    const newDimensions = this.convertTraitsToDimensions(analysis.extractedTraits);
     const updatedProfile = await this.updater.performIncrementalUpdate(
       profile!,
-      { dimensions: this.convertTraitsToDimensions(analysis.extractedTraits) }
+      { dimensions: newDimensions as PersonalityDimensions }
     );
 
     await this.updatePersonalityProfile(userId, tenantId, updatedProfile);

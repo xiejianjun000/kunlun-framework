@@ -19,6 +19,23 @@ import {
   SkillSearchResult,
 } from './skill.types';
 
+// Re-export types from skill.types
+export {
+  SkillMetadata,
+  SkillExecutionResult,
+  SkillExecutionContext,
+  SkillExecutionOptions,
+  SkillInstallInfo,
+  SkillInstallOptions,
+  SkillUninstallOptions,
+  SkillValidationResult,
+  SkillQuotaInfo,
+  SkillStats,
+  SkillSearchFilter,
+  SkillSortOptions,
+  SkillSearchResult,
+};
+
 /**
  * 技能生命周期状态
  */
@@ -59,6 +76,10 @@ export interface SkillInfo extends SkillMetadata {
   configFile?: string;
   /** 依赖列表 */
   dependencies?: string[];
+  /** 注册时间 */
+  registeredAt?: Date;
+  /** 最后更新时间 */
+  updatedAt?: Date;
 }
 
 /**

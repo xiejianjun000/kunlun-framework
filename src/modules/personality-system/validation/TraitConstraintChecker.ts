@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { TraitType, IPersonalityProfile } from '../../core/interfaces/IPersonalitySystem';
+import { TraitType, IPersonalityProfile, TraitDimension } from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 约束检查结果
@@ -223,7 +223,7 @@ export class TraitConstraintChecker {
     const results: ConstraintResult[] = [];
     const dims = profile.dimensions.personality.dimensions;
 
-    for (const [typeStr, dim] of Object.entries(dims)) {
+    for (const [typeStr, dim] of Object.entries(dims) as [string, TraitDimension][]) {
       if (dim.value !== undefined) {
         const result = this.checkConstraint(typeStr as TraitType, dim.value);
         if (!result.satisfied) {

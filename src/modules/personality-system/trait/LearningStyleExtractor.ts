@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { ExtractedTrait, TraitType, LearningPreference } from '../../core/interfaces/IPersonalitySystem';
+import { ExtractedTrait, TraitType, LearningPreference } from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 学习偏好分析结果

@@ -15,7 +15,7 @@ import {
 } from '../interfaces/skill.types';
 import { ISkillExecutor, ExecutorStatus, ExecutionMonitor, ResourceUsage } from '../interfaces/ISkillExecutor';
 import { SkillEnvironment } from '../environment/SkillEnvironment';
-import { SkillHooks } from '../hooks/SkillHooks';
+import { SkillHooks, HookEvent } from '../hooks/SkillHooks';
 
 /**
  * 执行器配置
@@ -85,7 +85,7 @@ export class SkillExecutor
       defaultTimeout: config.defaultTimeout ?? 300000, // 5分钟
       defaultMemoryLimit: config.defaultMemoryLimit ?? 512,
       workDir: config.workDir ?? process.cwd(),
-      environmentClass: config.environmentClass ?? SkillEnvironment,
+      environmentClass: config.environmentClass ?? SkillEnvironment as new () => SkillEnvironment,
       enableSandbox: config.enableSandbox ?? true,
     };
     this.skillsRoot = skillsRoot;
@@ -135,7 +135,7 @@ export class SkillExecutor
     this.executions.set(executionId, record);
 
     // 触发前置钩子
-    await this.hooks.trigger('onBeforeExecute', {
+    await this.hooks.trigger(HookEvent.BEFORE_EXECUTE, {
       executionId,
       skillId: context.skillId,
       input: context.input,
@@ -156,7 +156,7 @@ export class SkillExecutor
       record.progress = 100;
 
       // 触发后置钩子
-      await this.hooks.trigger('onAfterExecute', {
+      await this.hooks.trigger(HookEvent.AFTER_EXECUTE, {
         executionId,
         skillId: context.skillId,
         result,
@@ -208,7 +208,7 @@ export class SkillExecutor
         Date.now() - startTime
       );
 
-      await this.hooks.trigger('onExecuteError', {
+      await this.hooks.trigger(HookEvent.EXECUTE_ERROR, {
         executionId,
         skillId: context.skillId,
         error: errorMessage,

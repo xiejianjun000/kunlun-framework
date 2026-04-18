@@ -7,3 +7,4 @@ export { RewardModel, CompositeRewardModel, type RewardModelConfig } from './Rew
 export { TaskSuccessReward, type TaskSuccessRewardConfig } from './TaskSuccessReward';
 export { UserFeedbackReward, type UserFeedbackRewardConfig } from './UserFeedbackReward';
 export { EvolutionaryReward, type EvolutionaryRewardConfig } from './EvolutionaryReward';
+export { LLMEnhancedReward, type LLMEnhancedRewardConfig, type InteractionQualityScore, type RewardCalculationResult } from './LLMEnhancedReward';

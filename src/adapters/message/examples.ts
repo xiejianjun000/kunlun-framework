@@ -134,6 +134,7 @@ export async function actorIntegrationExample() {
  */
 export async function webhookExample() {
   const adapter = new FeishuAdapter({
+    enabled: true,
     appId: 'cli_xxx',
     appSecret: 'xxx',
     connectionMode: 'webhook',
@@ -149,30 +150,32 @@ export async function webhookExample() {
   await adapter.connect();
 
   // 在Express/Koa等框架中处理webhook
-  const expressApp = require('express')();
-  
-  expressApp.post('/feishu/events', async (req, res) => {
-    const headers = req.headers;
-    const body = req.body;
-    
-    // 验证签名
-    if (!adapter.verifyWebhook(headers as Record<string, string>, JSON.stringify(body))) {
-      return res.status(401).send('Invalid signature');
-    }
-    
-    // 解密消息
-    if (body.encrypt) {
-      const decrypted = adapter.decryptWebhook(body.encrypt);
-      const event = JSON.parse(decrypted);
-      adapter.handleFeishuEvent(event);
-    } else {
-      adapter.handleFeishuEvent(body);
-    }
-    
-    res.send('ok');
-  });
-
-  expressApp.listen(3000);
+  // 注意: 实际使用时需要安装 express: npm install express
+  // const expressApp = require('express')();
+  // 
+  // expressApp.post('/feishu/events', async (req, res) => {
+  //   const headers = req.headers as Record<string, string>;
+  //   const body = req.body as Record<string, unknown>;
+  //   
+  //   // 验证签名
+  //   if (!adapter.verifyWebhook(headers, JSON.stringify(body))) {
+  //     return res.status(401).send('Invalid signature');
+  //   }
+  //   
+  //   // 解密消息
+  //   if (body.encrypt) {
+  //     const decrypted = adapter.decryptWebhook(String(body.encrypt));
+  //     const event = JSON.parse(decrypted);
+  //     adapter.handleFeishuEvent(event as Parameters<typeof adapter.handleFeishuEvent>[0]);
+  //   } else {
+  //     adapter.handleFeishuEvent(body as Parameters<typeof adapter.handleFeishuEvent>[0]);
+  //   }
+  //   
+  //   res.send('ok');
+  // });
+  //
+  // expressApp.listen(3000);
+  console.log('[Webhook Example] Express server setup - uncomment to use');
 }
 
 /**
@@ -181,7 +184,7 @@ export async function webhookExample() {
 export async function broadcastExample() {
   const manager = new AdapterManager({
     feishu: { enabled: true, appId: 'xxx', appSecret: 'xxx' },
-    wecom: { enabled: true, corpId: 'xxx', agentId: 1000001, appSecret: 'xxx' },
+    wecom: { enabled: true, corpId: 'xxx', agentId: '1000001', appSecret: 'xxx' },
   });
 
   // 广播到所有平台
@@ -225,6 +228,7 @@ export async function sessionManagementExample() {
  */
 export async function feishuCardExample() {
   const adapter = new FeishuAdapter({
+    enabled: true,
     appId: 'cli_xxx',
     appSecret: 'xxx',
   });
@@ -313,14 +317,3 @@ if (require.main === module) {
   console.log('Running example...');
   // basicExample().catch(console.error);
 }
-
-export {
-  basicExample,
-  routingExample,
-  actorIntegrationExample,
-  webhookExample,
-  broadcastExample,
-  sessionManagementExample,
-  feishuCardExample,
-  errorHandlingExample,
-};

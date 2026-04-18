@@ -56,20 +56,12 @@ export {
   type EvolutionStrategyConfig,
 } from './strategies/EvolutionStrategy';
 
+// 向后兼容别名
 export {
-  GeneticStrategy,
-  type GeneticStrategyConfig,
-} from './strategies/GeneticStrategy';
-
-export {
-  ReinforcementStrategy,
-  type ReinforcementStrategyConfig,
-} from './strategies/ReinforcementStrategy';
-
-export {
-  GradientStrategy,
-  type GradientStrategyConfig,
-} from './strategies/GradientStrategy';
+  LLMEnhancedGeneticStrategy as GeneticStrategy,
+  LLMEnhancedReinforcementStrategy as ReinforcementStrategy,
+  LLMEnhancedGradientStrategy as GradientStrategy,
+} from './strategies';
 
 // 特质管理
 export {

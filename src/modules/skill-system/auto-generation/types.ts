@@ -147,7 +147,7 @@ export interface EvolutionChange {
   type: 'add' | 'remove' | 'modify' | 'reorder';
   location: string;
   oldValue?: string;
-  newValue?: string;
+  newValue?: string | string[] | Record<string, unknown> | unknown[];
   reason: string;
 }
 

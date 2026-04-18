@@ -117,6 +117,8 @@ export interface IMemoryRetrieveOptions {
   };
   /** 相似度阈值 */
   similarityThreshold?: number;
+  /** 最小分数阈值 */
+  minScore?: number;
   /** 结果数量限制 */
   limit?: number;
   /** 偏移量 */
@@ -137,6 +139,8 @@ export interface IMemorySearchResult {
   score: number;
   /** 匹配片段 */
   matchedSegments?: string[];
+  /** 匹配类型 */
+  matchType?: 'semantic' | 'keyword' | 'hybrid';
 }
 
 /**
@@ -365,15 +369,17 @@ export interface IMemorySystem extends EventEmitter {
    * 删除记忆
    * @param memoryId 记忆ID
    * @param userId 用户ID
+   * @returns 删除后的记忆
    */
-  delete(memoryId: string, userId: string): Promise<void>;
+  delete(memoryId: string, userId: string): Promise<IMemory>;
 
   /**
    * 归档记忆
    * @param memoryId 记忆ID
    * @param userId 用户ID
+   * @returns 归档后的记忆
    */
-  archive(memoryId: string, userId: string): Promise<void>;
+  archive(memoryId: string, userId: string): Promise<IMemory>;
 
   // ============== 记忆层级管理 ==============
 
@@ -521,6 +527,12 @@ export interface IMemorySystemStats {
   lastCleanupTime: Date | null;
   /** 存储大小 (字节) */
   storageSizeBytes: number;
+  /** 召回追踪统计 */
+  recallTrackingStats?: {
+    totalRecalls: number;
+    avgRelevanceScore: number;
+    lastRecallTime: Date | null;
+  };
 }
 
 // ============== 默认值 ==============

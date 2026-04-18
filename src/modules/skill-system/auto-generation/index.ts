@@ -10,8 +10,8 @@ export { SkillAutoGenerator } from './SkillAutoGenerator';
 export { SkillEvolutionTracker } from './SkillEvolutionTracker';
 
 // Re-export hooks
-export { TaskCompletionHook } from '../../core/actor/hooks/TaskCompletionHook';
-export { ActorSkillIntegration, InMemorySkillLibrary } from '../../core/actor/hooks/ActorSkillIntegration';
+export { TaskCompletionHook } from '../../../core/actor/hooks/TaskCompletionHook';
+export { ActorSkillIntegration, InMemorySkillLibrary } from '../../../core/actor/hooks/ActorSkillIntegration';
 
 // ============ 快速使用示例 ============
 

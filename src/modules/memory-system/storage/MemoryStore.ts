@@ -7,7 +7,6 @@ import Database from 'better-sqlite3';
 import {
   IMemory,
   IMemoryStoreConfig,
-  IMemory,
   MemoryTier,
   IRetentionPolicy,
 } from '../interfaces';

@@ -29,7 +29,7 @@ export interface EvolutionaryRewardConfig extends RewardModelConfig {
  * 鼓励探索新行为和保持一致性
  */
 export class EvolutionaryReward extends RewardModel {
-  private config: Required<EvolutionaryRewardConfig>;
+  declare protected config: Required<EvolutionaryRewardConfig>;
 
   constructor(config?: Partial<EvolutionaryRewardConfig>) {
     super('EvolutionaryReward', config);

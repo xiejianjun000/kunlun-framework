@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { ExtractedTrait, TraitType, DecisionStyle } from '../../core/interfaces/IPersonalitySystem';
+import { ExtractedTrait, TraitType, DecisionStyle } from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 决策风格分析结果

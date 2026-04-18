@@ -314,18 +314,19 @@ export class PersonalityUpdater implements IPersonalityUpdater {
   /**
    * 获取特质标签
    */
-  private getLabelForTrait(traitType: TraitType, value: number): string {
+  private getLabelForTrait(traitType: TraitType, value: number | string): string {
+    const numValue = typeof value === 'number' ? value : 0.5;
     switch (traitType) {
       case TraitType.EXTRAVERSION_INTROVERSION:
-        return value >= 0.6 ? '外向型' : value >= 0.4 ? '中立' : '内向型';
+        return numValue >= 0.6 ? '外向型' : numValue >= 0.4 ? '中立' : '内向型';
       case TraitType.OPENNESS_CONSERVATISM:
-        return value >= 0.6 ? '高开放性' : value >= 0.4 ? '中立' : '保守型';
+        return numValue >= 0.6 ? '高开放性' : numValue >= 0.4 ? '中立' : '保守型';
       case TraitType.RATIONALITY_EMOTION:
-        return value >= 0.6 ? '偏理性' : value >= 0.4 ? '中立' : '偏感性';
+        return numValue >= 0.6 ? '偏理性' : numValue >= 0.4 ? '中立' : '偏感性';
       case TraitType.RISK_TOLERANCE:
-        return value >= 0.6 ? '高风险偏好' : value >= 0.4 ? '中等风险偏好' : '低风险偏好';
+        return numValue >= 0.6 ? '高风险偏好' : numValue >= 0.4 ? '中等风险偏好' : '低风险偏好';
       case TraitType.AUTHORITY_ORIENTATION:
-        return value >= 0.6 ? '高权威尊重' : value >= 0.4 ? '中立' : '低权威尊重';
+        return numValue >= 0.6 ? '高权威尊重' : numValue >= 0.4 ? '中立' : '低权威尊重';
       default:
         return '中立';
     }
@@ -474,6 +475,84 @@ export class PersonalityUpdater implements IPersonalityUpdater {
    */
   clearHistory(userId: string): void {
     this.versionHistory.delete(userId);
+  }
+
+  /**
+   * 合并特质
+   * @param existingTraits 现有特质
+   * @param newTraits 新特质
+   */
+  mergeTraits(existingTraits: ExtractedTrait[], newTraits: ExtractedTrait[]): ExtractedTrait[] {
+    const traitsMap = new Map<string, ExtractedTrait[]>();
+
+    // 合并所有特质
+    for (const trait of [...existingTraits, ...newTraits]) {
+      const key = trait.type.toString();
+      if (!traitsMap.has(key)) {
+        traitsMap.set(key, []);
+      }
+      traitsMap.get(key)!.push(trait);
+    }
+
+    // 合并同类特质
+    const mergedTraits: ExtractedTrait[] = [];
+    for (const [type, traits] of traitsMap) {
+      mergedTraits.push(this.mergeTraitsOfSameType(traits));
+    }
+
+    return mergedTraits;
+  }
+
+  /**
+   * 合并同类特质
+   * @param traits 特质列表
+   */
+  private mergeTraitsOfSameType(traits: ExtractedTrait[]): ExtractedTrait {
+    // 按类型分组计算
+    const numericTraits = traits.filter(t => typeof t.value === 'number');
+    const stringTraits = traits.filter(t => typeof t.value === 'string');
+
+    let finalValue: number | string;
+    let finalLabel: string;
+
+    if (numericTraits.length > 0) {
+      // 数值型特质取加权平均
+      const totalWeight = numericTraits.reduce((sum, t) => sum + t.confidence, 0);
+      finalValue = numericTraits.reduce(
+        (sum, t) => sum + (t.value as number) * t.confidence, 0
+      ) / totalWeight;
+      finalLabel = this.getLabelForTrait(traits[0].type, finalValue);
+    } else {
+      // 字符串型特质取最高置信度
+      const best = stringTraits.reduce((best, t) => 
+        t.confidence > best.confidence ? t : best
+      );
+      finalValue = best.value;
+      finalLabel = best.label;
+    }
+
+    // 合并证据
+    const allEvidence = new Set<string>();
+    const allSourceIds = new Set<string>();
+    
+    for (const trait of traits) {
+      trait.evidence.forEach(e => allEvidence.add(e));
+      trait.sourceBehaviorIds.forEach(id => allSourceIds.add(id));
+    }
+
+    // 计算合并后的置信度
+    const avgConfidence = traits.reduce((sum, t) => sum + t.confidence, 0) / traits.length;
+    const evidenceBonus = Math.min(0.2, allEvidence.size * 0.02);
+    const finalConfidence = Math.min(1, avgConfidence + evidenceBonus);
+
+    return {
+      type: traits[0].type,
+      value: finalValue,
+      label: finalLabel,
+      confidence: finalConfidence,
+      evidence: Array.from(allEvidence).slice(0, 10),
+      sourceBehaviorIds: Array.from(allSourceIds)
+    };
   }
 }
 

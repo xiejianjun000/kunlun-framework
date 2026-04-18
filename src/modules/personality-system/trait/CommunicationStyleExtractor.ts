@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { ExtractedTrait, TraitType, CommunicationStyle } from '../../core/interfaces/IPersonalitySystem';
+import { ExtractedTrait, TraitType, CommunicationStyle } from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 沟通风格分析结果

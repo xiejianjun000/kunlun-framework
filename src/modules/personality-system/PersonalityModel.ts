@@ -10,7 +10,8 @@ import {
   IPersonalityModel,
   IPersonalityProfile,
   PersonalityDimension,
-  PersonalityDimensions
+  PersonalityDimensions,
+  TraitType
 } from '../../core/interfaces/IPersonalitySystem';
 
 /**
@@ -80,7 +81,7 @@ export class PersonalityModel implements IPersonalityModel {
       case PersonalityDimension.VALUES:
         return this.profile.dimensions.values;
       case PersonalityDimension.LIFE_PHILOSOPHY:
-        return this.profile.dimensions.life_philosophy;
+        return this.profile.dimensions.lifePhilosophy;
       default:
         return null;
     }
@@ -106,7 +107,7 @@ export class PersonalityModel implements IPersonalityModel {
         this.profile.dimensions.values = data;
         break;
       case PersonalityDimension.LIFE_PHILOSOPHY:
-        this.profile.dimensions.life_philosophy = data;
+        this.profile.dimensions.lifePhilosophy = data;
         break;
     }
     this.profile.updatedAt = new Date();
@@ -152,9 +153,11 @@ export class PersonalityModel implements IPersonalityModel {
     
     // 人格维度
     const personalityDims = this.profile.dimensions.personality.dimensions;
-    for (const key in personalityDims) {
-      if (typeof personalityDims[key].value === 'number') {
-        traits.push(personalityDims[key].value);
+    const traitKeys = Object.keys(personalityDims) as TraitType[];
+    for (const key of traitKeys) {
+      const dim = personalityDims[key];
+      if (typeof dim.value === 'number') {
+        traits.push(dim.value);
       }
     }
 
@@ -174,9 +177,11 @@ export class PersonalityModel implements IPersonalityModel {
     const traits: number[] = [];
     
     const personalityDims = profile.dimensions.personality.dimensions;
-    for (const key in personalityDims) {
-      if (typeof personalityDims[key].value === 'number') {
-        traits.push(personalityDims[key].value);
+    const traitKeys = Object.keys(personalityDims) as TraitType[];
+    for (const key of traitKeys) {
+      const dim = personalityDims[key];
+      if (typeof dim.value === 'number') {
+        traits.push(dim.value);
       }
     }
 

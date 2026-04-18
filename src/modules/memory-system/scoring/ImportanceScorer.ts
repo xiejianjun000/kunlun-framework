@@ -108,6 +108,11 @@ const STRATEGIES: Record<string, ScoringStrategy> = {
  * ```
  */
 export class ImportanceScorer implements IImportanceScorer {
+  /** 评分器唯一标识 */
+  readonly id: string = 'importance-scorer';
+  /** 评分器名称 */
+  readonly name: string = '重要性评分器';
+  
   private currentStrategy: ScoringStrategy;
   private customStrategies: Map<string, ScoringStrategy> = new Map();
   private scoringHistory: Map<string, { score: number; timestamp: Date }> = new Map();

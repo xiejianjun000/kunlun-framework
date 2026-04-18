@@ -4,6 +4,6 @@
  */
 
 export { EvolutionStrategy, type EvolutionStrategyConfig } from './EvolutionStrategy';
-export { GeneticStrategy, type GeneticStrategyConfig } from './GeneticStrategy';
-export { ReinforcementStrategy, type ReinforcementStrategyConfig } from './ReinforcementStrategy';
-export { GradientStrategy, type GradientStrategyConfig } from './GradientStrategy';
+export { LLMEnhancedGeneticStrategy, type LLMEnhancedGeneticConfig, GeneticStrategy } from './GeneticStrategy';
+export { LLMEnhancedReinforcementStrategy, type LLMEnhancedReinforcementConfig, ReinforcementStrategy } from './ReinforcementStrategy';
+export { LLMEnhancedGradientStrategy, type LLMEnhancedGradientConfig, GradientStrategy } from './GradientStrategy';

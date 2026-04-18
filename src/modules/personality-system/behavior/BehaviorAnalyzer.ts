@@ -7,7 +7,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { BehaviorData, PersonalitySystemConfig } from '../../core/interfaces/IPersonalitySystem';
+import { BehaviorData, PersonalitySystemConfig } from '../../../core/interfaces/IPersonalitySystem';
 import { PatternExtractor } from './PatternExtractor';
 
 /**

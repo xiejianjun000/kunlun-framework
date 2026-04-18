@@ -17,8 +17,6 @@ import {
 } from '../interfaces/ISkillSystem';
 import {
   SkillMetadataSchema,
-  SkillQuotaInfo,
-  SkillStats,
 } from '../interfaces/skill.types';
 
 /**
@@ -122,7 +120,7 @@ export class SkillRegistry extends EventEmitter {
     tenantId: string,
     path: string
   ): Promise<SkillInfo> {
-    // 验证元数据
+    // 验证元数据并构建技能信息
     const validated = SkillMetadataSchema.parse(metadata);
 
     const skillInfo: SkillInfo = {
@@ -138,7 +136,7 @@ export class SkillRegistry extends EventEmitter {
       },
       registeredAt: new Date(),
       updatedAt: new Date(),
-    } as SkillInfo;
+    };
 
     // 检查是否已存在
     const existingSkill = this.skills.get(metadata.id);
@@ -203,14 +201,14 @@ export class SkillRegistry extends EventEmitter {
     }
 
     // 合并更新
-    const updatedSkill = {
+    const updatedSkill: SkillInfo = {
       ...skill,
       ...updates,
       updatedAt: new Date(),
     };
 
-    // 验证并保存
-    this.skills.set(skillId, SkillMetadataSchema.parse(updatedSkill) as SkillInfo);
+    // 保存
+    this.skills.set(skillId, updatedSkill);
 
     // 持久化
     await this.persist();

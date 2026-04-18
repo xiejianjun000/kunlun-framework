@@ -42,7 +42,7 @@ interface UserIndex {
   byPhone: Map<string, string>;   // phone -> userId
   byUsername: Map<string, string>; // username -> userId
   byTenant: Map<string, Set<string>>; // tenantId -> Set<userId>
-  byStatus: Map<string, Map<string, User>>; // tenantId -> status -> users
+  byStatus: Map<string, Map<UserStatus, Map<string, User>>>; // tenantId -> status -> userId -> user
 }
 
 /**
@@ -216,7 +216,8 @@ export class UserRegistry {
     oauthUserId: string,
     tenantId: string
   ): Promise<User | null> {
-    for (const user of this.index.byId.values()) {
+    const users = Array.from(this.index.byId.values());
+    for (const user of users) {
       if (
         user.tenantId === tenantId &&
         user.oauthProvider === provider &&

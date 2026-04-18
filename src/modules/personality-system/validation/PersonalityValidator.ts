@@ -9,8 +9,10 @@
 import {
   IPersonalityProfile,
   BehaviorData,
-  PersonalitySystemConfig
-} from '../../core/interfaces/IPersonalitySystem';
+  PersonalitySystemConfig,
+  TraitDimension,
+  TraitType
+} from '../../../core/interfaces/IPersonalitySystem';
 import { TraitConstraintChecker } from './TraitConstraintChecker';
 
 /**
@@ -153,7 +155,7 @@ export class PersonalityValidator {
 
     const personalityDims = profile.dimensions.personality.dimensions;
     
-    for (const [traitType, dim] of Object.entries(personalityDims)) {
+    for (const [traitType, dim] of Object.entries(personalityDims) as [string, TraitDimension][]) {
       // 检查数值范围
       if (typeof dim.value === 'number' && (dim.value < 0 || dim.value > 1)) {
         violations.push({
@@ -166,7 +168,7 @@ export class PersonalityValidator {
       }
 
       // 检查约束
-      const constraintResult = this.constraintChecker.checkConstraint(traitType, dim.value);
+      const constraintResult = this.constraintChecker.checkConstraint(traitType as TraitType, dim.value);
       if (!constraintResult.satisfied) {
         violations.push({
           type: 'contradiction',
@@ -288,7 +290,7 @@ export class PersonalityValidator {
 
     // 检测特质证据不足
     const personalityDims = profile.dimensions.personality.dimensions;
-    for (const [traitType, dim] of Object.entries(personalityDims)) {
+    for (const [traitType, dim] of Object.entries(personalityDims) as [string, TraitDimension][]) {
       if (dim.confidence > 0.8 && dim.evidence.length < 3) {
         violations.push({
           type: 'inconsistency',
@@ -342,7 +344,7 @@ export class PersonalityValidator {
     const dimensions = profile.dimensions.personality.dimensions;
     const confidences: number[] = [];
 
-    for (const [, dim] of Object.entries(dimensions)) {
+    for (const [, dim] of Object.entries(dimensions) as [string, TraitDimension][]) {
       if (dim.confidence > 0) {
         confidences.push(dim.confidence);
       }

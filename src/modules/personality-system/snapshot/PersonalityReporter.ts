@@ -13,7 +13,7 @@ import {
   ReportContent,
   BehaviorData,
   TraitType
-} from '../../core/interfaces/IPersonalitySystem';
+} from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 报告生成配置

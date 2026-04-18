@@ -33,6 +33,7 @@ export function createPersonaComplianceChecker(
             itemId: 'persona_compliance',
             itemName: '人设合规检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: '未找到SOUL.md文件，跳过人设检查',
           };
         }
@@ -79,6 +80,7 @@ export function createPersonaComplianceChecker(
             itemId: 'persona_compliance',
             itemName: '人设合规检查',
             status: CheckStatus.FAIL,
+            timestamp: new Date(),
             message: `检测到机械式回复过多(${mechanicalCount}次)，可能偏离人设`,
             details: {
               mechanicalCount,
@@ -92,6 +94,7 @@ export function createPersonaComplianceChecker(
             itemId: 'persona_compliance',
             itemName: '人设合规检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: `人设关键词匹配度较低(${Math.round(matchRatio * 100)}%)`,
             details: {
               keywordMatches,
@@ -104,6 +107,7 @@ export function createPersonaComplianceChecker(
           itemId: 'persona_compliance',
           itemName: '人设合规检查',
           status: CheckStatus.PASS,
+            timestamp: new Date(),
           message: '人设合规性正常',
           details: {
             matchRatio: Math.round(matchRatio * 100) + '%',
@@ -115,6 +119,7 @@ export function createPersonaComplianceChecker(
           itemId: 'persona_compliance',
           itemName: '人设合规检查',
           status: CheckStatus.FAIL,
+            timestamp: new Date(),
           message: `检查失败: ${error}`,
         };
       }
@@ -196,6 +201,7 @@ export function createToolCallChecker(
             itemId: 'tool_call',
             itemName: '工具调用检查',
             status: CheckStatus.FAIL,
+            timestamp: new Date(),
             message: `检测到连续${maxConsecutive}次工具调用失败`,
             details: {
               consecutiveFailures: maxConsecutive,
@@ -211,6 +217,7 @@ export function createToolCallChecker(
             itemId: 'tool_call',
             itemName: '工具调用检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: `工具调用失败率较高: ${Math.round((failedCalls.length / totalCalls) * 100)}%`,
             details: {
               failedCalls: failedCalls.length,
@@ -224,6 +231,7 @@ export function createToolCallChecker(
           itemId: 'tool_call',
           itemName: '工具调用检查',
           status: CheckStatus.PASS,
+            timestamp: new Date(),
           message: '工具调用正常',
           details: {
             totalCalls,
@@ -238,6 +246,7 @@ export function createToolCallChecker(
           itemId: 'tool_call',
           itemName: '工具调用检查',
           status: CheckStatus.FAIL,
+            timestamp: new Date(),
           message: `检查失败: ${error}`,
         };
       }
@@ -271,6 +280,7 @@ export function createMemoryPollutionChecker(
             itemId: 'memory_pollution',
             itemName: '记忆污染检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: '未找到MEMORY.md文件，跳过记忆检查',
           };
         }
@@ -326,6 +336,7 @@ export function createMemoryPollutionChecker(
             itemId: 'memory_pollution',
             itemName: '记忆污染检查',
             status: CheckStatus.FAIL,
+            timestamp: new Date(),
             message: `检测到${issues.length}个记忆污染问题，建议清理`,
             details: {
               duplicates: duplicates.length,
@@ -342,6 +353,7 @@ export function createMemoryPollutionChecker(
             itemId: 'memory_pollution',
             itemName: '记忆污染检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: `检测到${issues.length}个轻微问题`,
             details: {
               issues,
@@ -353,6 +365,7 @@ export function createMemoryPollutionChecker(
           itemId: 'memory_pollution',
           itemName: '记忆污染检查',
           status: CheckStatus.PASS,
+            timestamp: new Date(),
           message: '记忆文件正常，无明显污染',
           details: {
             totalLines: lines.length,
@@ -363,6 +376,7 @@ export function createMemoryPollutionChecker(
           itemId: 'memory_pollution',
           itemName: '记忆污染检查',
           status: CheckStatus.FAIL,
+            timestamp: new Date(),
           message: `检查失败: ${error}`,
         };
       }
@@ -435,6 +449,7 @@ export function createTaskCompletionChecker(
             itemId: 'task_completion',
             itemName: '任务完成检查',
             status: CheckStatus.FAIL,
+            timestamp: new Date(),
             message: `发现${overdueTasks.length}个已超时任务`,
             details: {
               overdueTasks: overdueTasks.slice(0, 5),
@@ -450,6 +465,7 @@ export function createTaskCompletionChecker(
             itemId: 'task_completion',
             itemName: '任务完成检查',
             status: CheckStatus.WARNING,
+            timestamp: new Date(),
             message: `发现${longRunningTasks.length}个长时间运行的任务`,
             details: {
               longRunningTasks: longRunningTasks.slice(0, 5),
@@ -461,6 +477,7 @@ export function createTaskCompletionChecker(
           itemId: 'task_completion',
           itemName: '任务完成检查',
           status: CheckStatus.PASS,
+            timestamp: new Date(),
           message: '任务状态正常',
           details: {
             totalTasks: tasks.length,
@@ -473,6 +490,7 @@ export function createTaskCompletionChecker(
           itemId: 'task_completion',
           itemName: '任务完成检查',
           status: CheckStatus.FAIL,
+            timestamp: new Date(),
           message: `检查失败: ${error}`,
         };
       }
@@ -525,6 +543,7 @@ export function createSystemHealthChecker(): CheckItem {
             status: healthIssues.some((i) => i.includes('过高'))
               ? CheckStatus.FAIL
               : CheckStatus.WARNING,
+            timestamp: new Date(),
             message: healthIssues.join(', '),
             details: {
               memory: {
@@ -546,6 +565,7 @@ export function createSystemHealthChecker(): CheckItem {
           itemId: 'system_health',
           itemName: '系统健康检查',
           status: CheckStatus.PASS,
+          timestamp: new Date(),
           message: '系统运行正常',
           details: {
             memory: {
@@ -564,6 +584,7 @@ export function createSystemHealthChecker(): CheckItem {
           itemId: 'system_health',
           itemName: '系统健康检查',
           status: CheckStatus.FAIL,
+            timestamp: new Date(),
           message: `检查失败: ${error}`,
         };
       }

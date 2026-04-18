@@ -17,6 +17,7 @@ import {
   EvolutionAnalysisReport,
   Reward,
   RewardType,
+  RewardContext,
   EvolutionExportData,
   EvolutionEventType,
   EvolutionEventData,
@@ -29,6 +30,8 @@ import { EvolutionLogger, EvolutionLogEntry } from './EvolutionLogger';
 import { EvolutionHistory } from '../history/EvolutionHistory';
 import { EvolutionAnalyzer } from '../history/EvolutionAnalyzer';
 import { RewardModel } from '../rewards/RewardModel';
+import { LLMEnhancedReward } from '../rewards/LLMEnhancedReward';
+import { LLMOptimizer, LLMOptimizerConfig } from './LLMOptimizer';
 
 /** 进化系统状态 */
 interface EvolutionSystemState {
@@ -36,6 +39,14 @@ interface EvolutionSystemState {
   currentEvolutionId: string | null;
   currentFitness: Map<string, number>;  // key: `${userId}:${tenantId}`
   config: Map<string, EvolutionConfig>;  // key: `${userId}:${tenantId}`
+}
+
+/** 进化系统配置 */
+export interface EvolutionSystemConfig {
+  /** LLM优化器配置 */
+  llmOptimizer?: Partial<LLMOptimizerConfig>;
+  /** 是否使用LLM增强 */
+  useLLMEnhancement?: boolean;
 }
 
 /**
@@ -48,23 +59,32 @@ export class EvolutionSystem implements IEvolutionSystem {
   private readonly logger: EvolutionLogger;
   private readonly history: EvolutionHistory;
   private readonly analyzer: EvolutionAnalyzer;
-  private readonly rewardModel: RewardModel;
+  private readonly baseRewardModel: RewardModel;
+  private readonly llmRewardModel: LLMEnhancedReward;
+  private readonly llmOptimizer: LLMOptimizer;
   private readonly eventEmitter: EventEmitter;
   private readonly state: EvolutionSystemState;
   private isInitialized: boolean = false;
+  private useLLMEnhancement: boolean = true;
 
   /**
    * 构造函数
    * @param storageAdapter 存储适配器（可选）
+   * @param config 系统配置（可选）
    */
-  constructor(storageAdapter?: unknown) {
+  constructor(storageAdapter?: unknown, config?: EvolutionSystemConfig) {
     this.engine = new EvolutionEngine();
     this.scheduler = new EvolutionScheduler();
     this.logger = new EvolutionLogger();
     this.history = new EvolutionHistory(storageAdapter);
     this.analyzer = new EvolutionAnalyzer();
-    this.rewardModel = new RewardModel();
+    this.baseRewardModel = new RewardModel();
+    this.llmRewardModel = new LLMEnhancedReward({
+      llmOptimizer: config?.llmOptimizer,
+    });
+    this.llmOptimizer = this.llmRewardModel.getLLMOptimizer();
     this.eventEmitter = new EventEmitter();
+    this.useLLMEnhancement = config?.useLLMEnhancement ?? true;
     this.state = {
       status: EvolutionStatus.IDLE,
       currentEvolutionId: null,
@@ -82,8 +102,44 @@ export class EvolutionSystem implements IEvolutionSystem {
     }
 
     await this.history.initialize();
-    this.logger.info('EvolutionSystem initialized');
+    
+    // 检查LLM状态
+    if (this.llmOptimizer.isAvailable()) {
+      this.logger.info('EvolutionSystem initialized with LLM enhancement');
+    } else {
+      this.logger.warn('EvolutionSystem initialized without LLM - using fallback mode');
+    }
+    
     this.isInitialized = true;
+  }
+
+  /**
+   * 检查LLM是否可用
+   */
+  isLLMAvailable(): boolean {
+    return this.llmOptimizer.isAvailable();
+  }
+
+  /**
+   * 获取进化引擎统计
+   */
+  getEvolutionStats(): {
+    totalEvolutions: number;
+    successfulEvolutions: number;
+    averageFitnessImprovement: number;
+    llmEnhancementUsage: number;
+    strategyUsage: Record<string, number>;
+  } {
+    return this.engine.getStats();
+  }
+
+  /**
+   * 配置LLM增强
+   * @param enabled 是否启用LLM增强
+   */
+  configureLLMEnhancement(enabled: boolean): void {
+    this.useLLMEnhancement = enabled && this.llmOptimizer.isAvailable();
+    this.logger.info(`LLM enhancement ${this.useLLMEnhancement ? 'enabled' : 'disabled'}`);
   }
 
   /**
@@ -123,8 +179,8 @@ export class EvolutionSystem implements IEvolutionSystem {
       this.state.status = EvolutionStatus.RUNNING;
       this.state.currentEvolutionId = evolutionId;
 
-      // 计算奖励
-      const rewards = await this.rewardModel.calculateAll(context);
+      // 计算奖励（使用LLM增强或基础奖励模型）
+      const rewards = await this.calculateRewards(context);
 
       // 执行进化
       const result = await this.engine.evolve(context, rewards, options);
@@ -523,6 +579,38 @@ export class EvolutionSystem implements IEvolutionSystem {
   // ============== 私有方法 ==============
 
   /**
+   * 计算奖励
+   * 根据配置选择LLM增强或基础奖励模型
+   */
+  private async calculateRewards(context: RewardContext): Promise<{ type: RewardType; value: number }[]> {
+    if (this.useLLMEnhancement && this.llmRewardModel.isLLMAvailable()) {
+      try {
+        const result = await this.llmRewardModel.calculateDetailed(context);
+        return [{
+          type: result.type,
+          value: result.value,
+        }];
+      } catch (error) {
+        this.logger.warn(`LLM reward calculation failed, falling back to base model: ${error}`);
+      }
+    }
+    
+    // 使用基础奖励模型
+    try {
+      const result = await this.baseRewardModel.calculate(context);
+      return [{
+        type: RewardType.TASK_SUCCESS,
+        value: result,
+      }];
+    } catch {
+      return [{
+        type: RewardType.TASK_SUCCESS,
+        value: 0,
+      }];
+    }
+  }
+
+  /**
    * 构建进化上下文
    */
   private async buildEvolutionContext(
@@ -627,6 +715,9 @@ export class EvolutionSystem implements IEvolutionSystem {
 /**
  * 工厂函数：创建进化系统实例
  */
-export function createEvolutionSystem(storageAdapter?: unknown): EvolutionSystem {
-  return new EvolutionSystem(storageAdapter);
+export function createEvolutionSystem(
+  storageAdapter?: unknown,
+  config?: EvolutionSystemConfig
+): EvolutionSystem {
+  return new EvolutionSystem(storageAdapter, config);
 }

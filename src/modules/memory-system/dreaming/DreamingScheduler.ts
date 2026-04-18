@@ -1,114 +1,153 @@
 /**
- * DreamingScheduler.ts - 记忆整合调度器
+ * DreamingScheduler - 梦境调度器
  * 
- * OpenTaiji三阶段记忆整合，为OpenTaiji实现三阶段记忆整合调度。
- * 核心功能：
- * - 定时触发三阶段（默认凌晨3点）
- * - 与HeartbeatManager集成
- * - 状态管理
+ * 管理梦境系统的周期性执行
+ * 
+ * @see https://github.com/opensatoru/openclaw/docs/concepts/dreaming.md
  */
 
-import { EventEmitter } from 'events';
-import { DreamingConfig, DreamingPhase, DreamingStatus } from './types';
+import {
+  type DreamingSystemConfig,
+  type DreamingSchedulerState,
+  type DreamingSchedulerCallback,
+  type DreamingResult,
+  type DreamingCycleResult,
+  DreamingPhase,
+  DEFAULT_DREAMING_CONFIG,
+} from './types';
 
-// 默认配置
-export const DEFAULT_DREAMING_CONFIG: DreamingConfig = {
-  enabled: true,
-  cron: '0 3 * * *',          // 每天凌晨3点
-  timezone: 'Asia/Shanghai',
-  limit: 10,                   // 每次最多处理10条
-  minScore: 0.75,              // 最低评分阈值
-  minRecallCount: 3,           // 最少召回次数
-  minUniqueQueries: 2,         // 最少独立查询数
-  recencyHalfLifeDays: 14,     // 新近度半衰期
-  maxAgeDays: 30,              // 最大记忆天数
-  lookbackDays: 7,             // 回溯天数
-  verboseLogging: false,
-  storage: {
-    mode: 'separate',
-    separateReports: false
+// ============== 类型定义 ==============
+
+type CronSchedule = {
+  next(baseDate?: Date): Date | null;
+};
+
+// ============== 简单 Cron 解析器 ==============
+
+/**
+ * 解析 cron 表达式
+ * 支持标准5字段: 分 时 日 月 周
+ */
+function parseCron(cronExpr: string, timezone?: string): CronSchedule {
+  const parts = cronExpr.trim().split(/\s+/);
+  if (parts.length < 5) {
+    throw new Error(`Invalid cron expression: ${cronExpr}`);
   }
-};
-
-// 信号权重（基于OpenTaiji研究）
-export const PROMOTION_WEIGHTS = {
-  frequency: 0.24,
-  relevance: 0.30,
-  diversity: 0.15,
-  recency: 0.15,
-  consolidation: 0.10,
-  conceptual: 0.06
-};
-
-// 阶段信号增强
-export const PHASE_SIGNAL_CONFIG = {
-  lightBoostMax: 0.06,
-  remBoostMax: 0.09,
-  halfLifeDays: 14
-};
-
-export interface SchedulerEvents {
-  'phase:start': (phase: DreamingPhase) => void;
-  'phase:complete': (phase: DreamingPhase, result: PhaseResult) => void;
-  'phase:error': (phase: DreamingPhase, error: Error) => void;
-  'dreaming:start': () => void;
-  'dreaming:complete': (result: DreamingResult) => void;
-  'dreaming:error': (error: Error) => void;
+  
+  const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
+  
+  return {
+    next(baseDate: Date = new Date()): Date | null {
+      const date = new Date(baseDate);
+      
+      // 找到下一个匹配的时间
+      for (let i = 0; i < 366 * 24 * 60; i++) {
+        date.setMinutes(date.getMinutes() + 1);
+        
+        if (!matchCronPart(minute, date.getMinutes())) continue;
+        if (!matchCronPart(hour, date.getHours())) continue;
+        if (!matchCronPart(dayOfMonth, date.getDate())) continue;
+        if (!matchCronPart(month, date.getMonth() + 1)) continue;
+        if (!matchCronPart(dayOfWeek, date.getDay())) continue;
+        
+        return new Date(date);
+      }
+      
+      return null;
+    },
+  };
 }
 
-export interface PhaseResult {
-  phase: DreamingPhase;
-  candidatesProcessed: number;
-  candidatesPromoted: number;
-  durationMs: number;
-  error?: string;
+function matchCronPart(part: string, value: number): boolean {
+  if (part === '*') return true;
+  
+  // 范围: 1-5
+  const rangeMatch = part.match(/^(\d+)-(\d+)$/);
+  if (rangeMatch) {
+    const start = parseInt(rangeMatch[1], 10);
+    const end = parseInt(rangeMatch[2], 10);
+    return value >= start && value <= end;
+  }
+  
+  // 列表: 1,3,5
+  if (part.includes(',')) {
+    return part.split(',').some(p => matchCronPart(p.trim(), value));
+  }
+  
+  // 步进: */5
+  if (part.includes('/')) {
+    const [base, step] = part.split('/');
+    const stepNum = parseInt(step, 10);
+    if (base === '*') {
+      return value % stepNum === 0;
+    }
+    const baseNum = parseInt(base, 10);
+    return (value - baseNum) % stepNum === 0 && value >= baseNum;
+  }
+  
+  // 单值
+  const num = parseInt(part, 10);
+  return value === num;
 }
 
-export interface DreamingResult {
-  lightPhase: PhaseResult;
-  deepPhase: PhaseResult;
-  remPhase: PhaseResult;
-  totalCandidates: number;
-  totalPromoted: number;
-  durationMs: number;
-}
+// ============== 梦境调度器类 ==============
 
-export class DreamingScheduler extends EventEmitter {
-  private config: DreamingConfig;
-  private status: DreamingStatus;
-  private timer: NodeJS.Timeout | null = null;
-  private isRunning: boolean = false;
-  private lastRunAt: Date | null = null;
-  private nextRunAt: Date | null = null;
-  private workspaceDir: string;
-
-  constructor(workspaceDir: string, config?: Partial<DreamingConfig>) {
-    super();
-    this.workspaceDir = workspaceDir;
+export class DreamingScheduler {
+  private config: DreamingSystemConfig;
+  private state: DreamingSchedulerState;
+  private timer: ReturnType<typeof setTimeout> | null = null;
+  private callbacks: DreamingSchedulerCallback[] = [];
+  private executor: ((phase: DreamingPhase) => Promise<DreamingResult>) | null = null;
+  
+  constructor(config?: Partial<DreamingSystemConfig>) {
     this.config = { ...DEFAULT_DREAMING_CONFIG, ...config };
-    this.status = {
-      enabled: this.config.enabled,
-      lastRunAt: null,
-      nextRunAt: null,
-      phase: 'idle'
+    this.state = {
+      isRunning: false,
     };
   }
-
+  
+  /**
+   * 设置梦境执行器
+   */
+  setExecutor(
+    executor: (phase: DreamingPhase) => Promise<DreamingResult>
+  ): void {
+    this.executor = executor;
+  }
+  
+  /**
+   * 添加回调函数
+   */
+  onComplete(callback: DreamingSchedulerCallback): void {
+    this.callbacks.push(callback);
+  }
+  
+  /**
+   * 移除回调函数
+   */
+  removeCallback(callback: DreamingSchedulerCallback): void {
+    const index = this.callbacks.indexOf(callback);
+    if (index !== -1) {
+      this.callbacks.splice(index, 1);
+    }
+  }
+  
   /**
    * 启动调度器
    */
   start(): void {
     if (this.timer) {
-      this.stop();
+      return; // 已经在运行
     }
     
-    if (this.config.enabled) {
-      this.scheduleNextRun();
-      this.status.enabled = true;
-      console.log(`[DreamingScheduler] 调度器已启动，下次运行: ${this.nextRunAt?.toISOString()}`);
+    if (!this.config.enabled) {
+      console.log('[DreamingScheduler] Dreaming is disabled');
+      return;
     }
+    
+    this.scheduleNext();
   }
-
+  
   /**
    * 停止调度器
    */
@@ -117,252 +156,184 @@ export class DreamingScheduler extends EventEmitter {
       clearTimeout(this.timer);
       this.timer = null;
     }
-    this.status.enabled = false;
-    console.log('[DreamingScheduler] 调度器已停止');
+    this.state.isRunning = false;
+    this.state.currentPhase = undefined;
   }
-
+  
+  /**
+   * 获取调度器状态
+   */
+  getState(): DreamingSchedulerState {
+    return { ...this.state };
+  }
+  
+  /**
+   * 获取配置
+   */
+  getConfig(): DreamingSystemConfig {
+    return { ...this.config };
+  }
+  
   /**
    * 更新配置
    */
-  updateConfig(config: Partial<DreamingConfig>): void {
-    const wasEnabled = this.config.enabled;
+  updateConfig(config: Partial<DreamingSystemConfig>): void {
     this.config = { ...this.config, ...config };
-    
-    if (wasEnabled && !this.config.enabled) {
+    if (this.timer) {
+      // 重新调度
       this.stop();
-    } else if (this.config.enabled && !wasEnabled) {
       this.start();
-    } else if (this.config.enabled) {
-      this.scheduleNextRun();
     }
   }
-
+  
   /**
-   * 获取当前状态
+   * 手动触发梦境周期
    */
-  getStatus(): DreamingStatus {
+  async trigger(): Promise<DreamingCycleResult> {
+    if (!this.executor) {
+      throw new Error('No executor set for DreamingScheduler');
+    }
+    
+    this.state.isRunning = true;
+    const startTime = new Date().toISOString();
+    const results: DreamingCycleResult['phases'] = {
+      light: { phase: DreamingPhase.LIGHT, success: false, entriesProcessed: 0, timestamp: startTime },
+      rem: { phase: DreamingPhase.REM, success: false, entriesProcessed: 0, timestamp: startTime },
+    };
+    
+    const diaryEntries: string[] = [];
+    
+    try {
+      // Light 阶段
+      if (this.config.light.enabled) {
+        this.state.currentPhase = DreamingPhase.LIGHT;
+        const lightResult = await this.executor(DreamingPhase.LIGHT);
+        results.light = lightResult;
+        this.notifyCallbacks(lightResult);
+        if (lightResult.success) {
+          diaryEntries.push(`[Light] Processed ${lightResult.entriesProcessed} entries`);
+        }
+      }
+      
+      // Deep 阶段
+      if (this.config.deep.enabled) {
+        this.state.currentPhase = DreamingPhase.DEEP;
+        const deepResult = await this.executor(DreamingPhase.DEEP);
+        results.deep = deepResult;
+        this.notifyCallbacks(deepResult);
+        if (deepResult.success) {
+          diaryEntries.push(`[Deep] Promoted ${deepResult.entriesPromoted ?? 0} entries (score: ${deepResult.score?.toFixed(3)})`);
+        }
+      }
+      
+      // REM 阶段
+      if (this.config.rem.enabled) {
+        this.state.currentPhase = DreamingPhase.REM;
+        const remResult = await this.executor(DreamingPhase.REM);
+        results.rem = remResult;
+        this.notifyCallbacks(remResult);
+        if (remResult.success) {
+          diaryEntries.push(`[REM] Processed ${remResult.entriesProcessed} entries`);
+        }
+      }
+    } finally {
+      this.state.isRunning = false;
+      this.state.currentPhase = undefined;
+      this.state.lastRun = new Date().toISOString();
+    }
+    
+    const totalPromoted = (results.deep?.entriesPromoted) ?? 0;
+    const endTime = new Date().toISOString();
+    
+    // 计算下次运行时间
+    this.scheduleNext();
+    
     return {
-      ...this.status,
-      lastRunAt: this.lastRunAt,
-      nextRunAt: this.nextRunAt
+      startTime,
+      endTime,
+      phases: results,
+      totalPromoted,
+      diaryEntries,
     };
   }
-
+  
   /**
-   * 手动触发Dreaming执行
+   * 调度下一次执行
    */
-  async trigger(): Promise<DreamingResult> {
-    if (this.isRunning) {
-      throw new Error('Dreaming正在执行中');
-    }
-
-    return this.runDreamingCycle();
-  }
-
-  /**
-   * 设置工作空间目录
-   */
-  setWorkspaceDir(workspaceDir: string): void {
-    this.workspaceDir = workspaceDir;
-  }
-
-  /**
-   * 计算下次运行时间
-   */
-  private calculateNextRunTime(): Date {
-    const now = new Date();
-    const [minute, hour] = this.config.cron.split(' ').map(Number);
-    
-    const next = new Date(now);
-    next.setHours(hour, minute, 0, 0);
-    
-    // 如果已经过了今天的时间，则安排到明天
-    if (next <= now) {
-      next.setDate(next.getDate() + 1);
-    }
-    
-    // 设置时区
-    if (this.config.timezone) {
-      // 注意：实际使用时需要使用正确的时区处理
-      // 这里简化处理
-    }
-    
-    return next;
-  }
-
-  /**
-   * 调度下次运行
-   */
-  private scheduleNextRun(): void {
-    this.nextRunAt = this.calculateNextRunTime();
-    this.status.nextRunAt = this.nextRunAt;
-
-    const delay = this.nextRunAt.getTime() - Date.now();
-    
+  private scheduleNext(): void {
     if (this.timer) {
       clearTimeout(this.timer);
+      this.timer = null;
     }
-
-    this.timer = setTimeout(async () => {
+    
+    if (!this.config.enabled) {
+      return;
+    }
+    
+    try {
+      const schedule = parseCron(this.config.frequency, this.config.timezone);
+      const nextRun = schedule.next();
+      
+      if (!nextRun) {
+        console.error('[DreamingScheduler] Failed to calculate next run time');
+        return;
+      }
+      
+      const delay = nextRun.getTime() - Date.now();
+      this.state.nextRun = nextRun.toISOString();
+      
+      console.log(`[DreamingScheduler] Next dream scheduled at ${nextRun.toISOString()}`);
+      
+      this.timer = setTimeout(async () => {
+        try {
+          await this.trigger();
+        } catch (err) {
+          console.error('[DreamingScheduler] Dream cycle failed:', err);
+          this.state.error = err instanceof Error ? err.message : String(err);
+        }
+      }, Math.max(0, delay));
+    } catch (err) {
+      console.error('[DreamingScheduler] Failed to schedule:', err);
+    }
+  }
+  
+  /**
+   * 通知回调
+   */
+  private notifyCallbacks(result: DreamingResult): void {
+    for (const callback of this.callbacks) {
       try {
-        await this.runDreamingCycle();
-      } catch (error) {
-        console.error('[DreamingScheduler] 定时执行失败:', error);
+        const maybePromise = callback(result);
+        if (maybePromise instanceof Promise) {
+          maybePromise.catch(err => {
+            console.error('[DreamingScheduler] Callback error:', err);
+          });
+        }
+      } catch (err) {
+        console.error('[DreamingScheduler] Callback error:', err);
       }
-      // 重新调度下次运行
-      if (this.config.enabled) {
-        this.scheduleNextRun();
-      }
-    }, delay);
-
-    console.log(`[DreamingScheduler] 下次运行安排在 ${this.nextRunAt.toISOString()}，延迟 ${Math.round(delay / 1000)} 秒`);
-  }
-
-  /**
-   * 执行完整的Dreaming周期
-   */
-  private async runDreamingCycle(): Promise<DreamingResult> {
-    const startTime = Date.now();
-    this.isRunning = true;
-    this.emit('dreaming:start');
-    this.status.phase = 'light';
-
-    const lightPhaseStart = Date.now();
-    let lightPhase: PhaseResult;
-    let deepPhase: PhaseResult;
-    let remPhase: PhaseResult;
-
-    try {
-      // Phase 1: Light Phase - 候选筛选
-      this.emit('phase:start', 'light');
-      lightPhase = await this.runLightPhase();
-      this.emit('phase:complete', 'light', lightPhase);
-      
-      // Phase 2: Deep Phase - 评分排序
-      this.status.phase = 'deep';
-      this.emit('phase:start', 'deep');
-      deepPhase = await this.runDeepPhase();
-      this.emit('phase:complete', 'deep', deepPhase);
-      
-      // Phase 3: REM Phase - LLM摘要生成
-      this.status.phase = 'rem';
-      this.emit('phase:start', 'rem');
-      remPhase = await this.runRemPhase();
-      this.emit('phase:complete', 'rem', remPhase);
-      
-    } catch (error) {
-      const err = error as Error;
-      this.emit('dreaming:error', err);
-      throw error;
-    } finally {
-      this.isRunning = false;
-      this.lastRunAt = new Date();
-      this.status.lastRunAt = this.lastRunAt;
-      this.status.phase = 'idle';
-    }
-
-    const result: DreamingResult = {
-      lightPhase,
-      deepPhase,
-      remPhase,
-      totalCandidates: lightPhase.candidatesProcessed,
-      totalPromoted: deepPhase.candidatesPromoted,
-      durationMs: Date.now() - startTime
-    };
-
-    this.emit('dreaming:complete', result);
-    console.log(`[DreamingScheduler] Dreaming周期完成: ${result.totalPromoted}/${result.totalCandidates} 条记忆被整合，耗时 ${result.durationMs}ms`);
-    
-    return result;
-  }
-
-  /**
-   * 执行Light Phase
-   */
-  private async runLightPhase(): Promise<PhaseResult> {
-    const startTime = Date.now();
-    
-    try {
-      // 这里会调用LightPhaseExecutor
-      // 实际实现中会读取HOT记忆，进行去重筛选
-      const candidatesProcessed = 0; // 实际统计
-      
-      return {
-        phase: 'light',
-        candidatesProcessed,
-        candidatesPromoted: 0,
-        durationMs: Date.now() - startTime
-      };
-    } catch (error) {
-      const err = error as Error;
-      this.emit('phase:error', 'light', err);
-      return {
-        phase: 'light',
-        candidatesProcessed: 0,
-        candidatesPromoted: 0,
-        durationMs: Date.now() - startTime,
-        error: err.message
-      };
-    }
-  }
-
-  /**
-   * 执行Deep Phase
-   */
-  private async runDeepPhase(): Promise<PhaseResult> {
-    const startTime = Date.now();
-    
-    try {
-      // 这里会调用DeepPhaseRanker
-      // 实际实现中进行7信号评分和阈值门控
-      const candidatesPromoted = 0; // 实际统计
-      
-      return {
-        phase: 'deep',
-        candidatesProcessed: 0,
-        candidatesPromoted,
-        durationMs: Date.now() - startTime
-      };
-    } catch (error) {
-      const err = error as Error;
-      this.emit('phase:error', 'deep', err);
-      return {
-        phase: 'deep',
-        candidatesProcessed: 0,
-        candidatesPromoted: 0,
-        durationMs: Date.now() - startTime,
-        error: err.message
-      };
-    }
-  }
-
-  /**
-   * 执行REM Phase
-   */
-  private async runRemPhase(): Promise<PhaseResult> {
-    const startTime = Date.now();
-    
-    try {
-      // 这里会调用REMPhaseExtractor
-      // 实际实现中进行LLM模式提取和主题标签生成
-      return {
-        phase: 'rem',
-        candidatesProcessed: 0,
-        candidatesPromoted: 0,
-        durationMs: Date.now() - startTime
-      };
-    } catch (error) {
-      const err = error as Error;
-      this.emit('phase:error', 'rem', err);
-      return {
-        phase: 'rem',
-        candidatesProcessed: 0,
-        candidatesPromoted: 0,
-        durationMs: Date.now() - startTime,
-        error: err.message
-      };
     }
   }
 }
+
+// ============== 便捷工厂函数 ==============
+
+/**
+ * 创建梦境调度器
+ */
+export function createDreamingScheduler(
+  config?: Partial<DreamingSystemConfig>
+): DreamingScheduler {
+  return new DreamingScheduler(config);
+}
+
+// ============== 导出 ==============
+
+export { DreamingScheduler as DreamingSchedulerClass };
+
+export const DreamingSchedulerModule = {
+  DreamingScheduler,
+  createDreamingScheduler,
+};
 
 export default DreamingScheduler;

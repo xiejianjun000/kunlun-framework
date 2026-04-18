@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { ExtractedTrait, TraitType } from '../../core/interfaces/IPersonalitySystem';
+import { ExtractedTrait, TraitType } from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 提取规则接口

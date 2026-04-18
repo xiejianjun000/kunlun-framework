@@ -1,24 +1,123 @@
 /**
- * dreaming/index.ts - Dreaming系统导出
+ * Dreaming System - 记忆整合模块
  * 
- * OpenTaiji三阶段记忆整合的三阶段记忆整合系统
+ * 基于 OpenCLAW Dreaming System 实现
+ * @see https://github.com/opensatoru/openclaw/docs/concepts/dreaming.md
+ * 
+ * 核心功能:
+ * 1. Recall Tracking - 记录和追踪记忆召回信号
+ * 2. 7信号评分 - 基于频率、相关性、多样性、新近度、整合度、概念密度的综合评分
+ * 3. 梦境处理 - 三阶段记忆整合（浅睡眠、深睡眠、REM）
+ * 
+ * @example
+ * ```typescript
+ * import { createDreamingSystem, DreamingPhase } from './dreaming';
+ * 
+ * const dreaming = createDreamingSystem('./workspace', {
+ *   enabled: true,
+ *   frequency: '0 3 * * *', // 每天凌晨3点
+ * });
+ * 
+ * dreaming.start();
+ * 
+ * // 或者手动触发
+ * const result = await dreaming.triggerCycle();
+ * console.log('Promoted:', result.totalPromoted);
+ * 
+ * // 获取7信号评分详情
+ * const details = await dreaming.getSevenSignalDetails('memory-key');
+ * console.log('Score:', details.score);
+ * console.log('Components:', details.components);
+ * ```
  */
 
-export * from './types';
-export { DreamingScheduler, DEFAULT_DREAMING_CONFIG, PROMOTION_WEIGHTS, PHASE_SIGNAL_CONFIG } from './DreamingScheduler';
-export type { SchedulerEvents, PhaseResult, DreamingResult } from './DreamingScheduler';
+// ============== 类型导出 ==============
+export {
+  type MemoryEntry,
+  type ShortTermRecallEntry,
+  type PromotionWeights,
+  type PromotionComponents,
+  type PromotionCandidate,
+  type PhaseSignalEntry,
+  type PhaseSignalStore,
+  type DreamingPhaseConfig,
+  type LightDreamingConfig,
+  type DeepDreamingConfig,
+  type RemDreamingConfig,
+  type DreamingSystemConfig,
+  type DreamDiaryPreview,
+  type DreamingResult,
+  type DreamingCycleResult,
+  type DreamingSchedulerState,
+  type DreamingSchedulerCallback,
+  type ConsolidateOptions,
+  type ConsolidateResult,
+  type ShortTermAuditIssue,
+  type ShortTermAuditSummary,
+  type DreamingProcessingConfig,
+  type RecallEntry,
+  DEFAULT_PROMOTION_WEIGHTS,
+  DEFAULT_DREAMING_CONFIG,
+  DreamingPhase,
+} from './types';
 
-export { LightPhaseExecutor } from './LightPhaseExecutor';
-export type { LightPhaseResult } from './LightPhaseExecutor';
+// ============== 核心组件导出 ==============
 
-export { DeepPhaseRanker, DEFAULT_WEIGHTS } from './DeepPhaseRanker';
-export type { DeepPhaseResult, DeepPhaseOptions } from './DeepPhaseRanker';
+// 7信号评分器
+export {
+  SevenSignalScorer,
+  clampScore,
+  calculateFrequencyComponent,
+  calculateRelevanceComponent,
+  calculateDiversityComponent,
+  calculateRecencyComponent,
+  calculateConsolidationComponent,
+  calculateConceptualComponent,
+  calculatePhaseSignalBoost,
+  scoreEntry,
+  rankCandidates,
+  totalSignalCountForEntry,
+} from './SevenSignalScorer';
 
-export { REMPhaseExtractor } from './REMPhaseExtractor';
-export type { ExtractorOptions, ExtractionResult, PatternReflection, CandidateTruth } from './REMPhaseExtractor';
+// 记忆整合器
+export {
+  MemoryConsolidator,
+  consolidateMemory,
+  readShortTermRecallEntries,
+  readPhaseSignals,
+  recordDreamingPhaseSignals,
+  getPromotionCandidates,
+  auditShortTermPromotion,
+  resolveStorePath,
+  resolvePhaseSignalPath,
+  resolveLockPath,
+  resolveMemoryPath,
+} from './MemoryConsolidator';
 
-export { RecallTracker } from './RecallTracker';
-export type { RecordRecallParams, AuditResult } from './RecallTracker';
+// 梦境处理器（新增）
+export {
+  DreamingProcessor,
+  createDreamingProcessor,
+  SimpleLLMIntegration,
+  DreamingProcessorModule,
+  type LLMIntegrationConfig,
+  type DreamingContext,
+  type ConsolidationResult,
+  type DreamingProcessingResult,
+} from './DreamingProcessor';
 
-export { MemoryDreamingIntegration } from './MemoryDreamingIntegration';
-export type { MemoryDreamingIntegrationOptions } from './MemoryDreamingIntegration';
+// 调度器
+export {
+  DreamingScheduler,
+  DreamingSchedulerClass,
+  createDreamingScheduler,
+  DreamingSchedulerModule,
+} from './DreamingScheduler';
+
+// 主系统
+export {
+  DreamingSystem,
+  createDreamingSystem,
+  DreamingSystemModule,
+  FileSystemRecallAdapter,
+} from './DreamingSystem';

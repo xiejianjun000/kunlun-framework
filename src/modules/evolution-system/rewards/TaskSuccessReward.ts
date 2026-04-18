@@ -27,7 +27,7 @@ export interface TaskSuccessRewardConfig extends RewardModelConfig {
  * 根据任务完成情况计算奖励
  */
 export class TaskSuccessReward extends RewardModel {
-  private config: Required<TaskSuccessRewardConfig>;
+  declare protected config: Required<TaskSuccessRewardConfig>;
 
   constructor(config?: Partial<TaskSuccessRewardConfig>) {
     super('TaskSuccessReward', config);

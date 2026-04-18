@@ -34,6 +34,7 @@ import { SkillHooks } from './hooks/SkillHooks';
 import { SkillQuotaManager } from './quota/SkillQuotaManager';
 import { DependencyResolver } from './dependency/DependencyResolver';
 import { SkillEnvironment } from './environment/SkillEnvironment';
+import { VenvEnvironment } from './environment/VenvEnvironment';
 
 /**
  * 技能系统配置
@@ -157,7 +158,9 @@ export class SkillSystem
       workDir: this.config.skillsRoot,
       packageManager: 'npm',
     });
-    this.environment = new SkillEnvironment();
+    this.environment = new VenvEnvironment({
+      venvRoot: path.join(this.config.skillsRoot, '.venvs'),
+    });
     this.quotaManager = new SkillQuotaManager(
       this.config.quotaStoragePath,
       this.config.defaultQuotaLimits
@@ -562,8 +565,8 @@ export class SkillSystem
             bVal = b.name;
             break;
           case 'updatedAt':
-            aVal = a.updatedAt?.getTime() ?? 0;
-            bVal = b.updatedAt?.getTime() ?? 0;
+            aVal = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+            bVal = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
             break;
         }
 

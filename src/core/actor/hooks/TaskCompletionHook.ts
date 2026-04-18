@@ -9,8 +9,8 @@ import {
   TaskTrajectory,
   ToolCall,
   TaskMetadata,
-} from '../../modules/skill-system/auto-generation/types';
-import { SkillAutoGenerator } from '../../modules/skill-system/auto-generation/SkillAutoGenerator';
+} from '../../../modules/skill-system/auto-generation/types';
+import { SkillAutoGenerator } from '../../../modules/skill-system/auto-generation/SkillAutoGenerator';
 
 export interface HookConfig {
   enabled: boolean;

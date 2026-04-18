@@ -104,8 +104,8 @@ export interface BehaviorData {
  * 特质维度数据
  */
 export interface TraitDimension {
-  /** 数值（0-1） */
-  value: number;
+  /** 数值（0-1）或字符串类型值 */
+  value: number | string;
   /** 标签 */
   label: string;
   /** 置信度 */
@@ -154,8 +154,8 @@ export interface PersonalityDimensions {
   /** 视角偏好 */
   perspective: {
     dimensions: {
-      decisionStyle: TraitDimension & { value: DecisionStyle };
-      informationProcessing: TraitDimension & { value: InformationProcessingStyle };
+      decisionStyle: TraitDimension;
+      informationProcessing: TraitDimension;
       authorityOrientation: TraitDimension;
     };
     preferredFormats: string[];

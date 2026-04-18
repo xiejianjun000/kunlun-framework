@@ -155,6 +155,13 @@ export class MemoryRetriever {
     const queryWords = this.tokenize(query);
     const results: IMemorySearchResult[] = [];
 
+    // 计算每个查询词的 IDF
+    const idfMap = new Map<string, number>();
+    for (const word of queryWords) {
+      const docCount = this.countDocumentsWithTerm(memories, word);
+      idfMap.set(word, Math.log(memories.length / (1 + docCount)));
+    }
+
     for (const memory of memories) {
       const contentWords = this.tokenize(memory.content);
       
@@ -167,10 +174,10 @@ export class MemoryRetriever {
       }
 
       if (matchCount > 0) {
-        // TF-IDF 简化版本
+        // TF-IDF 简化版本 - 使用平均 IDF
         const tf = matchCount / contentWords.length;
-        const idf = Math.log(memories.length / (1 + this.countDocumentsWithTerm(memories, queryWord)));
-        const score = tf * idf;
+        const avgIdf = Array.from(idfMap.values()).reduce((a, b) => a + b, 0) / idfMap.size;
+        const score = tf * avgIdf;
 
         if (score >= threshold * 0.1) { // 降低阈值因为是简化版本
           results.push({

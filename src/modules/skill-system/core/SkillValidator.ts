@@ -476,7 +476,7 @@ export class SkillValidator {
         const dangerousScripts = ['rm -rf', 'del /', 'format'];
         for (const [name, cmd] of Object.entries(packageJson.scripts)) {
           for (const dangerous of dangerousScripts) {
-            if (cmd.includes(dangerous)) {
+            if (typeof cmd === 'string' && cmd.includes(dangerous)) {
               errors.push({
                 code: 'DANGEROUS_SCRIPT',
                 message: `危险的脚本命令: ${name}`,
@@ -527,7 +527,7 @@ export class SkillValidator {
 
           // 检查禁止的权限
           for (const perm of permissions) {
-            if (this.rules.blockedPermissions.includes(perm)) {
+            if ((this.rules.blockedPermissions ?? []).includes(perm)) {
               errors.push({
                 code: 'BLOCKED_PERMISSION',
                 message: `使用了被禁止的权限: ${perm}`,

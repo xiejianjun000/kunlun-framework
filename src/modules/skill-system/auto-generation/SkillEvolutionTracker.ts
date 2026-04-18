@@ -416,12 +416,12 @@ export class SkillEvolutionTracker {
       switch (change.location) {
         case 'steps':
           if (change.newValue) {
-            evolved.steps = change.newValue as typeof pattern.steps;
+            evolved.steps = change.newValue as unknown as typeof pattern.steps;
           }
           break;
         case 'pitfalls':
           if (change.newValue) {
-            evolved.pitfalls = change.newValue as string[];
+            evolved.pitfalls = change.newValue as unknown as string[];
           }
           break;
         case 'description':

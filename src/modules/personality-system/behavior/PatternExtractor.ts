@@ -7,7 +7,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { BehaviorData } from '../../core/interfaces/IPersonalitySystem';
+import { BehaviorData } from '../../../core/interfaces/IPersonalitySystem';
 import { BehaviorAnalyzer, BehaviorPattern } from './BehaviorAnalyzer';
 
 /**

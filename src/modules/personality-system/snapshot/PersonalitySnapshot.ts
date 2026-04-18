@@ -10,8 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   IPersonalityProfile,
   PersonalitySnapshot,
-  PersonalitySystemConfig
-} from '../../core/interfaces/IPersonalitySystem';
+  PersonalitySystemConfig,
+  TraitType,
+  TraitDimension,
+  PersonalityDimensions
+} from '../../../core/interfaces/IPersonalitySystem';
 
 /**
  * 快照存储接口
@@ -192,7 +195,7 @@ export class PersonalitySnapshotManager {
       confidenceScore: profile.confidenceScore,
       dimensions: {
         personality: {
-          dimensions: {},
+          dimensions: {} as Record<TraitType, TraitDimension>,
           stableTraits: profile.stableTraits
         },
         perspective: profile.dimensions.perspective,
@@ -221,7 +224,7 @@ export class PersonalitySnapshotManager {
             openness_conservatism: profile.dimensions.personality.dimensions.openness_conservatism,
             rationality_emotion: profile.dimensions.personality.dimensions.rationality_emotion,
             risk_tolerance: profile.dimensions.personality.dimensions.risk_tolerance
-          },
+          } as Record<TraitType, TraitDimension>,
           stableTraits: profile.stableTraits
         },
         perspective: profile.dimensions.perspective,
@@ -385,12 +388,12 @@ export class PersonalitySnapshotManager {
         distillLevel: 'standard'
       },
       dimensions: data.dimensions || {
-        personality: { dimensions: {}, stableTraits: [] },
-        perspective: { dimensions: {}, preferredFormats: [], avoidFormats: [] },
-        worldview: { dimensions: {}, coreBeliefs: [] },
-        values: { valueHierarchy: {}, bottomLinePrinciples: [], tradeOffPatterns: {}, confidence: 0 },
-        lifePhilosophy: { dimensions: { goalOrientation: { primaryGoals: [], confidence: 0 }, timeValue: { value: '', label: '', confidence: 0, evidence: [] }, meaningPursuit: { value: '', label: '', confidence: 0, evidence: [] }, workStyle: { collaborationPreference: '', autonomyNeed: '', feedbackFrequency: '' } }, confidence: 0 }
-      },
+        personality: { dimensions: {} as Record<TraitType, TraitDimension>, stableTraits: [] },
+        perspective: { dimensions: {}, preferredFormats: [] as string[], avoidFormats: [] as string[] },
+        worldview: { dimensions: {}, coreBeliefs: [] as string[] },
+        values: { valueHierarchy: {}, bottomLinePrinciples: [] as string[], tradeOffPatterns: {}, confidence: 0 },
+        lifePhilosophy: { dimensions: { goalOrientation: { primaryGoals: [] as string[], confidence: 0 }, timeValue: { value: '', label: '', confidence: 0, evidence: [] as string[] }, meaningPursuit: { value: '', label: '', confidence: 0, evidence: [] as string[] }, workStyle: { collaborationPreference: '', autonomyNeed: '', feedbackFrequency: '' } }, confidence: 0 }
+      } as unknown as PersonalityDimensions,
       stableTraits: data.stableTraits || [],
       evolutionHistory: data.evolutionHistory || []
     };

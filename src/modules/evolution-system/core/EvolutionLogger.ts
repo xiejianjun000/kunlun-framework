@@ -229,7 +229,9 @@ export class EvolutionLogger {
     const before = beforeTime ?? new Date();
     const originalLength = this.entries.length;
 
-    this.entries = this.entries.filter(e => e.timestamp > before);
+    const filteredEntries = this.entries.filter(e => e.timestamp > before);
+    this.entries.length = 0;
+    this.entries.push(...filteredEntries);
 
     return originalLength - this.entries.length;
   }

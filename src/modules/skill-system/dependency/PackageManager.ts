@@ -231,7 +231,6 @@ export class NpmPackageManager implements IPackageManager {
     const fullCommand = [command, ...args].join(' ');
     await execAsync(fullCommand, {
       cwd: cwd ?? process.cwd(),
-      stdio: 'inherit',
     });
   }
 }
@@ -364,7 +363,6 @@ export class YarnPackageManager implements IPackageManager {
     const fullCommand = [command, ...args].join(' ');
     await execAsync(fullCommand, {
       cwd: cwd ?? process.cwd(),
-      stdio: 'inherit',
     });
   }
 }
@@ -499,9 +497,7 @@ export class PipPackageManager implements IPackageManager {
     args: string[]
   ): Promise<void> {
     const fullCommand = [command, ...args].join(' ');
-    await execAsync(fullCommand, {
-      stdio: 'inherit',
-    });
+    await execAsync(fullCommand);
   }
 }
 

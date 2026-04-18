@@ -3,7 +3,8 @@
  * Evolution System Core Module
  */
 
-export { EvolutionSystem, createEvolutionSystem } from './EvolutionSystem';
-export { EvolutionEngine } from './EvolutionEngine';
+export { EvolutionSystem, createEvolutionSystem, type EvolutionSystemConfig } from './EvolutionSystem';
+export { EvolutionEngine, type EvolutionEngineConfig, type EvolutionStats } from './EvolutionEngine';
 export { EvolutionScheduler, type TaskStatus, type EvolutionSchedulerConfig } from './EvolutionScheduler';
 export { EvolutionLogger, LogLevel, type EvolutionLogEntry, type EvolutionLoggerConfig, type LogQuery, type LogStats } from './EvolutionLogger';
+export { LLMOptimizer, type LLMOptimizerConfig, type OptimizationSuggestion, type FitnessPrediction, type MutationEffectEvaluation } from './LLMOptimizer';

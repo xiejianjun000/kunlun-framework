@@ -29,7 +29,7 @@ export interface UserFeedbackRewardConfig extends RewardModelConfig {
  * 根据用户反馈计算奖励
  */
 export class UserFeedbackReward extends RewardModel {
-  private config: Required<UserFeedbackRewardConfig>;
+  declare protected config: Required<UserFeedbackRewardConfig>;
 
   constructor(config?: Partial<UserFeedbackRewardConfig>) {
     super('UserFeedbackReward', config);

@@ -15,8 +15,8 @@ import {
 import { SkillMetadataSchema } from '../interfaces/skill.types';
 import { SkillRegistry } from './SkillRegistry';
 import { SkillValidator } from './SkillValidator';
-import { DependencyResolver } from '../dependency/DependencyResolver';
-import { SkillHooks } from '../hooks/SkillHooks';
+import { DependencyResolver, DependencyStrategy } from '../dependency/DependencyResolver';
+import { SkillHooks, HookEvent } from '../hooks/SkillHooks';
 
 /**
  * 安装器配置
@@ -135,7 +135,7 @@ export class SkillInstaller extends EventEmitter {
 
     try {
       // 触发前置钩子
-      await this.hooks.trigger('onBeforeInstall', {
+      await this.hooks.trigger(HookEvent.BEFORE_INSTALL, {
         executionId,
         source,
         options,
@@ -179,7 +179,7 @@ export class SkillInstaller extends EventEmitter {
 
         installedDeps = await this.dependencyResolver.installDependencies(
           skillPackage.path,
-          { strategy: options.dependencyStrategy ?? 'auto' }
+          { strategy: options.dependencyStrategy === 'manual' ? DependencyStrategy.MANUAL : DependencyStrategy.AUTO }
         );
       }
 
@@ -229,7 +229,7 @@ export class SkillInstaller extends EventEmitter {
       };
 
       // 触发后置钩子
-      await this.hooks.trigger('onAfterInstall', {
+      await this.hooks.trigger(HookEvent.AFTER_INSTALL, {
         executionId,
         installInfo,
         success: true,
@@ -245,7 +245,7 @@ export class SkillInstaller extends EventEmitter {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
 
-      await this.hooks.trigger('onInstallError', {
+      await this.hooks.trigger(HookEvent.INSTALL_ERROR, {
         executionId,
         source,
         error: errorMessage,
@@ -274,7 +274,7 @@ export class SkillInstaller extends EventEmitter {
     const executionId = `uninstall_${Date.now()}`;
 
     // 触发前置钩子
-    await this.hooks.trigger('onBeforeUninstall', {
+    await this.hooks.trigger(HookEvent.BEFORE_UNINSTALL, {
       executionId,
       skillId,
       options,
@@ -300,7 +300,7 @@ export class SkillInstaller extends EventEmitter {
       await this.registry.unregister(skillId);
 
       // 触发后置钩子
-      await this.hooks.trigger('onAfterUninstall', {
+      await this.hooks.trigger(HookEvent.AFTER_UNINSTALL, {
         executionId,
         skillId,
         success: true,
@@ -326,7 +326,7 @@ export class SkillInstaller extends EventEmitter {
     const executionId = `update_${Date.now()}`;
 
     // 触发前置钩子
-    await this.hooks.trigger('onBeforeUpdate', {
+    await this.hooks.trigger(HookEvent.BEFORE_UPDATE, {
       executionId,
       skillId,
       currentVersion: skill.version,
@@ -358,7 +358,7 @@ export class SkillInstaller extends EventEmitter {
       // 恢复备份
       await this.restoreBackup(skillId, backupPath);
 
-      await this.hooks.trigger('onUpdateError', {
+      await this.hooks.trigger(HookEvent.UPDATE_ERROR, {
         executionId,
         skillId,
         error: error instanceof Error ? error.message : String(error),

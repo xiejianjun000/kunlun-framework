@@ -98,7 +98,7 @@ export class WeComAdapter implements MessageAdapter {
   readonly platform = 'wecom';
   
   private config: WeComConfig;
-  private connected = false;
+  private _connected = false;
   private eventEmitter = new EventEmitter();
   private messageHandlers: MessageHandler[] = [];
   private accessToken?: string;
@@ -123,15 +123,20 @@ export class WeComAdapter implements MessageAdapter {
   }
 
   /** 检查是否已连接 */
+  get connected(): boolean {
+    return this._connected;
+  }
+
+  /** 检查是否已连接 (兼容) */
   get isConnected(): boolean {
-    return this.connected;
+    return this._connected;
   }
 
   /**
    * 连接企业微信平台
    */
   async connect(): Promise<void> {
-    if (this.connected) {
+    if (this._connected) {
       console.log('[WeComAdapter] Already connected');
       return;
     }
@@ -139,7 +144,7 @@ export class WeComAdapter implements MessageAdapter {
     // 获取access_token
     await this.refreshAccessToken();
     
-    this.connected = true;
+    this._connected = true;
     this.abortController = new AbortController();
     
     console.log(`[WeComAdapter] Connected to WeCom (CorpID: ${this.config.corpId})`);
@@ -160,7 +165,7 @@ export class WeComAdapter implements MessageAdapter {
       signal: AbortSignal.timeout(this.config.timeoutMs || 30000),
     });
 
-    const data = await response.json() as { errcode: number; access_token?: string; expires_in?: number };
+    const data = await response.json() as { errcode: number; errmsg?: string; access_token?: string; expires_in?: number };
     
     if (data.errcode !== 0 || !data.access_token) {
       throw new Error(`Failed to get access token: ${data.errmsg}`);
@@ -177,7 +182,7 @@ export class WeComAdapter implements MessageAdapter {
    * 断开连接
    */
   async disconnect(): Promise<void> {
-    this.connected = false;
+    this._connected = false;
     this.accessToken = undefined;
     this.tokenExpiry = undefined;
     this.abortController?.abort();
@@ -193,7 +198,7 @@ export class WeComAdapter implements MessageAdapter {
     content: MessageContent,
     context?: Partial<MessageContext>
   ): Promise<MessageResult> {
-    if (!this.connected) {
+    if (!this._connected) {
       return { success: false, error: 'Adapter not connected' };
     }
 
@@ -204,7 +209,7 @@ export class WeComAdapter implements MessageAdapter {
       const request: WeComSendMessageRequest = {
         touser: to,
         msgtype: msgType,
-        agentid: this.config.agentId || 0,
+        agentid: typeof this.config.agentId === 'string' ? parseInt(this.config.agentId) : (this.config.agentId || 0),
         [msgType === 'text' ? 'content' : 'media_id']: msgContent,
       };
 
@@ -319,6 +324,7 @@ export class WeComAdapter implements MessageAdapter {
    */
   private handleTextMessage(event: WeComMessageEvent): void {
     const context: MessageContext = {
+      platform: this.platform,
       messageId: String(event.MsgId),
       sessionId: event.ChatId ? `wecom:group:${event.ChatId}` : `wecom:user:${event.FromUserName}`,
       sessionType: event.ChatId ? 'group' : 'p2p',
@@ -469,11 +475,11 @@ export class WeComAdapter implements MessageAdapter {
    */
   getStatus(): {
     connected: boolean;
-    stats: typeof this.stats;
+    stats: { messagesReceived: number; messagesSent: number; errors: number };
     corpId: string;
   } {
     return {
-      connected: this.connected,
+      connected: this._connected,
       stats: { ...this.stats },
       corpId: this.config.corpId,
     };

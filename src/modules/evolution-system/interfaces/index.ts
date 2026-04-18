@@ -141,6 +141,8 @@ export interface EvolutionContext {
   constraints: EvolutionConstraint[];
   /** 历史记录数 */
   historyCount: number;
+  /** 历史记录列表 */
+  evolutionHistory?: EvolutionHistoryRecord[];
   /** 元数据 */
   metadata: Record<string, unknown>;
 }
@@ -542,6 +544,23 @@ export enum FeedbackType {
   IMPLICIT = 'implicit',        // 隐式反馈
   CORRECTION = 'correction',     // 纠正反馈
   APPROVAL = 'approval',        // 批准反馈
+}
+
+/** 历史交互样本 */
+export interface InteractionSample {
+  /** 用户查询 */
+  query: string;
+  /** Agent响应 */
+  response: string;
+  /** 用户反馈 */
+  feedback?: {
+    type: 'positive' | 'negative' | 'correction';
+    content: string;
+  };
+  /** 任务是否成功 */
+  taskSuccess: boolean;
+  /** 时间戳 */
+  timestamp: Date;
 }
 
 /** 进化策略接口 */

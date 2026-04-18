@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/n24q02m/better-code-review-graph/main/.mcp.json",
+  "mcpServers": {
+    "code-review-graph": {
+      "command": "uv",
+      "args": [
+        "run",
+        "better-code-review-graph",
+        "--repo",
+        "{REPO_PATH}"
+      ],
+      "env": {
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

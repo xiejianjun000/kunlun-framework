@@ -9,6 +9,7 @@ import {
   VectorSearchOptions,
   VectorUpsertItem,
   VectorStoreConfig,
+  VectorStoreAdapterFactory,
 } from './VectorStoreAdapter';
 
 export interface QdrantConfig {

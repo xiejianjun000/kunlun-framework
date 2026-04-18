@@ -4,7 +4,7 @@
  */
 
 /** 消息内容类型 */
-export type MessageContentType = 'text' | 'image' | 'file' | 'markdown' | 'audio' | 'video' | 'card' | 'interactive';
+export type MessageContentType = 'text' | 'image' | 'file' | 'markdown' | 'audio' | 'video' | 'card' | 'interactive' | 'post' | 'share' | 'location' | 'news';
 
 /** 消息内容 */
 export interface MessageContent {
@@ -48,6 +48,8 @@ export interface MessageSender {
 
 /** 消息上下文 */
 export interface MessageContext {
+  /** 平台名称 */
+  platform: string;
   /** 消息ID */
   messageId: string;
   /** 会话ID */
@@ -103,6 +105,10 @@ export interface MessageAdapter {
   updateMessage(messageId: string, content: MessageContent): Promise<MessageResult>;
   /** 删除消息 */
   deleteMessage(messageId: string): Promise<MessageResult>;
+  /** 注册消息处理器 */
+  onMessage(handler: MessageHandler): void;
+  /** 注册事件监听器 */
+  on(event: string, handler: (data: unknown) => void): void;
 }
 
 /** 消息处理器 */
@@ -174,7 +180,7 @@ export interface WeComConfig extends AdapterConfig {
   /** 企业名称 */
   corpName?: string;
   /** AgentId */
-  agentId?: string;
+  agentId?: string | number;
   /** API密钥 (用于回调模式) */
   apiKey?: string;
   /** 回调模式AES密钥 */
@@ -242,4 +248,32 @@ export interface AdapterFactory {
   createAdapter(config: AdapterConfig): MessageAdapter;
   validateConfig(config: unknown): boolean;
   getPlatformName(): string;
+}
+
+/** 路由匹配条件 */
+export interface RoutingMatchCondition {
+  /** 平台名称 */
+  platform?: string;
+  /** 会话类型 */
+  sessionType?: 'p2p' | 'group' | 'channel';
+  /** 频道/群组ID */
+  channelId?: string;
+  /** 关键词正则匹配 */
+  keyword?: RegExp;
+  /** 发送者ID */
+  senderId?: string;
+  /** 自定义条件函数 */
+  custom?: (context: MessageContext) => boolean;
+}
+
+/** 路由规则 */
+export interface RoutingRule {
+  /** 匹配条件 */
+  match: RoutingMatchCondition;
+  /** 目标Agent ID */
+  agentId: string;
+  /** 优先级 (数字越小优先级越高) */
+  priority: number;
+  /** 是否启用 */
+  enabled?: boolean;
 }

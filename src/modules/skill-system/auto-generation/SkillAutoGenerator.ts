@@ -532,15 +532,11 @@ export interface SkillRegistry {
 }
 
 export interface GenerationStatistics {
-  totalGenerated: number;
   totalPatterns: number;
-  avgConfidence: number;
-  avgProcessingTime: number;
-  generationHistory: Array<{
-    patternId: string;
-    timestamp: Date;
-    success: boolean;
-  }>;
+  totalUsages: number;
+  overallSuccessRate: number;
+  patternsByDomain: Record<string, number>;
+  topPatterns: Array<{ patternId: string; usageCount: number }>;
 }
 
 export default SkillAutoGenerator;

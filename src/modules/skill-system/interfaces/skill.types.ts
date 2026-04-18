@@ -18,8 +18,8 @@ export const SkillMetadataSchema = z.object({
   repository: z.string().url().optional(),
   keywords: z.array(z.string()).optional(),
   license: z.string().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 export type SkillMetadata = z.infer<typeof SkillMetadataSchema>;
@@ -140,6 +140,10 @@ export interface SkillExecutionContext {
  * 技能执行选项
  */
 export interface SkillExecutionOptions {
+  /** 用户ID */
+  userId?: string;
+  /** 租户ID */
+  tenantId?: string;
   /** 是否异步执行 */
   async?: boolean;
   /** 超时时间（毫秒） */
@@ -180,6 +184,10 @@ export interface SkillInstallInfo {
  * 技能安装选项
  */
 export interface SkillInstallOptions {
+  /** 用户ID */
+  userId?: string;
+  /** 租户ID */
+  tenantId?: string;
   /** 安装路径 */
   installPath?: string;
   /** 是否覆盖已存在 */
@@ -196,6 +204,10 @@ export interface SkillInstallOptions {
  * 技能卸载选项
  */
 export interface SkillUninstallOptions {
+  /** 用户ID */
+  userId?: string;
+  /** 租户ID */
+  tenantId?: string;
   /** 是否清理依赖 */
   cleanDependencies?: boolean;
   /** 是否清理数据 */

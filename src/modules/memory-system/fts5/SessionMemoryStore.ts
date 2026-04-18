@@ -247,7 +247,7 @@ export class SessionMemoryStore {
         continue;
       }
 
-      const session = await this.getOrCreateSession(sessionMeta.sessionId);
+      const session = await this.getOrCreateSession('', sessionMeta.sessionId);
       
       // Skip if already consolidated
       if (session.metadata.summary) {

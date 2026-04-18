@@ -13,6 +13,7 @@ import {
   ExtractedTrait,
   IPersonalityProfile,
   TraitType,
+  TraitDimension,
   DecisionStyle,
   InformationProcessingStyle
 } from '../../core/interfaces/IPersonalitySystem';
@@ -95,13 +96,19 @@ export class PersonalityDistiller implements IPersonalityDistiller {
       pattern: /(喜欢|偏好|倾向于).*(团队|讨论|交流|社交)/i,
       traitType: TraitType.EXTRAVERSION_INTROVERSION,
       extractValue: () => 0.7,
-      label: (v) => v >= 0.6 ? '外向型' : v >= 0.4 ? '中立' : '内向型'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '外向型' : num >= 0.4 ? '中立' : '内向型';
+      }
     },
     {
       pattern: /(喜欢|偏好|倾向于).*(独自|安静|独立|私下)/i,
       traitType: TraitType.EXTRAVERSION_INTROVERSION,
       extractValue: () => 0.3,
-      label: (v) => v >= 0.6 ? '外向型' : v >= 0.4 ? '中立' : '内向型'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '外向型' : num >= 0.4 ? '中立' : '内向型';
+      }
     },
     
     // 开放性特质
@@ -109,13 +116,19 @@ export class PersonalityDistiller implements IPersonalityDistiller {
       pattern: /(愿意|喜欢|尝试).*(新|创新|实验|探索)/i,
       traitType: TraitType.OPENNESS_CONSERVATISM,
       extractValue: () => 0.75,
-      label: (v) => v >= 0.6 ? '高开放性' : v >= 0.4 ? '中立' : '保守型'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '高开放性' : num >= 0.4 ? '中立' : '保守型';
+      }
     },
     {
       pattern: /(传统|保守|稳定|熟悉)/i,
       traitType: TraitType.OPENNESS_CONSERVATISM,
       extractValue: () => 0.35,
-      label: (v) => v >= 0.6 ? '高开放性' : v >= 0.4 ? '中立' : '保守型'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '高开放性' : num >= 0.4 ? '中立' : '保守型';
+      }
     },
     
     // 理性/感性特质
@@ -123,13 +136,19 @@ export class PersonalityDistiller implements IPersonalityDistiller {
       pattern: /(数据|分析|逻辑|理性|证据)/i,
       traitType: TraitType.RATIONALITY_EMOTION,
       extractValue: () => 0.75,
-      label: (v) => v >= 0.6 ? '偏理性' : v >= 0.4 ? '中立' : '偏感性'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '偏理性' : num >= 0.4 ? '中立' : '偏感性';
+      }
     },
     {
       pattern: /(感觉|直觉|情感|感受)/i,
       traitType: TraitType.RATIONALITY_EMOTION,
       extractValue: () => 0.35,
-      label: (v) => v >= 0.6 ? '偏理性' : v >= 0.4 ? '中立' : '偏感性'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '偏理性' : num >= 0.4 ? '中立' : '偏感性';
+      }
     },
     
     // 风险偏好特质
@@ -137,13 +156,19 @@ export class PersonalityDistiller implements IPersonalityDistiller {
       pattern: /(谨慎|保守|稳妥|安全)/i,
       traitType: TraitType.RISK_TOLERANCE,
       extractValue: () => 0.35,
-      label: (v) => v >= 0.6 ? '高风险偏好' : v >= 0.4 ? '中等风险偏好' : '低风险偏好'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '高风险偏好' : num >= 0.4 ? '中等风险偏好' : '低风险偏好';
+      }
     },
     {
       pattern: /(大胆|激进|冒险|创新)/i,
       traitType: TraitType.RISK_TOLERANCE,
       extractValue: () => 0.7,
-      label: (v) => v >= 0.6 ? '高风险偏好' : v >= 0.4 ? '中等风险偏好' : '低风险偏好'
+      label: (v) => {
+        const num = v as number;
+        return num >= 0.6 ? '高风险偏好' : num >= 0.4 ? '中等风险偏好' : '低风险偏好';
+      }
     }
   ];
 
@@ -420,6 +445,24 @@ export class PersonalityDistiller implements IPersonalityDistiller {
           ),
           [TraitType.RISK_TOLERANCE]: this.traitToDimension(
             traitsMap.get(TraitType.RISK_TOLERANCE)
+          ),
+          [TraitType.DECISION_STYLE]: this.traitToDimension(
+            traitsMap.get(TraitType.DECISION_STYLE)
+          ),
+          [TraitType.INFORMATION_PROCESSING]: this.traitToDimension(
+            traitsMap.get(TraitType.INFORMATION_PROCESSING)
+          ),
+          [TraitType.AUTHORITY_ORIENTATION]: this.traitToDimension(
+            traitsMap.get(TraitType.AUTHORITY_ORIENTATION)
+          ),
+          [TraitType.CAUSALITY_BELIEF]: this.traitToDimension(
+            traitsMap.get(TraitType.CAUSALITY_BELIEF)
+          ),
+          [TraitType.SYSTEM_COMPLEXITY]: this.traitToDimension(
+            traitsMap.get(TraitType.SYSTEM_COMPLEXITY)
+          ),
+          [TraitType.TEMPORAL_ORIENTATION]: this.traitToDimension(
+            traitsMap.get(TraitType.TEMPORAL_ORIENTATION)
           )
         },
         stableTraits: []
@@ -511,15 +554,15 @@ export class PersonalityDistiller implements IPersonalityDistiller {
    */
   private traitToDimension(
     trait?: ExtractedTrait,
-    defaultValue?: DecisionStyle | InformationProcessingStyle
-  ): any {
+    defaultValue?: DecisionStyle | InformationProcessingStyle | number
+  ): TraitDimension {
     if (!trait) {
       return {
         value: defaultValue || 0.5,
         label: '中立',
         confidence: 0,
         evidence: []
-      };
+      } as TraitDimension;
     }
 
     return {
@@ -527,7 +570,7 @@ export class PersonalityDistiller implements IPersonalityDistiller {
       label: trait.label,
       confidence: trait.confidence,
       evidence: trait.evidence
-    };
+    } as TraitDimension;
   }
 
   /**
@@ -590,10 +633,11 @@ export class PersonalityDistiller implements IPersonalityDistiller {
 
     // 人格维度
     const personalityDims = profile.dimensions.personality.dimensions;
-    for (const key in personalityDims) {
+    const traitTypes = Object.keys(personalityDims) as TraitType[];
+    for (const key of traitTypes) {
       const dim = personalityDims[key];
       traits.push({
-        type: key as TraitType,
+        type: key,
         value: dim.value,
         label: dim.label,
         confidence: dim.confidence,

@@ -6,8 +6,8 @@
 
 import { EventEmitter } from 'events';
 import { TaskCompletionHook, HookConfig } from './TaskCompletionHook';
-import { SkillAutoGenerator } from '../../modules/skill-system/auto-generation/SkillAutoGenerator';
-import { SkillPattern } from '../../modules/skill-system/auto-generation/types';
+import { SkillAutoGenerator } from '../../../modules/skill-system/auto-generation/SkillAutoGenerator';
+import { SkillPattern } from '../../../modules/skill-system/auto-generation/types';
 
 // ============ Actor接口定义 ============
 

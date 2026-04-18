@@ -3,7 +3,7 @@
  * 适配器配置示例
  */
 
-import type { UnifiedAdapterConfig, RoutingRule } from './types';
+import type { UnifiedAdapterConfig, RoutingRule, FeishuConfig, WeComConfig, WechatConfig } from './types';
 
 /**
  * 飞书配置示例
@@ -137,7 +137,7 @@ export const envConfigExample: UnifiedAdapterConfig = {
   },
   wecom: {
     enabled: process.env.WECOM_ENABLED === 'true',
-    corpId: process.env.WECOM_CORP_ID,
+    corpId: process.env.WECOM_CORP_ID || '',
     agentId: process.env.WECOM_AGENT_ID ? parseInt(process.env.WECOM_AGENT_ID) : undefined,
     appSecret: process.env.WECOM_APP_SECRET,
     callbackToken: process.env.WECOM_CALLBACK_TOKEN,

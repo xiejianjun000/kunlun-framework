@@ -19,64 +19,6 @@ import type {
   PlatformEvent,
 } from './types';
 
-// 飞书SDK类型声明 (实际使用时通过npm安装)
-declare module 'lark' {
-  export class Client {
-    constructor(options: {
-      appId: string;
-      appSecret: string;
-      domain?: string;
-      logger?: unknown;
-    });
-    im: {
-      message: {
-        create(params: {
-          params: { receive_id_type: string };
-          data: {
-            receive_id: string;
-            content: string;
-            msg_type: string;
-          };
-        }): Promise<{ code: number; msg: string; data: { message_id: string } }>;
-        reply(params: {
-          path: { message_id: string };
-          data: { content: string; msg_type: string };
-        }): Promise<{ code: number; msg: string; data: { message_id: string } }>;
-        get(params: { path: { message_id: string } }): Promise<unknown>;
-      };
-      reaction: {
-        create(params: {
-          data: { message_id: string; reaction_type: { emoji_type: string } };
-        }): Promise<unknown>;
-      };
-    };
-    contact: {
-      user: {
-        get(params: { params: { user_id_type: string }; path: { user_id: string } }): Promise<{
-          code: number;
-          data: { user?: { name: string; avatar?: { avatar_72: string } } };
-        }>;
-      };
-    };
-  }
-  export class EventDispatcher {
-    constructor(options: {
-      encryptKey?: string;
-      verificationToken?: string;
-      handleReq: (request: unknown) => Promise<unknown>;
-    });
-    start(): void;
-    stop(): void;
-  }
-  export enum Domain {
-    Feishu = 'https://open.feishu.cn',
-    Lark = 'https://open.larksuite.com',
-  }
-  export enum AppType {
-    CustomApp = 'custom_app',
-  }
-}
-
 /** 飞书消息事件类型 */
 interface FeishuMessageEvent {
   schema: string;
@@ -144,7 +86,7 @@ class FeishuClient {
       body: JSON.stringify({ app_id: this.appId, app_secret: this.appSecret }),
     });
 
-    const data = await response.json() as { code: number; tenant_access_token?: string; expire };
+    const data = await response.json() as { code: number; tenant_access_token?: string; expire: number };
     if (data.code !== 0 || !data.tenant_access_token) {
       throw new Error(`Failed to get access token: ${data.code}`);
     }
@@ -362,7 +304,7 @@ export class FeishuAdapter implements MessageAdapter {
   
   private config: FeishuConfig;
   private client?: FeishuClient;
-  private connected = false;
+  private _connected = false;
   private wsConnection?: WebSocket;
   private eventEmitter = new EventEmitter();
   private messageHandlers: MessageHandler[] = [];
@@ -388,8 +330,8 @@ export class FeishuAdapter implements MessageAdapter {
   }
 
   /** 检查是否已连接 */
-  get isConnected(): boolean {
-    return this.connected;
+  get connected(): boolean {
+    return this._connected;
   }
 
   /**
@@ -397,7 +339,7 @@ export class FeishuAdapter implements MessageAdapter {
    * 根据配置自动选择WebSocket或Webhook模式
    */
   async connect(): Promise<void> {
-    if (this.connected) {
+    if (this._connected) {
       console.log('[FeishuAdapter] Already connected');
       return;
     }
@@ -419,7 +361,7 @@ export class FeishuAdapter implements MessageAdapter {
     } else {
       console.log('[FeishuAdapter] Webhook mode - waiting for callbacks');
       // Webhook模式需要在外部启动HTTP服务器
-      this.connected = true;
+      this._connected = true;
     }
 
     // 获取机器人信息
@@ -442,7 +384,7 @@ export class FeishuAdapter implements MessageAdapter {
     return new Promise((resolve, reject) => {
       // 注意: 实际生产环境应使用WebSocket客户端库
       // 这里使用简单的fetch轮询作为示例
-      this.connected = true;
+      this._connected = true;
       this.startEventPolling();
       resolve();
     });
@@ -453,7 +395,7 @@ export class FeishuAdapter implements MessageAdapter {
    */
   private async startEventPolling(): Promise<void> {
     const poll = async () => {
-      if (!this.connected || this.abortController?.signal.aborted) {
+      if (!this._connected || this.abortController?.signal.aborted) {
         return;
       }
 
@@ -465,7 +407,7 @@ export class FeishuAdapter implements MessageAdapter {
       } catch (error) {
         console.error('[FeishuAdapter] Poll error:', error);
         this.stats.errors++;
-        if (this.connected) {
+        if (this._connected) {
           setTimeout(poll, 5000);
         }
       }
@@ -522,7 +464,7 @@ export class FeishuAdapter implements MessageAdapter {
    * 断开连接
    */
   async disconnect(): Promise<void> {
-    this.connected = false;
+    this._connected = false;
     this.abortController?.abort();
     
     if (this.wsConnection) {
@@ -541,7 +483,7 @@ export class FeishuAdapter implements MessageAdapter {
     content: MessageContent,
     context?: Partial<MessageContext>
   ): Promise<MessageResult> {
-    if (!this.connected || !this.client) {
+    if (!this._connected || !this.client) {
       return { success: false, error: 'Adapter not connected' };
     }
 
@@ -579,7 +521,7 @@ export class FeishuAdapter implements MessageAdapter {
     content: MessageContent,
     context?: Partial<MessageContext>
   ): Promise<MessageResult> {
-    if (!this.connected || !this.client) {
+    if (!this._connected || !this.client) {
       return { success: false, error: 'Adapter not connected' };
     }
 
@@ -684,6 +626,7 @@ export class FeishuAdapter implements MessageAdapter {
    */
   private handleMessageEvent(event: FeishuMessageEvent): void {
     const msg = event.event.message;
+    const sender = event.event.sender;
     
     // 过滤非文本/帖子消息
     const supportedTypes = ['text', 'post', 'interactive'];
@@ -696,13 +639,14 @@ export class FeishuAdapter implements MessageAdapter {
     
     // 构建消息上下文
     const context: MessageContext = {
+      platform: this.platform,
       messageId: msg.message_id,
       sessionId: `feishu:${msg.chat_id}`,
       sessionType: msg.chat_type === 'group' ? 'group' : 'p2p',
       channelId: msg.chat_id,
       sender: {
-        userId: msg.sender.sender_id.open_id || msg.sender.sender_id.user_id || '',
-        idType: msg.sender.sender_id.open_id ? 'open_id' : 'user_id',
+        userId: sender.sender_id.open_id || sender.sender_id.user_id || '',
+        idType: sender.sender_id.open_id ? 'open_id' : 'user_id',
         displayName: undefined, // 需要额外API调用获取
       },
       content: {
@@ -822,11 +766,11 @@ export class FeishuAdapter implements MessageAdapter {
    */
   getStatus(): {
     connected: boolean;
-    stats: typeof this.stats;
+    stats: { messagesReceived: number; messagesSent: number; errors: number };
     botOpenId?: string;
   } {
     return {
-      connected: this.connected,
+      connected: this._connected,
       stats: { ...this.stats },
       botOpenId: this.botOpenId,
     };
