@@ -77,7 +77,7 @@ export class TaskCompletionHook extends EventEmitter {
   recordToolCall(
     toolId: string,
     toolName: string,
-    arguments: Record<string, unknown>,
+    toolArgs: Record<string, unknown>,
     result: unknown,
     success: boolean,
     duration: number
@@ -89,7 +89,7 @@ export class TaskCompletionHook extends EventEmitter {
     this.toolCalls.push({
       toolId,
       toolName,
-      arguments,
+      arguments: toolArgs,
       result,
       success,
       duration,

@@ -11,6 +11,7 @@ import {
   TenantLifecycleEvent,
   LifecycleHook,
   LifecycleHookRegistration,
+  IsolationLevel,
 } from '../types';
 import {
   ITenantLifecycle,
@@ -84,17 +85,17 @@ export class TenantLifecycle extends EventEmitter implements ITenantLifecycle {
 
     // 初始化隔离器
     this.storageIsolator = new StorageIsolator({
-      isolationLevel: config.storageConfig?.isolationLevel ?? 'standard',
+      isolationLevel: config.storageConfig?.isolationLevel ?? IsolationLevel.STANDARD,
       defaultSchemaPrefix: 'tenant_',
     });
 
     this.vectorDbIsolator = new VectorDbIsolator({
-      isolationLevel: config.vectorDbConfig?.isolationLevel ?? 'standard',
+      isolationLevel: config.vectorDbConfig?.isolationLevel ?? IsolationLevel.STANDARD,
       defaultCollectionPrefix: 'tenant_',
     });
 
     this.networkIsolator = new NetworkIsolator({
-      isolationLevel: config.networkConfig?.isolationLevel ?? 'standard',
+      isolationLevel: config.networkConfig?.isolationLevel ?? IsolationLevel.STANDARD,
       namespacePrefix: 'Taiji-tenant-',
     });
 

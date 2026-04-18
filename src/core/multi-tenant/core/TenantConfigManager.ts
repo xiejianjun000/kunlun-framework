@@ -11,6 +11,7 @@ import {
   IsolationConfig,
   QuotaPlanConfig,
   ResourceQuotaConfig,
+  BillingMode,
 } from '../types';
 import {
   ITenantConfigManager,
@@ -41,7 +42,7 @@ import {
  */
 export class TenantConfigManager implements ITenantConfigManager {
   private quotaPlans: Map<string, QuotaPlanConfig> = new Map();
-  private defaultPlanId: string = 'free';
+  private defaultPlanId: string = BillingMode.FREE;
 
   constructor() {
     // 初始化默认配额计划
@@ -236,7 +237,7 @@ export class TenantConfigManager implements ITenantConfigManager {
       slug,
       description: config.description ?? '',
       ownerId: config.ownerId ?? '',
-      billingMode: config.billingMode ?? 'free',
+      billingMode: config.billingMode ?? BillingMode.FREE,
       planId,
       isolationConfig: {
         ...defaultIsolation,

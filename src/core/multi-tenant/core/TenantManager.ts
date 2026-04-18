@@ -12,6 +12,9 @@ import {
   TenantCreateConfig,
   TenantUpdateConfig,
   TenantStatistics,
+  BillingMode,
+  IsolationLevel,
+  IsolationConfig,
 } from '../types';
 import { ITenantManager, TenantQueryOptions, TenantPaginatedResult } from '../interfaces';
 import { TenantRegistry } from './TenantRegistry';
@@ -140,9 +143,9 @@ export class TenantManager extends EventEmitter implements ITenantManager {
       description: fullConfig.description,
       status: TenantStatus.CREATING,
       ownerId: fullConfig.ownerId,
-      billingMode: fullConfig.billingMode ?? 'free',
+      billingMode: fullConfig.billingMode ?? BillingMode.FREE,
       planId: fullConfig.planId!,
-      isolationConfig: fullConfig.isolationConfig,
+      isolationConfig: (fullConfig.isolationConfig ?? { level: IsolationLevel.STANDARD }) as IsolationConfig,
       customDomain: fullConfig.customDomain,
       metadata: fullConfig.metadata,
       tags: fullConfig.tags,

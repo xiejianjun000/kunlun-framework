@@ -18,6 +18,7 @@ import {
 import {
   RegistrationChannelType,
   RegistrationError,
+  RegistrationRequest,
   PhoneRegistrationRequest,
   User,
   UserStatus,
@@ -94,7 +95,7 @@ export class PhoneChannel extends RegistrationChannel {
    * 
    * @param config 手机号配置
    */
-  constructor(config?: Partial<SMSConfig & ChannelConfig>) {
+  constructor(config?: Partial<SMSConfig> & Partial<ChannelConfig>) {
     super(config);
 
     this.smsConfig = {

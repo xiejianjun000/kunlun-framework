@@ -28,10 +28,12 @@ class CounterActor extends Actor {
       this.count++;
       console.log(`[CounterActor] 计数: ${this.count}`);
     } else if (message.type === 'get') {
-      this.context?.parent.tell({
-        type: 'count',
-        payload: this.count
-      }, this.context.self);
+      if (this.context?.parent) {
+        this.context.parent.tell({
+          type: 'count',
+          payload: this.count
+        }, this.context.self);
+      }
     }
   }
 }

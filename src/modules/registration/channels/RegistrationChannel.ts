@@ -120,8 +120,8 @@ export abstract class RegistrationChannel implements IRegistrationChannel {
    * 
    * @param config 通道配置
    */
-  constructor(config?: ChannelConfig) {
-    this.config = config || { enabled: true };
+  constructor(config?: Partial<ChannelConfig>) {
+    this.config = config ? { ...config, enabled: config.enabled ?? true } : { enabled: true };
     this.captchaStore = new Map();
   }
 

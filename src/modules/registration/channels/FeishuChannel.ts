@@ -19,6 +19,7 @@ import {
   RegistrationChannelType,
   RegistrationError,
   FeishuQRCodeRequest,
+  OAuthProviderType,
   User,
   UserStatus,
 } from '../types';
@@ -84,7 +85,7 @@ export class FeishuChannel extends RegistrationChannel {
    * 
    * @param config 飞书配置
    */
-  constructor(config?: Partial<FeishuAppConfig & ChannelConfig>) {
+  constructor(config?: Partial<FeishuAppConfig> & Partial<ChannelConfig>) {
     super(config);
     
     this.feishuConfig = {
@@ -152,7 +153,7 @@ export class FeishuChannel extends RegistrationChannel {
         registeredVia: RegistrationChannelType.FEISHU,
         type: 'regular' as any,
         status: UserStatus.ACTIVE, // 飞书授权自动激活
-        oauthProvider: 'feishu',
+        oauthProvider: OAuthProviderType.FEISHU,
         oauthUserId: feishuUserInfo.unionId,
         metadata: {
           feishuOpenId: feishuUserInfo.openId,

@@ -9,6 +9,8 @@ import {
   EvolutionVersion,
   HistoryQueryOptions,
   EvolutionConfig,
+  EvolutionTriggerType,
+  EvolutionStatus,
 } from '../interfaces';
 
 /** 存储接口 */
@@ -306,11 +308,11 @@ export class EvolutionHistory {
       userId,
       tenantId,
       evolutionId: versionId,
-      triggerType: 'manual',
+      triggerType: EvolutionTriggerType.MANUAL,
       triggeredAt: new Date(),
       startedAt: new Date(),
       completedAt: new Date(),
-      status: 'completed',
+      status: EvolutionStatus.COMPLETED,
       fitnessScore: 0,
       fitnessDelta: 0,
       mutationCount: 0,
@@ -345,8 +347,8 @@ export class EvolutionHistory {
     const records = await this.query(userId, tenantId, { limit: 10000 });
     const rewards = await this.getRewards(userId, tenantId);
 
-    const successfulRecords = records.filter(r => r.status === 'completed').length;
-    const failedRecords = records.filter(r => r.status === 'failed').length;
+    const successfulRecords = records.filter(r => r.status === EvolutionStatus.COMPLETED).length;
+    const failedRecords = records.filter(r => r.status === EvolutionStatus.FAILED).length;
 
     const averageFitness =
       records.length > 0

@@ -492,6 +492,7 @@ export class SkillEvolutionTracker {
    */
   async getStatistics(): Promise<{
     totalPatterns: number;
+    totalGenerated: number;
     totalUsages: number;
     overallSuccessRate: number;
     patternsByDomain: Record<string, number>;
@@ -516,6 +517,7 @@ export class SkillEvolutionTracker {
 
     return {
       totalPatterns: patterns.length,
+      totalGenerated: patterns.length,
       totalUsages,
       overallSuccessRate: totalUsages > 0 ? successfulUsages / totalUsages : 0,
       patternsByDomain,

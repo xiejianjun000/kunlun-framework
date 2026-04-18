@@ -75,7 +75,7 @@ export class StorageIsolator extends ResourceIsolator implements IStorageIsolato
     switch (this.isolationLevel) {
       case IsolationLevel.STRICT:
         // 独立数据库
-        identifiers.databaseName = `${this.config.database?.prefix ?? 'Taiji_'}${tenantId}`;
+        identifiers.databaseName = `${this.config.schemaPrefix ?? 'Taiji_'}${tenantId}`;
         break;
 
       case IsolationLevel.STANDARD:

@@ -308,6 +308,8 @@ export interface UsageRecord {
   timestamp: Date;
   /** 描述 */
   description?: string;
+  /** 元数据 */
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -326,6 +328,24 @@ export interface InvoiceItem {
   unitPrice: number;
   /** 小计 */
   subtotal: number;
+}
+
+/**
+ * 账单状态枚举
+ */
+export enum InvoiceStatus {
+  /** 草稿 */
+  DRAFT = 'draft',
+  /** 待支付 */
+  PENDING = 'pending',
+  /** 已支付 */
+  PAID = 'paid',
+  /** 逾期 */
+  OVERDUE = 'overdue',
+  /** 已取消 */
+  CANCELLED = 'cancelled',
+  /** 已退款 */
+  REFUNDED = 'refunded',
 }
 
 /**
@@ -354,7 +374,7 @@ export interface Invoice {
   /** 货币 */
   currency: string;
   /** 状态 */
-  status: 'draft' | 'pending' | 'paid' | 'overdue' | 'cancelled';
+  status: InvoiceStatus;
   /** 创建时间 */
   createdAt: Date;
   /** 支付时间 */

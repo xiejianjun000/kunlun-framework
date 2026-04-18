@@ -105,7 +105,7 @@ export class WeChatOAuth extends OAuthProvider {
     return {
       clientId: this.wechatConfig.clientId,
       redirectUri: this.wechatConfig.callbackUrl,
-      scope: this.wechatConfig.scopes.join(' '),
+      scope: this.wechatConfig.scopes,
       state,
       responseType: 'code',
     };

@@ -26,17 +26,25 @@ export interface HeartbeatManagerConfig {
   /** 失败阈值 */
   failureThreshold?: number;
   /** 通知回调 */
-  onNotify?: (results: CheckResult[]) => void;
+  onNotify?: ((results: CheckResult[]) => void) | undefined;
   /** 检查完成回调 */
-  onCheckComplete?: (results: CheckResult[]) => void;
+  onCheckComplete?: ((results: CheckResult[]) => void) | undefined;
   /** 日志函数 */
-  logger?: (msg: string) => void;
+  logger?: ((msg: string) => void) | undefined;
 }
 
 export class HeartbeatManager {
   private checker: HeartbeatChecker;
   private scheduler: HeartbeatScheduler;
-  private config: Required<HeartbeatManagerConfig>;
+  private config: {
+    interval: number;
+    checklistPath: string;
+    enableBuiltinCheckers: boolean;
+    failureThreshold: number;
+    onNotify?: (results: CheckResult[]) => void;
+    onCheckComplete?: (results: CheckResult[]) => void;
+    logger: (msg: string) => void;
+  };
   private stats: HeartbeatStats;
   private startTime: Date;
   private context: Partial<CheckerContext>;

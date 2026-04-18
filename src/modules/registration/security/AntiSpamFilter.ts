@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { AntiSpamConfig } from '../../core/config/TaijiConfig';
+import { AntiSpamConfig } from '../../../core/config/OpenTaijiConfig';
 import { ClientInfo } from '../types';
 
 /**

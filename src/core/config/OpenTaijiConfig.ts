@@ -468,24 +468,27 @@ export class ConfigManager {
    * 深度合并对象
    */
   private deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
-    const result = { ...target };
+    const result = { ...target } as Record<string, any>;
     for (const key in source) {
       if (source[key] !== undefined) {
         if (
           typeof source[key] === 'object' &&
           source[key] !== null &&
-          !Array.isArray(source[key])
+          !Array.isArray(source[key]) &&
+          typeof target[key] === 'object' &&
+          target[key] !== null &&
+          !Array.isArray(target[key])
         ) {
           result[key] = this.deepMerge(
             target[key] as Record<string, any>,
             source[key] as Record<string, any>
           );
         } else {
-          result[key] = source[key] as T[Extract<keyof T, string>];
+          result[key] = source[key];
         }
       }
     }
-    return result;
+    return result as T;
   }
 
   /**

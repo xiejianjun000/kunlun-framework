@@ -180,7 +180,7 @@ export class SkillExecutor
           Date.now() - startTime
         );
 
-        await this.hooks.trigger('onExecuteTimeout', { executionId, skillId: context.skillId });
+        await this.hooks.trigger(HookEvent.EXECUTE_TIMEOUT, { executionId, skillId: context.skillId });
         return result;
       }
 

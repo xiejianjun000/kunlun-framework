@@ -12,6 +12,7 @@ import {
   QuotaPlanConfig,
   ResourceQuotaConfig,
   ResourceType,
+  IsolationLevel,
 } from '../types';
 
 /**
@@ -92,7 +93,7 @@ export const DEFAULT_QUOTA_PLANS: QuotaPlanConfig[] = [
  * 默认隔离配置
  */
 export const DEFAULT_ISOLATION_CONFIG: IsolationConfig = {
-  level: 'standard',
+  level: IsolationLevel.STANDARD,
   database: {
     prefix: 'Taiji_',
     dedicated: false,

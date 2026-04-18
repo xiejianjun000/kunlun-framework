@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { CaptchaConfig } from '../../core/config/TaijiConfig';
+import { CaptchaConfig } from '../../../core/config/OpenTaijiConfig';
 
 /**
  * 验证码类型
@@ -27,9 +27,9 @@ export enum CaptchaType {
 }
 
 /**
- * 验证码信息
+ * 验证码记录信息
  */
-export interface CaptchaInfo {
+export interface CaptchaRecord {
   /** 验证码ID */
   captchaId: string;
   /** 验证码类型 */
@@ -68,7 +68,7 @@ export class CaptchaVerifier {
   private config: CaptchaConfig;
   
   /** 验证码存储 */
-  private captchaStore: Map<string, CaptchaInfo>;
+  private captchaStore: Map<string, CaptchaRecord>;
   
   /** IP验证码计数 */
   private ipAttemptCount: Map<string, { count: number; resetAt: Date }>;
@@ -103,7 +103,7 @@ export class CaptchaVerifier {
     const expiresAt = new Date(Date.now() + this.config.expireSeconds * 1000);
 
     // 存储验证码信息
-    const captchaInfo: CaptchaInfo = {
+    const captchaInfo: CaptchaRecord = {
       captchaId,
       type: CaptchaType.IMAGE,
       value,
@@ -348,7 +348,7 @@ export class CaptchaVerifier {
     const verifyToken = this.generateToken();
     const expiresAt = new Date(Date.now() + this.config.expireSeconds * 1000);
 
-    const captchaInfo: CaptchaInfo = {
+    const captchaInfo: CaptchaRecord = {
       captchaId: this.generateId(),
       type,
       value,

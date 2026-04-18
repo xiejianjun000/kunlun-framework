@@ -273,14 +273,14 @@ export class EvolutionAnalyzer {
       };
     }
 
-    const executionTimes = history.map(r => r.executionTime);
+    const executionTimes = history.map(r => r.executionTime ?? 0);
     const mutations = history.map(r => r.mutationCount);
 
     return {
       avgExecutionTime:
         executionTimes.reduce((a, b) => a + b, 0) / executionTimes.length,
-      minExecutionTime: Math.min(...executionTimes),
-      maxExecutionTime: Math.max(...executionTimes),
+      minExecutionTime: executionTimes.length > 0 ? Math.min(...executionTimes) : 0,
+      maxExecutionTime: executionTimes.length > 0 ? Math.max(...executionTimes) : 0,
       avgMutations: mutations.reduce((a, b) => a + b, 0) / mutations.length,
     };
   }
@@ -370,9 +370,9 @@ export class EvolutionAnalyzer {
       fitnessValues.length;
     const fitnessStdDev = Math.sqrt(fitnessVariance);
 
-    const executionTimes = history.map(r => r.executionTime);
+    const executionTimes = history.map(r => r.executionTime ?? 0);
     const avgTime =
-      executionTimes.reduce((a, b) => a + b, 0) / executionTimes.length;
+      executionTimes.reduce((a, b) => a + b, 0) / (executionTimes.length || 1);
 
     // 检测适应度异常
     for (const record of history) {
@@ -393,12 +393,12 @@ export class EvolutionAnalyzer {
 
     // 检测性能异常
     for (const record of history) {
-      if (record.executionTime > avgTime * 3) {
+      if ((record.executionTime ?? 0) > avgTime * 3) {
         performanceAnomalies.push({
           record,
           severity: 'high',
         });
-      } else if (record.executionTime > avgTime * 2) {
+      } else if ((record.executionTime ?? 0) > avgTime * 2) {
         performanceAnomalies.push({
           record,
           severity: 'medium',

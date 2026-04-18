@@ -533,6 +533,7 @@ export interface SkillRegistry {
 
 export interface GenerationStatistics {
   totalPatterns: number;
+  totalGenerated: number;
   totalUsages: number;
   overallSuccessRate: number;
   patternsByDomain: Record<string, number>;

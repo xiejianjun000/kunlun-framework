@@ -397,9 +397,9 @@ export class DependencyResolver {
       return [];
     }
 
-    return this.packageManager.generateInstallCommand(
+    return [this.packageManager.generateInstallCommand(
       notInstalled.map((d) => d.resolved ?? d.name)
-    );
+    )];
   }
 
   /**
@@ -521,7 +521,7 @@ class PackageManager {
   /**
    * 生成安装命令
    */
-  generateInstallCommand(packages: string[]): string[] {
+  generateInstallCommand(packages: string[]): string {
     const cmd = this.config.packageManager;
     const args = ['install', ...packages];
     return [cmd, ...args].join(' ');

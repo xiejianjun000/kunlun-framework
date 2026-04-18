@@ -18,6 +18,7 @@ import {
 import {
   RegistrationChannelType,
   RegistrationError,
+  OAuthProviderType,
   WeChatQRCodeRequest,
   User,
   UserStatus,
@@ -125,7 +126,7 @@ export class WeChatChannel extends RegistrationChannel {
    * 
    * @param config 微信配置
    */
-  constructor(config?: Partial<WeChatAppConfig & ChannelConfig>) {
+  constructor(config?: Partial<WeChatAppConfig> & Partial<ChannelConfig>) {
     super(config);
 
     this.wechatConfig = {
@@ -206,7 +207,7 @@ export class WeChatChannel extends RegistrationChannel {
         registeredVia: RegistrationChannelType.WECHAT,
         type: 'regular' as any,
         status: UserStatus.ACTIVE, // 微信授权自动激活
-        oauthProvider: 'wechat',
+        oauthProvider: OAuthProviderType.WECHAT,
         oauthUserId: wechatUserInfo.unionid || wechatUserInfo.openid,
         metadata: {
           wechatOpenId: wechatUserInfo.openid,

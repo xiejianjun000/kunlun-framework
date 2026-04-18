@@ -431,7 +431,7 @@ export class SkillHooks extends EventEmitter {
 
     try {
       // 设置超时
-      const promise = hook.fn(context as HookContext);
+      const promise = hook.fn(context as unknown as HookContext);
       const timeoutPromise = new Promise<never>((_, reject) => {
         setTimeout(
           () => reject(new Error('Hook timeout')),

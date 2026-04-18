@@ -271,7 +271,7 @@ export class TaijiFramework {
       error: 3,
     };
 
-    const currentLevel = levels[this.config.logger.level];
+    const currentLevel = levels[this.config.logger.level as keyof typeof levels] ?? levels.info;
 
     return (level: string, msg: string) => {
       if (levels[level] >= currentLevel) {

@@ -221,7 +221,7 @@ export class LLMEnhancedReward extends RewardModel {
       samples.push({
         query: context.metadata?.currentQuery as string ?? '当前任务',
         response: context.metadata?.currentResponse as string ?? '',
-        feedback: context.feedback ? {
+        feedback: context.feedback?.content !== undefined ? {
           type: context.feedback.type === 'explicit' ? 'positive' : 'negative',
           content: context.feedback.content,
         } : undefined,

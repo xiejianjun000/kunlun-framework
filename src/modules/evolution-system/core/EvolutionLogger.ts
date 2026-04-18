@@ -196,8 +196,8 @@ export class EvolutionLogger {
       entries = entries.filter(e => e.evolutionId === query.evolutionId);
     }
 
-    if (query.level) {
-      entries = entries.filter(e => e.level >= query.level);
+    if (query.level !== undefined) {
+      entries = entries.filter(e => e.level >= query.level!);
     }
 
     if (query.startTime) {

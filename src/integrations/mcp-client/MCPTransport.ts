@@ -410,7 +410,7 @@ export class SSETransport extends MCPTransport {
    */
   private async readStream(
     reader: ReadableStreamDefaultReader<Uint8Array>,
-    decoder: TextDecoder
+    decoder: typeof TextDecoder.prototype
   ): Promise<void> {
     try {
       while (true) {

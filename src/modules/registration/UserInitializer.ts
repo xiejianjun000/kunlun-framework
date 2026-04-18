@@ -9,7 +9,7 @@
  */
 
 import { User } from './types';
-import { getConfig, StorageConfig } from '../../core/config/TaijiConfig';
+import { getConfig, StorageConfig } from '../../core/config/OpenTaijiConfig';
 
 /**
  * 初始化结果

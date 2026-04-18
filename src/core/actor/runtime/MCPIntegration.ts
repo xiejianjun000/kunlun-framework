@@ -252,9 +252,9 @@ export interface MCPActorFactoryOptions {
 /** 创建MCP集成Actor的工厂函数 */
 export function createMCPActorFactory(options: MCPActorFactoryOptions) {
   return class MCPActor {
-    private mcpCaller: IMCToolCaller;
-    private toolNames: Set<string>;
-    private autoSubscribe: boolean;
+    public mcpCaller: IMCToolCaller;
+    public toolNames: Set<string>;
+    public autoSubscribe: boolean;
 
     constructor() {
       this.mcpCaller = options.mcpCaller;

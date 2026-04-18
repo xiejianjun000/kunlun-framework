@@ -16,8 +16,11 @@ export {
 export {
   EvolutionScheduler,
   type TaskStatus,
-  type EvolutionSchedulerConfig,
 } from './core/EvolutionScheduler';
+
+export {
+  type EvolutionSchedulerConfig,
+} from './core/types';
 
 export {
   EvolutionLogger,

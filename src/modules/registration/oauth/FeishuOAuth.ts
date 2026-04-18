@@ -105,7 +105,7 @@ export class FeishuOAuth extends OAuthProvider {
     return {
       clientId: this.feishuConfig.clientId,
       redirectUri: this.feishuConfig.callbackUrl,
-      scope: this.feishuConfig.scopes.join(' '),
+      scope: this.feishuConfig.scopes,
       state,
       responseType: 'code',
     };

@@ -65,7 +65,7 @@ export class TraitValidator {
     context: EvolutionContext
   ): Promise<TraitValidationResult> {
     const errors: string[] = [];
-    let correctedValue = mutation.newValue;
+    let correctedValue: number | undefined = undefined;
 
     // 1. 基础类型验证
     if (typeof mutation.newValue !== typeof mutation.oldValue) {
@@ -81,7 +81,7 @@ export class TraitValidator {
       if (!rangeResult.valid) {
         errors.push(...rangeResult.errors);
         if (this.config.autoCorrect && rangeResult.correctedValue !== undefined) {
-          correctedValue = rangeResult.correctedValue;
+          correctedValue = rangeResult.correctedValue as number;
         }
       }
     }
@@ -91,7 +91,7 @@ export class TraitValidator {
     if (!constraintResult.valid) {
       errors.push(...constraintResult.errors);
       if (this.config.autoCorrect && constraintResult.correctedValue !== undefined) {
-        correctedValue = constraintResult.correctedValue;
+        correctedValue = constraintResult.correctedValue as number;
       }
     }
 

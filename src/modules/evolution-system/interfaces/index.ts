@@ -97,6 +97,8 @@ export interface EvolutionHistoryRecord {
   startedAt: Date;
   /** 结束时间 */
   completedAt?: Date;
+  /** 执行时间(ms) */
+  executionTime?: number;
   /** 进化状态 */
   status: EvolutionStatus;
   /** 适应度分数 */

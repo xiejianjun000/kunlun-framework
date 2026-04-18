@@ -464,21 +464,3 @@ export interface TaskStatus {
   /** 统计信息 */
   stats: TaskStats;
 }
-
-/** 调度器配置 */
-export interface EvolutionSchedulerConfig {
-  /** 最大并发任务数 */
-  maxConcurrentTasks: number;
-  /** 默认间隔 */
-  defaultInterval: number;
-  /** 最小间隔 */
-  minInterval: number;
-  /** 最大间隔 */
-  maxInterval: number;
-  /** 失败时重试 */
-  retryOnFailure: boolean;
-  /** 最大重试次数 */
-  maxRetries: number;
-  /** 重试延迟 */
-  retryDelay: number;
-}

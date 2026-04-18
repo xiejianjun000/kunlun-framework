@@ -8,17 +8,11 @@
  * @version 1.0.0
  */
 
-import { PasswordPolicy } from '../../core/config/TaijiConfig';
+import { PasswordPolicy } from '../../../core/config/OpenTaijiConfig';
+import { ValidationResult } from '../types';
 
-/**
- * 验证结果
- */
-export interface ValidationResult {
-  /** 是否通过 */
-  valid: boolean;
-  /** 错误消息列表 */
-  errors: string[];
-}
+// Re-export ValidationResult for convenience
+export { ValidationResult };
 
 /**
  * 用户名验证规则

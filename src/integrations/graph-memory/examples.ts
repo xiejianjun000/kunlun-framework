@@ -211,8 +211,8 @@ export async function batchOperationExample(): Promise<void> {
 
   const fileNode = nodes[0];
   const edges: CreateEdgeInput[] = [
-    { sourceId: fileNode.id, targetId: nodes[1].id, kind: 'CONTAINS' },
-    { sourceId: fileNode.id, targetId: nodes[2].id, kind: 'CONTAINS' },
+    { sourceId: fileNode.id!, targetId: nodes[1].id!, kind: 'CONTAINS' },
+    { sourceId: fileNode.id!, targetId: nodes[2].id!, kind: 'CONTAINS' },
   ];
 
   // 原子性存储

@@ -553,6 +553,8 @@ export class UsageTracker implements IUsageTracker {
       tenantId,
       resourceType,
       quantity,
+      unitPrice: 0,
+      totalPrice: 0,
       timestamp: new Date(),
       metadata,
     };

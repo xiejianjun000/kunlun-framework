@@ -162,10 +162,10 @@ export class LLMEnhancedReinforcementStrategy extends EvolutionStrategy {
         success: optimizedMutations.length > 0,
         newState: {
           ...context.currentState,
-          fitness: actionResult.newState.fitness,
+          fitness: actionResult.newState.fitness as number,
         },
         mutations: optimizedMutations,
-        fitnessDelta: actionResult.newState.fitness - ((context.currentState.fitness as number) ?? 0.5),
+        fitnessDelta: (actionResult.newState.fitness as number) - ((context.currentState.fitness as number) ?? 0.5),
         executionTime: Date.now() - startTime,
       };
     } catch (error) {

@@ -29,7 +29,7 @@ import { EvolutionScheduler } from './EvolutionScheduler';
 import { EvolutionLogger, EvolutionLogEntry } from './EvolutionLogger';
 import { EvolutionHistory } from '../history/EvolutionHistory';
 import { EvolutionAnalyzer } from '../history/EvolutionAnalyzer';
-import { RewardModel } from '../rewards/RewardModel';
+import { EvolutionaryReward } from '../rewards/EvolutionaryReward';
 import { LLMEnhancedReward } from '../rewards/LLMEnhancedReward';
 import { LLMOptimizer, LLMOptimizerConfig } from './LLMOptimizer';
 
@@ -59,7 +59,7 @@ export class EvolutionSystem implements IEvolutionSystem {
   private readonly logger: EvolutionLogger;
   private readonly history: EvolutionHistory;
   private readonly analyzer: EvolutionAnalyzer;
-  private readonly baseRewardModel: RewardModel;
+  private readonly baseRewardModel: EvolutionaryReward;
   private readonly llmRewardModel: LLMEnhancedReward;
   private readonly llmOptimizer: LLMOptimizer;
   private readonly eventEmitter: EventEmitter;
@@ -78,7 +78,7 @@ export class EvolutionSystem implements IEvolutionSystem {
     this.logger = new EvolutionLogger();
     this.history = new EvolutionHistory(storageAdapter);
     this.analyzer = new EvolutionAnalyzer();
-    this.baseRewardModel = new RewardModel();
+    this.baseRewardModel = new EvolutionaryReward();
     this.llmRewardModel = new LLMEnhancedReward({
       llmOptimizer: config?.llmOptimizer,
     });
@@ -669,7 +669,7 @@ export class EvolutionSystem implements IEvolutionSystem {
       triggeredAt: new Date(Date.now() - result.executionTime),
       startedAt: new Date(Date.now() - result.executionTime),
       completedAt: new Date(),
-      status: result.success ? 'completed' : 'failed',
+      status: result.success ? EvolutionStatus.COMPLETED : EvolutionStatus.FAILED,
       fitnessScore: result.fitnessScore,
       fitnessDelta: result.improvement,
       mutationCount: result.mutations.length,

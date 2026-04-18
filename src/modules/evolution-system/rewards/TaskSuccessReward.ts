@@ -110,10 +110,10 @@ export class TaskSuccessReward extends RewardModel {
   }
 
   /**
-   * 创建奖励对象
+   * 获取奖励类型
    * @param context 上下文
    */
-  createReward(context: RewardContext): RewardType {
+  getRewardType(context: RewardContext): RewardType {
     if (!context.task) {
       return RewardType.TASK_SUCCESS;
     }

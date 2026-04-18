@@ -9,7 +9,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { ConfigManager, getConfig, RegistrationConfig } from '../../core/config/TaijiConfig';
+import { ConfigManager, getConfig, RegistrationConfig } from '../../core/config/OpenTaijiConfig';
 import {
   User,
   RegistrationChannelType,
@@ -186,7 +186,7 @@ export class RegistrationSystem extends EventEmitter implements IRegistrationSys
           continue;
       }
       
-      this.channels.set(channelConfig.type, channel);
+      this.channels.set(channelConfig.type as RegistrationChannelType, channel);
     }
   }
 
@@ -201,17 +201,17 @@ export class RegistrationSystem extends EventEmitter implements IRegistrationSys
       
       switch (providerConfig.type) {
         case OAuthProviderType.FEISHU:
-          provider = new FeishuOAuth(providerConfig);
+          provider = new FeishuOAuth(providerConfig as any);
           break;
         case OAuthProviderType.WECHAT:
-          provider = new WeChatOAuth(providerConfig);
+          provider = new WeChatOAuth(providerConfig as any);
           break;
         // 其他提供商可在此扩展
         default:
           continue;
       }
       
-      this.oauthProviders.set(providerConfig.type, provider);
+      this.oauthProviders.set(providerConfig.type as OAuthProviderType, provider);
     }
   }
 

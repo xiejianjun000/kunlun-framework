@@ -347,7 +347,7 @@ export class SkillInstaller extends EventEmitter {
       }
 
       // 触发后置钩子
-      await this.hooks.trigger('onAfterUpdate', {
+      await this.hooks.trigger(HookEvent.AFTER_UPDATE, {
         executionId,
         skillId,
         success: true,

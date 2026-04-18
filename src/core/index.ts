@@ -7,7 +7,7 @@ export {
   TaijiFramework,
   createTaijiFramework,
   type TaijiFrameworkConfig,
-} from './TaijiFramework';
+} from './OpenTaijiFramework';
 
 // 心跳模块
 export {

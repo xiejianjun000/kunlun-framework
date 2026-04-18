@@ -11,6 +11,7 @@ import {
   InvoiceItem,
   ResourceType,
   BillingMode,
+  InvoiceStatus,
 } from '../types';
 
 /**
@@ -27,24 +28,6 @@ export enum BillingCycle {
   QUARTERLY = 'quarterly',
   /** 每年 */
   YEARLY = 'yearly',
-}
-
-/**
- * 账单状态
- */
-export enum InvoiceStatus {
-  /** 草稿 */
-  DRAFT = 'draft',
-  /** 待支付 */
-  PENDING = 'pending',
-  /** 已支付 */
-  PAID = 'paid',
-  /** 逾期 */
-  OVERDUE = 'overdue',
-  /** 已取消 */
-  CANCELLED = 'cancelled',
-  /** 已退款 */
-  REFUNDED = 'refunded',
 }
 
 /**
@@ -69,8 +52,8 @@ export interface ResourcePricing {
 export interface TierPrice {
   /** 起始用量 */
   from: number;
-  /** 结束用量 (Infinity表示无上限) */
-  to: number | Infinity;
+  /** 结束用量 (-1表示无上限) */
+  to: number;
   /** 该阶梯单价 */
   unitPrice: number;
 }

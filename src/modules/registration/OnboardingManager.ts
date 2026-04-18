@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { ConfigManager, getConfig, OnboardingConfig, OnboardingStepConfig } from '../../core/config/TaijiConfig';
+import { ConfigManager, getConfig, OnboardingConfig, OnboardingStepConfig } from '../../core/config/OpenTaijiConfig';
 import { OnboardingProgress, OnboardingStepResult, UserPreferences } from './types';
 
 /**
@@ -99,8 +99,8 @@ export class OnboardingManager {
     // 创建新的引导进度
     const now = new Date();
     const steps: OnboardingStepRecord[] = this.config.steps
-      .sort((a, b) => a.order - b.order)
-      .map(stepConfig => ({
+      .sort((a: OnboardingStepConfig, b: OnboardingStepConfig) => a.order - b.order)
+      .map((stepConfig: OnboardingStepConfig) => ({
         stepId: stepConfig.id,
         config: stepConfig,
         status: stepConfig.id === this.config.steps[0]?.id 
@@ -349,17 +349,17 @@ export class OnboardingManager {
   public async getRequiredStepsRemaining(userId: string): Promise<OnboardingStepConfig[]> {
     const progress = this.progressStore.byUserId.get(userId);
     if (!progress) {
-      return this.config.steps.filter(s => s.required);
+      return this.config.steps.filter((s: OnboardingStepConfig) => s.required);
     }
 
     return progress.steps
       .filter(
-        s => 
+        (s: OnboardingStepRecord) => 
           s.config.required &&
           s.status !== OnboardingStepStatus.COMPLETED &&
           s.status !== OnboardingStepStatus.SKIPPED
       )
-      .map(s => s.config);
+      .map((s: OnboardingStepRecord) => s.config);
   }
 
   /**
@@ -386,8 +386,8 @@ export class OnboardingManager {
   public async getStepsWithStatus(userId: string): Promise<Array<OnboardingStepConfig & { status: OnboardingStepStatus }>> {
     const progress = this.progressStore.byUserId.get(userId);
     
-    return this.config.steps.map(stepConfig => {
-      const stepRecord = progress?.steps.find(s => s.stepId === stepConfig.id);
+    return this.config.steps.map((stepConfig: OnboardingStepConfig) => {
+      const stepRecord = progress?.steps.find((s: OnboardingStepRecord) => s.stepId === stepConfig.id);
       return {
         ...stepConfig,
         status: stepRecord?.status || OnboardingStepStatus.PENDING,

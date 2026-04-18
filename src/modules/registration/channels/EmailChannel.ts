@@ -18,6 +18,7 @@ import {
 import {
   RegistrationChannelType,
   RegistrationError,
+  RegistrationRequest,
   EmailRegistrationRequest,
   User,
   UserStatus,
@@ -101,7 +102,7 @@ export class EmailChannel extends RegistrationChannel {
    * @param config 邮箱配置
    */
   constructor(
-    config?: Partial<EmailConfig & ChannelConfig & { validator?: RegistrationValidator }>
+    config?: Partial<EmailConfig> & Partial<ChannelConfig> & { validator?: RegistrationValidator }
   ) {
     super(config);
 
@@ -256,7 +257,8 @@ export class EmailChannel extends RegistrationChannel {
       throw new Error('Invalid email format');
     }
 
-    return this.sendCodeToEmail(contact);
+    // 调用父类的sendVerificationCode，它会调用sendCodeToContact
+    return super.sendVerificationCode(contact, tenantId);
   }
 
   /**
@@ -375,13 +377,8 @@ export class EmailChannel extends RegistrationChannel {
   /**
    * 发送验证码到邮箱
    */
-  protected async sendCodeToContact(contact: string, code: string): Promise<CaptchaInfo> {
-    const token = this.generateToken();
-    const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5分钟过期
-
-    this.captchaStore.set(token, { code, expiresAt });
-
-    const emailContent = this.buildCaptchaEmail(code, expiresAt);
+  protected async sendCodeToContact(contact: string, code: string): Promise<void> {
+    const emailContent = this.buildCaptchaEmail(code, new Date(Date.now() + 5 * 60 * 1000));
     
     await this.sendEmail({
       to: contact,
@@ -389,12 +386,6 @@ export class EmailChannel extends RegistrationChannel {
       html: emailContent.html,
       text: emailContent.text,
     });
-
-    return {
-      captcha: code,
-      token,
-      expiresAt,
-    };
   }
 
   /**
