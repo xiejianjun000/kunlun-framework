@@ -58,7 +58,7 @@ interface IPersonalitySystem {
 }
 ```
 
-**Why it matters**: An environmental review agent (仓颉) should be rigorous and compliance-focused. A creative assistant should be imaginative. Taiji lets you define and distill these personalities.
+**Why it matters**: An environmental review agent should be rigorous and compliance-focused. A creative assistant should be imaginative. Kunlun lets you define and distill these personalities.
 
 ### 🤝 Multi-Agent Collaboration
 
@@ -67,90 +67,72 @@ interface IPersonalitySystem {
 const task = {
   type: 'environmental_review',
   agents: [
-    { id: 'cangjie', role: 'lead_reviewer' },      // 环评审批
-    { id: 'yinglong', role: 'water_expert' },      // 水环境
-    { id: 'zhurong', role: 'air_expert' },         // 大气环境
-    { id: 'diting', role: 'compliance_checker' },  // 督察审查
+    { id: 'reviewer', role: 'lead_reviewer' },      // 环评审批
+    { id: 'water_expert', role: 'water_expert' },      // 水环境
+    { id: 'air_expert', role: 'air_expert' },         // 大气环境
+    { id: 'compliance_checker', role: 'compliance_checker' },  // 督察审查
   ]
 };
 
 // Agents coordinate, share context, and deliver unified results
-await Taiji.executeCollaborativeTask(task);
+await kunlun.executeCollaborativeTask(task);
 ```
 
-### 🔧 Skill Ecosystem Compatibility
+### ⚡ Skill Evolution System
 
-Taiji unifies skill formats from major frameworks:
-
-```
-UnifiedSkill = ClawHub + Hermes + Taiji
-```
-
-- Import skills from ClawHub marketplace
-- Convert Hermes skills to Taiji format
-- Create new Taiji-native skills
-
-### 💓 Heartbeat Self-Check System
-
-Three lines of defense to keep agents on track:
-
-| Defense Layer | Trigger | Action |
-|---------------|---------|--------|
-| Real-time check | Before each response | Verify SOUL compliance |
-| Heartbeat patrol | Every 30 minutes | Review recent behavior |
-| User feedback | When user says "off track" | Deep correction |
-
-**Built-in checkers**:
-- `persona_compliance` — Personality consistency
-- `tool_call` — Tool call failure detection
-- `memory_pollution` — Memory conflict detection
-- `task_completion` — Long-running task alerts
-- `system_health` — Resource monitoring
-
-### 🔒 Enterprise-Ready Security
-
-**Three-level security presets**:
-
-| Preset | Sandbox | File Access | Commands | Use Case |
-|--------|---------|-------------|----------|----------|
-| developer | Off | Any | Any | Development |
-| standard (default) | On | User folder | No sudo | Regular users |
-| enterprise | Strict | App-only | App-only | Enterprises |
-
-**Proactive authorization** for dangerous operations:
-- Sudo commands, rm -rf
-- Sensitive files (~/.ssh, .env)
-- Unknown domains
-- System modifications
+Agents improve themselves through:
+- **RL Training Flywheel**: Real-world task execution → trajectory data → model improvement
+- **Genetic Mutation**: Skill variants compete and evolve
+- **Cross-Domain Transfer**: Successful patterns spread to other domains
 
 ---
 
 ## 🚀 Quick Start
 
-### Installation
-
-```bash
-npm install open-taiji
-```
-
-### Create a Framework Instance
-
 ```typescript
-import { TaijiFramework } from 'open-taiji';
+import { KunlunFramework } from 'kunlun-framework';
 
-const Taiji = new TaijiFramework({
-  // Multi-tenant configuration
+const kunlun = new KunlunFramework({
   multiTenant: {
     enabled: true,
     isolationLevel: 'standard'
   },
-  
-  // Skill system
   skillSystem: {
     maxSkillsPerUser: 100,
     skillIsolation: 'venv'
+  }
+});
+
+await kunlun.initialize();
+```
+
+---
+
+## 📦 Installation
+
+```bash
+npm install kunlun-framework
+```
+
+---
+
+## 🔧 Configuration
+
+```typescript
+const config: KunlunConfig = {
+  // Multi-tenancy
+  multiTenant: {
+    enabled: true,
+    isolationLevel: 'standard'
   },
-  
+
+  // Skill system
+  skillSystem: {
+    maxSkillsPerUser: 100,
+    skillIsolation: 'venv',
+    skillsPath: './skills'
+  },
+
   // Memory system
   memorySystem: {
     vectorDb: {
@@ -158,7 +140,7 @@ const Taiji = new TaijiFramework({
       url: 'localhost:6333'
     }
   },
-  
+
   // Security
   security: {
     level: 'standard',
@@ -167,63 +149,8 @@ const Taiji = new TaijiFramework({
       'sensitive_files',
       'system_modifications'
     ]
-  },
-
-  // Heartbeat (enabled by default)
-  heartbeat: {
-    interval: 30 * 60 * 1000,
-    enableBuiltinCheckers: true,
   }
-});
-```
-
-### Initialize and Run
-
-```typescript
-await Taiji.initialize(); // Heartbeat starts automatically
-
-// Manual heartbeat check
-const results = await Taiji.triggerHeartbeatCheck();
-
-// Add custom check item
-Taiji.addHeartbeatCheckItem({
-  id: 'custom_check',
-  name: 'Custom Check',
-  severity: 'medium',
-  check: async () => ({
-    itemId: 'custom_check',
-    status: 'pass',
-    message: 'All good'
-  })
-});
-```
-
----
-
-## 🔌 Adapter System
-
-### Storage Adapters
-
-```typescript
-import { LocalStorageAdapter } from 'open-taiji/adapters/storage/local';
-import { S3StorageAdapter } from 'open-taiji/adapters/storage/s3';
-import { MinioStorageAdapter } from 'open-taiji/adapters/storage/minio';
-```
-
-### Messaging Adapters
-
-```typescript
-import { WeChatAdapter } from 'open-taiji/adapters/messaging/wechat';
-import { WeComAdapter } from 'open-taiji/adapters/messaging/wecom';
-import { FeishuAdapter } from 'open-taiji/adapters/messaging/feishu';
-```
-
-### LLM Adapters
-
-```typescript
-import { OpenAIAdapter } from 'open-taiji/adapters/llm/openai';
-import { DeepSeekAdapter } from 'open-taiji/adapters/llm/deepseek';
-import { LocalModelAdapter } from 'open-taiji/adapters/llm/local';
+};
 ```
 
 ---
@@ -232,62 +159,37 @@ import { LocalModelAdapter } from 'open-taiji/adapters/llm/local';
 
 ```bash
 npm test
-npm run test:coverage
-npm test -- --testPathPattern=heartbeat
 ```
 
 ---
 
 ## 📚 Documentation
 
-- [Architecture Design](./docs/architecture.md)
-- [Core Interfaces](./docs/interfaces.md)
-- [Extension Points](./docs/extensions.md)
-- [Adapter Development](./docs/adapters.md)
-- [Security](./docs/security.md)
-- [Heartbeat System](./src/core/heartbeat/heartbeat.md)
-- [Deployment Guide](./docs/deployment.md)
+- [Architecture](./ARCHITECTURE.md)
+- [API Reference](./API.md)
+- [Contributing](./CONTRIBUTING.md)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md)
+We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ---
 
 ## 📄 License
 
-Apache 2.0 — See [LICENSE](./LICENSE)
+Apache 2.0 - See [LICENSE](./LICENSE)
 
 ---
 
 ## 🙏 Acknowledgments
 
-Taiji integrates core capabilities from these excellent open-source projects:
+OpenTaiji integrates core capabilities from:
 
-- [OpenCLAW](https://github.com/openclaw/openclaw) — Multi-platform messaging gateway
-- [Hermes Agent](https://github.com/NousResearch/hermes-agent) — Self-learning & memory system
-- [Claude Code](https://code.claude.com) — Professional code generation
-
----
-
-## 🌟 Why Choose Taiji?
-
-**You need Taiji if:**
-
-- ✅ You want multiple agents to work together (not just one)
-- ✅ You need each agent to have a distinct personality
-- ✅ You're building for teams or enterprises, not just individuals
-- ✅ You want to leverage skills from ClawHub, Hermes, and Taiji ecosystems
-- ✅ You need enterprise-grade security and audit capabilities
-
-**Taiji Philosophy:**
-
-> "Good architecture lets business happen naturally. Good incentives let ecosystems self-drive."
-
----
+- [OpenCLAW](https://github.com/clawdotnet/openclaw) - Multi-platform messaging gateway
+- [Hermes Agent](https://github.com/NousResearch/hermes-agent) - Self-learning and memory system
+- [Claude Code](https://code.claude.com) - Professional code generation
 
 **OpenTaiji Team**  
-📧 contact@open-taiji.dev  
-🌐 https://open-taiji.dev
+🌐 https://github.com/xiejianjun000/open-taiji
