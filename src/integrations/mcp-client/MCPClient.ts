@@ -284,6 +284,13 @@ export class MCPClient extends EventEmitter {
     return this.servers.get(serverName)?.state === ConnectionState.CONNECTED;
   }
   
+  /**
+   * 获取连接状态
+   */
+  getState(serverName: string): ConnectionState | undefined {
+    return this.servers.get(serverName)?.state;
+  }
+  
   // ============== 工具调用 ==============
   
   /**

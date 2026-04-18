@@ -262,6 +262,13 @@ export class SkillRegistry extends EventEmitter {
   }
 
   /**
+   * 获取所有技能（别名）
+   */
+  list(): SkillInfo[] {
+    return this.getAll();
+  }
+
+  /**
    * 获取技能数量
    */
   getCount(): number {

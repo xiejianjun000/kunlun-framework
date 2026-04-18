@@ -138,6 +138,13 @@ export class HeartbeatManager {
   }
 
   /**
+   * 手动触发检查（别名）
+   */
+  async check(): Promise<CheckResult[]> {
+    return this.checkNow();
+  }
+
+  /**
    * 添加自定义检查项
    */
   addCheckItem(item: CheckItem): void {
