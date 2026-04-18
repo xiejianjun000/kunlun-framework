@@ -2,7 +2,7 @@
 
 ## 概述
 
-Context Engine（上下文引擎）是OpenCLAW的核心能力，负责连接Actor、技能和记忆系统，实现智能的上下文管理。
+Context Engine（上下文引擎）是OpenTaiji的核心能力，负责连接Actor、技能和记忆系统，实现智能的上下文管理。
 
 ## 核心架构
 
