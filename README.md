@@ -1,141 +1,133 @@
-# OpenTaiji
+# OpenTaiji 太极
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg)](https://www.typescriptlang.org/)
 [![GitHub Stars](https://img.shields.io/github/stars/xiejianjun000/open-taiji?style=social)](https://github.com/xiejianjun000/open-taiji/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/xiejianjun000/open-taiji?style=social)](https://github.com/xiejianjun000/open-taiji/network/members)
 
-> **开源多智能体框架** - 整合 OpenCLAW v2026.4.15 + Hermes v0.9.0 + Claude Code
+> **动态平衡的开源多智能体框架**
 >
-> **Apache 2.0 许可证** - 所有能力100%开源，不阉割
+> Apache 2.0 许可证 · 所有能力100%开源，不阉割
 
 ---
 
-## 🎯 核心定位
+## 🎯 核心理念
 
-**OpenTaiji = 能力基座 + 接口定义 + 扩展点 + 适配器**
+**太极生两仪，两仪生四象，四象生八卦。**
 
-- ✅ **框架提供能力**：接口定义、扩展点、适配器、插件系统
-- ✅ **项目定义业务**：具体业务逻辑、技能包、知识库
+OpenTaiji相信：**智能不是静态的，而是在动态中寻求平衡。**
+
+我们构建的不是冰冷的工具，而是能够持续学习、自我进化的智能体系统。就像太极一样，柔中带刚，静中有动，在变化中找到最优解。
 
 ---
 
-## 🏗️ 五层架构
+## ✨ 核心优势
+
+### 🔄 动态人格蒸馏
+
+**业界首创的动态人格进化系统**
+
+传统人格复刻是"一次性提取"——生成一个.skill文件就结束了。OpenTaiji不同：
 
 ```
-L1 接入层 → 微信/企业微信/飞书/20+平台
-L2 网关层 → 认证 + 路由 + 限流
-L3 协调层 → Actor Runtime + Dreaming System
-L4 执行层 → 技能 + 记忆 + 人格 + 进化
-L5 数据层 → PostgreSQL + Qdrant + Redis + Kafka + Neo4j
+传统方式：用户数据 → 提取 → .skill文件 → 静止
+OpenTaiji：用户数据 → 五维画像 → 持续进化 → 三层进化体系
 ```
 
----
-
-## 🚀 核心能力
-
-### 人格蒸馏系统
-```typescript
-五维画像：
+**五维人格画像**：
 - 沟通风格 (communication_style)
 - 决策模式 (decision_making)
 - 学习偏好 (learning_preference)
 - 创造力 (creativity)
 - 风险偏好 (risk_tolerance)
-```
 
-### 技能自动生成
-```
-模式识别 → 候选生成 → 用户确认 → 质量验证
-```
+**三层进化体系**：
+- **个人层**：单次对话学习 → 行为调整
+- **部门层**：团队反馈聚合 → 风格统一
+- **系统层**：组织规范注入 → 合规保障
 
-### 技能生态兼容
-```
-UnifiedSkill = ClawHub + Hermes + Taiji
-```
+### ⚡ Actor并发模型
 
-### 自我修改能力
-```
-代码自修改 + 配置自调整 + 架构自优化
-```
+**N×1架构，支撑千人级并发**
 
-### 💓 心跳自检系统
+每个用户一个Actor，独立状态、独立记忆、独立进化：
+- 自然隔离：用户间数据天然隔离
+- 弹性扩展：Actor数量随负载自动调整
+- 容错恢复：单个Actor崩溃不影响其他用户
 
-OpenTaiji内置心跳功能，提供周期性健康检查和实时自检能力。
+### 🔌 MCP协议原生支持
 
-#### 三道防线
+**Model Context Protocol，打通模型与工具的桥梁**
 
-| 层级 | 触发时机 | 纠偏动作 |
-|------|----------|----------|
-| 实时自检 | 回复生成前 | 检查是否符合SOUL人设 |
-| 心跳巡检 | 每30分钟 | 检查最近行为是否合规 |
-| 用户反馈 | 收到"跑偏了" | 立即触发深度纠偏 |
+内置28个MCP工具，开箱即用：
+- 文件操作：读写、搜索、监控
+- 代码分析：语法树、依赖图、质量检测
+- 网络访问：HTTP请求、API调用
+- 数据处理：格式转换、数据清洗
 
-#### 内置检查项
+### 🧠 知识图谱记忆
 
-| 检查项 | 说明 | 严重级别 |
-|--------|------|----------|
-| `persona_compliance` | 人设合规检查 - 检查最近对话是否符合SOUL人设 | high |
-| `tool_call` | 工具调用检查 - 检查是否有连续失败超过阈值 | high |
-| `memory_pollution` | 记忆污染检查 - 检查记忆文件是否有矛盾内容 | medium |
-| `task_completion` | 任务完成检查 - 检查是否有长时间未完成的任务 | medium |
-| `system_health` | 系统健康检查 - 检查资源使用情况 | low |
+**SQLite原生图存储，无需额外依赖**
 
-#### 心跳模块文件结构
+- NodeManager：节点CRUD + 批量导入
+- EdgeManager：关系管理 + 类型约束
+- GraphQuery：路径查询 + 社区发现
 
-```
-src/core/heartbeat/
-├── index.ts              # 模块导出
-├── CheckItem.ts          # 接口定义
-├── HeartbeatManager.ts   # 心跳管理器（主类）
-├── HeartbeatChecker.ts   # 检查器（执行检查）
-├── HeartbeatScheduler.ts # 调度器（定时触发）
-├── heartbeat.md          # 检查清单模板
-└── checkers/
-    └── BuiltinCheckers.ts # 5个内置检查器实现
-```
+### 🌙 梦境强化系统
+
+**睡眠中的智能体更聪明**
+
+基于7种信号评分的梦境学习：
+- 用户反馈权重
+- 任务成功率
+- 知识覆盖率
+- 人设一致性
+- 技能使用频率
+- 创新尝试次数
+- 错误恢复能力
 
 ---
 
-## 🔒 安全机制
+## 🏗️ 架构设计
 
-### 三大系统安全整合
-- **OpenCLAW**：沙箱隔离（Docker容器）
-- **Hermes**：权限控制（六类五级）
-- **Claude Code**：双保险（沙箱+权限）
-
-### ⚠️ 主动授权
-**涉及电脑安全的操作必须主动跳出授权**
-
-```typescript
-必须授权的操作：
-- 危险命令（sudo、rm -rf、curl | bash）
-- 敏感文件（~/.ssh、.env、credentials）
-- 未知域名
-- 系统修改（/etc、/usr/local）
-- 进程管理（kill、systemctl）
 ```
-
-### 三级安全预设
-| 预设 | 沙箱 | 文件访问 | 命令执行 | 适用场景 |
-|------|------|---------|---------|----------|
-| developer | 关闭 | 任意 | 任意 | 开发者 |
-| standard（默认） | 开启 | 用户文件夹 | 无管理员 | 普通用户 |
-| enterprise | 严格 | 仅应用 | 仅应用内 | 企业 |
-
----
-
-## 📦 安装
-
-```bash
-npm install open-taiji
+┌─────────────────────────────────────────────────────────┐
+│                     接入层 (L1)                          │
+│   微信 · 企业微信 · 飞书 · 钉钉 · Slack · Discord          │
+└─────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────┐
+│                     网关层 (L2)                          │
+│        认证 · 路由 · 限流 · 多租户隔离                     │
+└─────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────┐
+│                     协调层 (L3)                          │
+│   Actor Runtime · Dreaming System · 心跳自检              │
+└─────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────┐
+│                     执行层 (L4)                          │
+│   技能系统 · 记忆系统 · 人格系统 · 进化系统                  │
+└─────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────┐
+│                     数据层 (L5)                          │
+│   PostgreSQL · Qdrant · Redis · Kafka · Neo4j           │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## 🎬 快速开始
 
-### 1. 创建框架实例
+### 安装
+
+```bash
+npm install open-taiji
+```
+
+### 创建框架实例
 
 ```typescript
 import { TaijiFramework } from 'open-taiji';
@@ -171,47 +163,180 @@ const Taiji = new TaijiFramework({
     ]
   },
 
-  // 心跳系统配置（可选，默认启用）
+  // 心跳系统配置
   heartbeat: {
     interval: 30 * 60 * 1000, // 30分钟
     enableBuiltinCheckers: true,
     failureThreshold: 3,
   }
 });
+
+await Taiji.initialize();
 ```
 
-### 2. 初始化框架
+### 使用人格蒸馏
 
 ```typescript
-await Taiji.initialize(); // 心跳系统自动启动
+// 开始人格学习
+const distiller = Taiji.getPersonalityDistiller();
+
+// 注入对话历史
+await distiller.ingestHistory(conversationHistory);
+
+// 生成五维画像
+const profile = await distiller.extractProfile();
+
+// 持续进化
+await distiller.evolve(feedback);
 ```
 
-### 3. 使用心跳功能
+### 使用知识图谱
 
 ```typescript
-// 手动触发检查
-const results = await Taiji.triggerHeartbeatCheck();
+const graph = Taiji.getGraphMemory();
 
-// 添加自定义检查项
-Taiji.addHeartbeatCheckItem({
-  id: 'my_check',
-  name: '自定义检查',
-  description: '检查自定义业务逻辑',
-  severity: 'medium',
-  check: async () => {
-    return {
-      itemId: 'my_check',
-      itemName: '自定义检查',
-      status: 'pass',
-      message: '检查通过',
-      timestamp: new Date(),
-    };
-  },
+// 添加节点
+await graph.addNode({
+  type: 'concept',
+  content: 'Actor模型',
+  metadata: { domain: 'distributed-systems' }
 });
 
-// 获取心跳状态
-const status = Taiji.getHeartbeatStatus();
-console.log('心跳运行状态:', status.isRunning);
+// 建立关系
+await graph.addEdge({
+  from: 'actor-model',
+  to: 'message-passing',
+  type: 'uses',
+  weight: 0.9
+});
+
+// 路径查询
+const path = await graph.findPath('actor-model', 'distributed-systems');
+```
+
+---
+
+## 💼 应用场景
+
+### 👤 个人用户
+
+**打造你的数字分身**
+
+- 记忆持久化：重要对话自动归档，随时回顾
+- 风格复刻：学习你的表达方式，越用越像你
+- 技能进化：常用操作自动生成技能包
+- 隐私保护：本地部署，数据完全自主
+
+### 🏢 企业用户
+
+**构建企业级AI助手矩阵**
+
+- 多部门协同：财务、法务、技术各司其职
+- 知识沉淀：企业知识图谱自动构建
+- 流程自动化：审批、报表、通知全自动
+- 合规审计：所有行为可追溯
+
+### 🏛️ 政务用户
+
+**智慧政务新范式**
+
+- 政策问答：精准解读，引用原文
+- 材料预审：自动校验完整性
+- 舆情监测：实时预警，智能分析
+- 数据脱敏：敏感信息自动识别
+
+### 🏥 医疗用户
+
+**医疗AI的安全之选**
+
+- 病历分析：结构化提取，辅助诊断
+- 药物交互：自动检测配伍禁忌
+- 患者随访：智能提醒，数据采集
+- 隐私合规：符合医疗数据安全标准
+
+### 💰 金融用户
+
+**金融场景的专业保障**
+
+- 合规审查：自动识别风险条款
+- 报告生成：财报、尽调报告自动撰写
+- 反欺诈：异常行为模式识别
+- 监管对接：标准化数据报送
+
+---
+
+## 🔒 安全机制
+
+### 三级安全预设
+
+| 预设 | 沙箱 | 文件访问 | 命令执行 | 适用场景 |
+|------|------|---------|---------|----------|
+| developer | 关闭 | 任意 | 任意 | 开发者 |
+| standard（默认） | 开启 | 用户文件夹 | 无管理员 | 普通用户 |
+| enterprise | 严格 | 仅应用 | 仅应用内 | 企业 |
+
+### 主动授权
+
+**涉及安全的操作必须用户确认**：
+
+```typescript
+必须授权的操作：
+- 危险命令（sudo、rm -rf、curl | bash）
+- 敏感文件（~/.ssh、.env、credentials）
+- 系统修改（/etc、/usr/local）
+- 进程管理（kill、systemctl）
+```
+
+### 心跳自检
+
+**三道防线确保系统稳定**：
+
+| 层级 | 触发时机 | 纠偏动作 |
+|------|----------|----------|
+| 实时自检 | 回复生成前 | 检查是否符合SOUL人设 |
+| 心跳巡检 | 每30分钟 | 检查最近行为是否合规 |
+| 用户反馈 | 收到"跑偏了" | 立即触发深度纠偏 |
+
+---
+
+## 🔧 扩展点系统
+
+### 注册扩展点
+
+```typescript
+Taiji.registerExtension(
+  ExtensionPoint.SKILL_INSTALL,
+  async (context) => {
+    console.log('技能已安装:', context.skillId);
+    return context;
+  }
+);
+```
+
+### 创建插件
+
+```typescript
+const plugin = {
+  id: 'my-plugin',
+  name: '我的插件',
+  version: '1.0.0',
+  
+  onInstall: async (context) => {
+    console.log('插件安装中...');
+  },
+  
+  extensions: [
+    {
+      point: ExtensionPoint.MEMORY_STORE,
+      handler: async (memory) => {
+        // 自定义记忆存储逻辑
+        return memory;
+      }
+    }
+  ]
+};
+
+await Taiji.installPlugin(plugin);
 ```
 
 ---
@@ -259,111 +384,40 @@ import { LocalModelAdapter } from 'open-taiji/adapters/llm/local';
 
 ---
 
-## 🔧 扩展点系统
+## 📊 项目状态
 
-### 注册扩展点
-
-```typescript
-Taiji.registerExtension(
-  ExtensionPoint.SKILL_INSTALL,
-  async (context) => {
-    console.log('技能已安装:', context.skillId);
-    return context;
-  }
-);
-```
-
-### 创建插件
-
-```typescript
-const plugin = {
-  id: 'my-plugin',
-  name: '我的插件',
-  version: '1.0.0',
-  
-  onInstall: async (context) => {
-    console.log('插件安装中...');
-  },
-  
-  extensions: [
-    {
-      point: ExtensionPoint.MEMORY_STORE,
-      handler: async (memory) => {
-        // 自定义记忆存储逻辑
-        return memory;
-      }
-    }
-  ]
-};
-
-await Taiji.installPlugin(plugin);
-```
+| 指标 | 数值 |
+|------|------|
+| 代码行数 | 91,357+ |
+| 测试用例 | 86+ |
+| 编译通过率 | 95%+ |
+| 文档覆盖率 | 100% |
 
 ---
 
-## 📊 可扩展性
+## 🤝 贡献指南
 
-**OpenTaiji支持任意规模（1-N人）**
+我们欢迎所有形式的贡献：
 
-```
-1人使用 → 单租户模式，资源最小化
-10人使用 → 多租户模式，按需分配
-100人使用 → 分库分表，负载均衡
-1000人使用 → 弹性伸缩，自动扩容
-10000人使用 → 集群部署，分布式架构
-```
+1. **提交Issue**：Bug报告、功能建议
+2. **提交PR**：代码修复、功能实现
+3. **完善文档**：使用案例、最佳实践
+4. **分享经验**：博客文章、技术分享
 
 ---
 
-## 🧪 测试
+## 📮 联系我们
 
-```bash
-# 运行所有测试
-npm test
-
-# 测试覆盖率
-npm run test:coverage
-
-# 运行心跳模块测试
-npm test -- --testPathPattern=heartbeat
-```
+- **项目负责人**：awep000@qq.com
+- **项目助手**：kaka-eco@coze.email
+- **GitHub**：https://github.com/xiejianjun000/open-taiji
 
 ---
 
-## 📚 文档
+## 📜 许可证
 
-- [架构设计](./docs/architecture.md)
-- [核心接口](./docs/interfaces.md)
-- [扩展点系统](./docs/extensions.md)
-- [适配器开发](./docs/adapters.md)
-- [安全机制](./docs/security.md)
-- [心跳系统](./src/core/heartbeat/heartbeat.md)
-- [部署指南](./docs/deployment.md)
+Apache 2.0 License - 自由使用、修改、分发
 
 ---
 
-## 🤝 贡献
-
-欢迎贡献！请查看 [CONTRIBUTING.md](./CONTRIBUTING.md)
-
----
-
-## 📄 许可证
-
-Apache 2.0 - 详见 [LICENSE](./LICENSE)
-
----
-
-## 🙏 致谢
-
-OpenTaiji整合了以下优秀开源项目的核心能力：
-
-- [OpenCLAW](https://github.com/clawdotnet/openclaw) - 多平台消息网关
-- [Hermes Agent](https://github.com/NousResearch/hermes-agent) - 自我学习与记忆系统
-- [Claude Code](https://code.claude.com) - 专业代码生成能力
-
----
-
-**OpenTaiji团队**  
-📧 contact@open-taiji.dev  
-🌐 https://open-taiji.dev
+**太极之道，动态平衡。智能进化，永无止境。**
