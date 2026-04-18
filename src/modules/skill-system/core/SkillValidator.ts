@@ -251,7 +251,7 @@ export class SkillValidator {
       },
       {
         name: 'file_read_traversal',
-        pattern: /\.\.\/|\.\.\\\/g,
+        pattern: new RegExp('\\.\\./|\\.\\\\', 'g'),
         severity: 'medium',
         description: '可能存在路径遍历漏洞',
       },

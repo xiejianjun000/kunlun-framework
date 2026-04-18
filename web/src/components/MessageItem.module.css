@@ -1,0 +1,147 @@
+.message {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  animation: slideIn var(--transition-normal);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.avatar {
+  flex-shrink: 0;
+}
+
+.userAvatar,
+.agentAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  overflow: hidden;
+}
+
+.userAvatar {
+  background: linear-gradient(135deg, #64748b, #475569);
+}
+
+.agentAvatar {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+}
+
+.agentAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  max-width: 70%;
+  min-width: 100px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.sender {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.bubble {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* 用户消息 */
+.user .bubble {
+  background: var(--primary-color);
+  color: white;
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.user .header {
+  flex-direction: row-reverse;
+}
+
+/* 助手消息 */
+.assistant .bubble {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+/* 代码样式 */
+.bubble code {
+  padding: 2px 6px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.user .bubble code {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 状态显示 */
+.sendingStatus {
+  display: inline-block;
+  margin-top: var(--spacing-xs);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.errorStatus {
+  display: inline-block;
+  margin-top: var(--spacing-xs);
+  font-size: 11px;
+  color: var(--error-color);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .message {
+    gap: var(--spacing-sm);
+  }
+
+  .avatar {
+    display: none;
+  }
+
+  .content {
+    max-width: 85%;
+  }
+
+  .bubble {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 14px;
+  }
+}

@@ -17,6 +17,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
+    "types": ["jest", "node"],
     "paths": {
       "@core/*": ["src/core/*"],
       "@modules/*": ["src/modules/*"],

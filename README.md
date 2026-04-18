@@ -1,5 +1,10 @@
 # 昆仑框架 (Kunlun Framework)
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg)](https://www.typescriptlang.org/)
+[![GitHub Stars](https://img.shields.io/github/stars/xiejianjun000/kunlun-framework?style=social)](https://github.com/xiejianjun000/kunlun-framework/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/xiejianjun000/kunlun-framework?style=social)](https://github.com/xiejianjun000/kunlun-framework/network/members)
+
 > **开源多智能体框架** - 整合 OpenCLAW v2026.4.15 + Hermes v0.9.0 + Claude Code
 >
 > **Apache 2.0 许可证** - 所有能力100%开源，不阉割

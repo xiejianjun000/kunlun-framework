@@ -405,7 +405,7 @@ export class DependencyResolver {
   /**
    * 构建依赖树
    */
-  private buildDependencyTree(dependencies: DependencyInfo[]): DependencyInfo[]> {
+  private buildDependencyTree(dependencies: DependencyInfo[]): DependencyInfo[] {
     return dependencies.map((dep) => ({
       ...dep,
       dependencies: [], // 简化实现，实际应递归获取
