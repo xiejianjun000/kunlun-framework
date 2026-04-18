@@ -51,3 +51,13 @@ temp/
 
 # 测试快照
 **/__snapshots__/
+
+# 源码学习目录
+source-study/
+
+# 构建产物
+dist/
+*.tsbuildinfo
+
+# 其他学习源码
+code-review-graph-src/
