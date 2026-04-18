@@ -1,4 +1,4 @@
-# 昆仑框架架构设计
+# OpenTaiji架构设计
 
 > **版本**: 1.0.0
 > **更新日期**: 2026年4月18日
@@ -9,7 +9,7 @@
 
 ### 1.1 架构概览
 
-昆仑框架采用五层架构设计，从上到下依次是：
+OpenTaiji采用五层架构设计，从上到下依次是：
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -55,9 +55,9 @@
 
 ## 二、核心模块架构
 
-### 2.1 框架主模块 (KunlunFramework)
+### 2.1 框架主模块 (TaijiFramework)
 
-**位置**: `src/core/KunlunFramework.ts`
+**位置**: `src/core/TaijiFramework.ts`
 
 **职责**:
 - 整合所有子系统
@@ -67,7 +67,7 @@
 **核心接口**:
 
 ```typescript
-interface IKunlunFramework {
+interface ITaijiFramework {
   initialize(): Promise<void>;
   destroy(): Promise<void>;
   getSkillSystem(): ISkillSystem;
@@ -262,7 +262,7 @@ COLD (冷记忆)
 
 ### 3.1 适配器模式
 
-昆仑框架大量使用适配器模式，以支持多种后端实现：
+OpenTaiji大量使用适配器模式，以支持多种后端实现：
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -556,7 +556,7 @@ framework.registerExtension({
 │                    单机部署                             │
 ├─────────────────────────────────────────────────────────┤
 │  Node.js 应用                                           │
-│  ├── Kunlun Framework                                   │
+│  ├── OpenTaiji                                   │
 │  ├── SQLite / PostgreSQL                                │
 │  ├── Qdrant (可选)                                      │
 │  └── Redis (可选)                                       │
@@ -595,27 +595,27 @@ framework.registerExtension({
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kunlun-framework
+  name: open-taiji
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: kunlun-framework
+      app: open-taiji
   template:
     metadata:
       labels:
-        app: kunlun-framework
+        app: open-taiji
     spec:
       containers:
-      - name: kunlun
-        image: kunlun-framework:latest
+      - name: Taiji
+        image: open-taiji:latest
         ports:
         - containerPort: 8080
         env:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: kunlun-secrets
+              name: Taiji-secrets
               key: database-url
 ```
 
@@ -687,10 +687,10 @@ logger.info('skill_executed', {
 ### A. 目录结构
 
 ```
-kunlun-framework/
+open-taiji/
 ├── src/
 │   ├── core/
-│   │   ├── KunlunFramework.ts
+│   │   ├── TaijiFramework.ts
 │   │   ├── heartbeat/
 │   │   └── interfaces/
 │   ├── modules/
@@ -711,7 +711,7 @@ kunlun-framework/
 
 ### B. 版本兼容性
 
-| Node.js | Kunlun Framework |
+| Node.js | OpenTaiji |
 |---------|------------------|
 | >= 20.0 | 1.0.0+ |
 | >= 18.0 | 0.x (legacy) |

@@ -2,7 +2,7 @@
  * 资源隔离器接口
  * Resource Isolator Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {

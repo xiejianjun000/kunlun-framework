@@ -4,7 +4,7 @@
  * 
  * 定义注册通道的统一接口和通用功能
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

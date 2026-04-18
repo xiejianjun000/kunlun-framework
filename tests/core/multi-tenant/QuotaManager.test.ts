@@ -2,7 +2,7 @@
  * 配额管理器单元测试
  * QuotaManager Unit Tests
  * 
- * @module Kunlun.MultiTenant.Tests
+ * @module Taiji.MultiTenant.Tests
  */
 
 import { QuotaManager, QuotaEnforcer, QuotaExceededError } from '../../src/core/multi-tenant';

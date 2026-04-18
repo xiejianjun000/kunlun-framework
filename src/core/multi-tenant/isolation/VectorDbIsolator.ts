@@ -2,7 +2,7 @@
  * 向量数据库隔离器
  * Vector Database Isolator - Collection级别隔离
  * 
- * @module Kunlun.MultiTenant.Isolation
+ * @module Taiji.MultiTenant.Isolation
  */
 
 import {
@@ -21,7 +21,7 @@ import { ResourceIsolator } from './ResourceIsolator';
 /**
  * 向量数据库隔离器配置
  */
-export interface KunlunVectorDbIsolatorConfig extends VectorDbIsolatorConfig {
+export interface TaijiVectorDbIsolatorConfig extends VectorDbIsolatorConfig {
   /** 向量数据库URL */
   url?: string;
   /** API Key */
@@ -55,11 +55,11 @@ export interface KunlunVectorDbIsolatorConfig extends VectorDbIsolatorConfig {
  * ```
  */
 export class VectorDbIsolator extends ResourceIsolator implements IVectorDbIsolator {
-  private config: KunlunVectorDbIsolatorConfig;
+  private config: TaijiVectorDbIsolatorConfig;
   private collections: Map<string, VectorCollectionConfig[]> = new Map();
   private collectionPrefix: string;
 
-  constructor(config: KunlunVectorDbIsolatorConfig) {
+  constructor(config: TaijiVectorDbIsolatorConfig) {
     super(config.isolationLevel ?? IsolationLevel.STANDARD);
     this.collectionPrefix = config.defaultCollectionPrefix ?? 'tenant_';
     this.config = {

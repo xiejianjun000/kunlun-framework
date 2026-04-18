@@ -1,6 +1,6 @@
 /**
  * 自定义技能示例
- * Kunlun Framework Custom Skill Example
+ * OpenTaiji Custom Skill Example
  * 
  * 本示例演示如何创建、注册和使用自定义技能，包括：
  * 1. 定义技能元数据
@@ -102,12 +102,12 @@ async function executeTranslationSkill(input: TranslationSkillInput): Promise<Tr
     'zh-en': {
       '你好': 'Hello',
       '世界': 'World',
-      '昆仑': 'Kunlun'
+      '昆仑': 'Taiji'
     },
     'en-zh': {
       'Hello': '你好',
       'World': '世界',
-      'Kunlun': '昆仑'
+      'Taiji': '昆仑'
     }
   };
 
@@ -179,7 +179,7 @@ async function registerSkills(skillSystem: SkillSystem, userId: string) {
     name: '天气查询',
     description: '查询指定城市的当前天气信息',
     version: '1.0.0',
-    author: 'Kunlun Team',
+    author: 'Taiji Team',
     tags: ['weather', 'api', 'utility'],
     parameters: {
       type: 'object',
@@ -202,7 +202,7 @@ async function registerSkills(skillSystem: SkillSystem, userId: string) {
     name: '多语言翻译',
     description: '支持中英文互译',
     version: '1.0.0',
-    author: 'Kunlun Team',
+    author: 'Taiji Team',
     tags: ['translation', 'language', 'utility'],
     parameters: {
       type: 'object',
@@ -222,7 +222,7 @@ async function registerSkills(skillSystem: SkillSystem, userId: string) {
     name: '数据分析',
     description: '对数值数据进行统计分析',
     version: '1.0.0',
-    author: 'Kunlun Team',
+    author: 'Taiji Team',
     tags: ['data', 'analysis', 'statistics'],
     parameters: {
       type: 'object',
@@ -415,7 +415,7 @@ async function uninstallSkills(skillSystem: SkillSystem, userId: string) {
 
 async function main() {
   console.log('\n' + '='.repeat(60));
-  console.log('🔧 昆仑框架自定义技能示例');
+  console.log('🔧 OpenTaiji自定义技能示例');
   console.log('='.repeat(60) + '\n');
 
   const userId = 'user-custom-skill-demo';

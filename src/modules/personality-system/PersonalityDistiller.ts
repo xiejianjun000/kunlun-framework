@@ -2,7 +2,7 @@
  * PersonalityDistiller.ts
  * 人格蒸馏器 - 从行为提取人格特质
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

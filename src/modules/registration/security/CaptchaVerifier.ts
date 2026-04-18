@@ -4,11 +4,11 @@
  * 
  * 负责验证码的生成、发送和验证
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
-import { CaptchaConfig } from '../../core/config/KunlunConfig';
+import { CaptchaConfig } from '../../core/config/TaijiConfig';
 
 /**
  * 验证码类型

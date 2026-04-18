@@ -2,7 +2,7 @@
  * 存储隔离器
  * Storage Isolator - 数据库/schema级别隔离
  * 
- * @module Kunlun.MultiTenant.Isolation
+ * @module Taiji.MultiTenant.Isolation
  */
 
 import {
@@ -21,7 +21,7 @@ import { ResourceIsolator } from './ResourceIsolator';
 /**
  * 存储隔离器配置
  */
-export interface KunlunStorageIsolatorConfig extends StorageIsolatorConfig {
+export interface TaijiStorageIsolatorConfig extends StorageIsolatorConfig {
   /** 默认数据库名称 */
   defaultDatabase?: string;
   /** 数据库连接URL */
@@ -50,10 +50,10 @@ export interface KunlunStorageIsolatorConfig extends StorageIsolatorConfig {
  * ```
  */
 export class StorageIsolator extends ResourceIsolator implements IStorageIsolator {
-  private config: KunlunStorageIsolatorConfig;
+  private config: TaijiStorageIsolatorConfig;
   private schemas: Map<string, TableSchema[]> = new Map();
 
-  constructor(config: KunlunStorageIsolatorConfig) {
+  constructor(config: TaijiStorageIsolatorConfig) {
     super(config.isolationLevel ?? IsolationLevel.STANDARD);
     this.config = {
       defaultSchemaPrefix: config.defaultSchemaPrefix ?? 'tenant_',
@@ -75,13 +75,13 @@ export class StorageIsolator extends ResourceIsolator implements IStorageIsolato
     switch (this.isolationLevel) {
       case IsolationLevel.STRICT:
         // 独立数据库
-        identifiers.databaseName = `${this.config.database?.prefix ?? 'kunlun_'}${tenantId}`;
+        identifiers.databaseName = `${this.config.database?.prefix ?? 'Taiji_'}${tenantId}`;
         break;
 
       case IsolationLevel.STANDARD:
       default:
         // Schema隔离
-        identifiers.databaseName = this.config.defaultDatabase ?? 'kunlun_main';
+        identifiers.databaseName = this.config.defaultDatabase ?? 'Taiji_main';
         identifiers.schemaName = `${this.config.defaultSchemaPrefix}${tenantId}`;
         break;
     }
@@ -126,7 +126,7 @@ export class StorageIsolator extends ResourceIsolator implements IStorageIsolato
       type: 'postgresql',
       host: process.env.DB_HOST ?? 'localhost',
       port: parseInt(process.env.DB_PORT ?? '5432'),
-      database: identifiers.databaseName ?? 'kunlun_main',
+      database: identifiers.databaseName ?? 'Taiji_main',
       username: process.env.DB_USER ?? 'postgres',
       password: process.env.DB_PASSWORD ?? 'postgres',
     };

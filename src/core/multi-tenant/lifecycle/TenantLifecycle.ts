@@ -2,7 +2,7 @@
  * 租户生命周期管理器
  * Tenant Lifecycle Manager - 租户完整生命周期管理
  * 
- * @module Kunlun.MultiTenant.Lifecycle
+ * @module Taiji.MultiTenant.Lifecycle
  */
 
 import { EventEmitter } from 'events';
@@ -23,20 +23,20 @@ import {
 } from '../interfaces';
 import { TenantRegistry } from '../core/TenantRegistry';
 import { QuotaManager } from '../quota/QuotaManager';
-import { StorageIsolator, KunlunStorageIsolatorConfig } from '../isolation/StorageIsolator';
-import { VectorDbIsolator, KunlunVectorDbIsolatorConfig } from '../isolation/VectorDbIsolator';
-import { NetworkIsolator, KunlunNetworkIsolatorConfig } from '../isolation/NetworkIsolator';
+import { StorageIsolator, TaijiStorageIsolatorConfig } from '../isolation/StorageIsolator';
+import { VectorDbIsolator, TaijiVectorDbIsolatorConfig } from '../isolation/VectorDbIsolator';
+import { NetworkIsolator, TaijiNetworkIsolatorConfig } from '../isolation/NetworkIsolator';
 
 /**
  * 租户生命周期管理器配置
  */
 export interface TenantLifecycleConfig {
   /** 存储隔离器配置 */
-  storageConfig?: KunlunStorageIsolatorConfig;
+  storageConfig?: TaijiStorageIsolatorConfig;
   /** 向量数据库隔离器配置 */
-  vectorDbConfig?: KunlunVectorDbIsolatorConfig;
+  vectorDbConfig?: TaijiVectorDbIsolatorConfig;
   /** 网络隔离器配置 */
-  networkConfig?: KunlunNetworkIsolatorConfig;
+  networkConfig?: TaijiNetworkIsolatorConfig;
   /** 是否启用回滚 */
   rollbackEnabled?: boolean;
   /** 操作超时(ms) */
@@ -95,7 +95,7 @@ export class TenantLifecycle extends EventEmitter implements ITenantLifecycle {
 
     this.networkIsolator = new NetworkIsolator({
       isolationLevel: config.networkConfig?.isolationLevel ?? 'standard',
-      namespacePrefix: 'kunlun-tenant-',
+      namespacePrefix: 'Taiji-tenant-',
     });
 
     // 初始化管理器

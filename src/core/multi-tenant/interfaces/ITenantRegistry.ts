@@ -2,7 +2,7 @@
  * 租户注册表接口
  * Tenant Registry Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import { Tenant } from '../types';

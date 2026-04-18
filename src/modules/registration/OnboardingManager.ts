@@ -4,11 +4,11 @@
  * 
  * 管理新用户的引导流程和步骤
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
-import { ConfigManager, getConfig, OnboardingConfig, OnboardingStepConfig } from '../../core/config/KunlunConfig';
+import { ConfigManager, getConfig, OnboardingConfig, OnboardingStepConfig } from '../../core/config/TaijiConfig';
 import { OnboardingProgress, OnboardingStepResult, UserPreferences } from './types';
 
 /**

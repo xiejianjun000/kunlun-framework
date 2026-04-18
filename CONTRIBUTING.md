@@ -1,9 +1,9 @@
-# 昆仑框架贡献指南
+# OpenTaiji贡献指南
 
 > **版本**: 1.0.0
 > **更新日期**: 2026年4月18日
 
-感谢您对昆仑框架的关注！本指南将帮助您了解如何参与昆仑框架的开发。
+感谢您对OpenTaiji的关注！本指南将帮助您了解如何参与OpenTaiji的开发。
 
 ---
 
@@ -33,7 +33,7 @@
 
 ### 1.2 许可证
 
-昆仑框架采用 Apache License 2.0 许可证。所有贡献的代码都将使用此许可证。
+OpenTaiji采用 Apache License 2.0 许可证。所有贡献的代码都将使用此许可证。
 
 ### 1.3 选择任务
 
@@ -60,10 +60,10 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/kunlun-framework/kunlun-framework.git
+git clone https://github.com/open-taiji/open-taiji.git
 
 # 进入目录
-cd kunlun-framework
+cd open-taiji
 
 # 安装依赖
 npm install
@@ -99,10 +99,10 @@ npm run build
 
 ```typescript
 // 类名：PascalCase
-class KunlunFramework {}
+class TaijiFramework {}
 
 // 接口名：PascalCase，前缀 I
-interface IKunlunFramework {}
+interface ITaijiFramework {}
 
 // 类型名：PascalCase
 type SkillInfo = {};
@@ -192,7 +192,7 @@ import { EventEmitter } from 'events';
 import { z } from 'zod';
 
 // 3. 框架内部模块
-import { KunlunFramework } from './core/KunlunFramework';
+import { TaijiFramework } from './core/TaijiFramework';
 import { SkillSystem } from './modules/skill-system/SkillSystem';
 
 // 4. 类型导入（单独一行）
@@ -204,18 +204,18 @@ import type { IMemory } from './interfaces';
 
 ```typescript
 // 推荐：使用自定义错误类
-class KunlunError extends Error {
+class TaijiError extends Error {
   constructor(
     message: string,
     public code: string,
     public details?: Record<string, any>
   ) {
     super(message);
-    this.name = 'KunlunError';
+    this.name = 'TaijiError';
   }
 }
 
-class SkillNotFoundError extends KunlunError {
+class SkillNotFoundError extends TaijiError {
   constructor(skillId: string) {
     super(
       `Skill not found: ${skillId}`,
@@ -232,7 +232,7 @@ try {
 } catch (error) {
   if (error instanceof SkillNotFoundError) {
     console.error(`技能 ${error.details.skillId} 不存在`);
-  } else if (error instanceof KunlunError) {
+  } else if (error instanceof TaijiError) {
     console.error(`业务错误 [${error.code}]: ${error.message}`);
   } else {
     throw error; // 重新抛出未知错误
@@ -362,7 +362,7 @@ export class ExampleModule extends EventEmitter implements IExampleModule {
 
 ### 5.1 测试框架
 
-昆仑框架使用 Jest 作为测试框架：
+OpenTaiji使用 Jest 作为测试框架：
 
 ```bash
 # 运行所有测试
@@ -706,9 +706,9 @@ A: 可以：
 
 ## 联系方式
 
-- **GitHub Issues**: [提交Issue](https://github.com/kunlun-framework/kunlun-framework/issues)
-- **社区讨论**: [Discussions](https://github.com/kunlun-framework/kunlun-framework/discussions)
-- **邮箱**: support@kunlun-framework.dev
+- **GitHub Issues**: [提交Issue](https://github.com/open-taiji/open-taiji/issues)
+- **社区讨论**: [Discussions](https://github.com/open-taiji/open-taiji/discussions)
+- **邮箱**: support@open-taiji.dev
 
 ---
 

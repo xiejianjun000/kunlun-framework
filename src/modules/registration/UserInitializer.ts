@@ -4,12 +4,12 @@
  * 
  * 在用户注册后自动创建存储资源、初始化配置、预装技能等
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
 import { User } from './types';
-import { getConfig, StorageConfig } from '../../core/config/KunlunConfig';
+import { getConfig, StorageConfig } from '../../core/config/TaijiConfig';
 
 /**
  * 初始化结果
@@ -170,7 +170,7 @@ export class UserInitializer {
     };
 
     this.databaseConfig = {
-      databaseName: 'kunlun_user_db',
+      databaseName: 'Taiji_user_db',
       charset: 'utf8mb4',
     };
 

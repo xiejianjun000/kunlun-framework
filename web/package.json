@@ -1,7 +1,7 @@
 {
-  "name": "kunlun-web-chat",
+  "name": "Taiji-web-chat",
   "version": "1.0.0",
-  "description": "昆仑框架 Web 聊天界面 - 多智能体交互平台",
+  "description": "OpenTaiji Web 聊天界面 - 多智能体交互平台",
   "type": "module",
   "scripts": {
     "dev": "vite",

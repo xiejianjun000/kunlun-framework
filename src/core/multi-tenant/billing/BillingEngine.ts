@@ -2,7 +2,7 @@
  * 计费引擎
  * Billing Engine - 计费、账单生成和支付处理
  * 
- * @module Kunlun.MultiTenant.Billing
+ * @module Taiji.MultiTenant.Billing
  */
 
 import {

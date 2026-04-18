@@ -2,7 +2,7 @@
  * 租户配置管理器接口
  * Tenant Configuration Manager Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {
@@ -93,7 +93,7 @@ export const DEFAULT_QUOTA_PLANS: QuotaPlanConfig[] = [
 export const DEFAULT_ISOLATION_CONFIG: IsolationConfig = {
   level: 'standard',
   database: {
-    prefix: 'kunlun_',
+    prefix: 'Taiji_',
     dedicated: false,
   },
   schema: {
@@ -104,7 +104,7 @@ export const DEFAULT_ISOLATION_CONFIG: IsolationConfig = {
     dedicated: false,
   },
   network: {
-    namespacePrefix: 'kunlun-tenant-',
+    namespacePrefix: 'Taiji-tenant-',
     dedicated: false,
   },
 };

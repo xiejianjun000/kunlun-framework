@@ -1,5 +1,5 @@
-# 昆仑框架 - 生产环境配置
-# Kunlun Framework Production Configuration
+# OpenTaiji - 生产环境配置
+# OpenTaiji Production Configuration
 #
 # 本配置适用于生产环境
 # 特点：严格的安全设置，高性能优化
@@ -8,7 +8,7 @@
 # 应用配置
 # ============================================
 app:
-  name: "Kunlun Framework"
+  name: "OpenTaiji"
   version: "1.0.0"
   env: "production"
   port: 8080
@@ -30,9 +30,9 @@ multiTenant:
 # 技能系统配置
 # ============================================
 skillSystem:
-  skillsRoot: "/var/kunlun/skills"
-  registryPath: "/var/kunlun/data/skill-registry.json"
-  tempDir: "/tmp/kunlun"
+  skillsRoot: "/var/Taiji/skills"
+  registryPath: "/var/Taiji/data/skill-registry.json"
+  tempDir: "/tmp/Taiji"
   isolationType: "container"  # 生产环境使用容器隔离
   
   # 生产环境必须启用签名验证
@@ -57,7 +57,7 @@ memorySystem:
     adapter: "qdrant"
     qdrant:
       url: "${QDRANT_URL}"  # 从环境变量读取
-      collectionName: "kunlun-memories"
+      collectionName: "Taiji-memories"
       vectorSize: 1536
       # 生产配置
       waitTimeout: 5000
@@ -200,7 +200,7 @@ security:
   
   audit:
     enable: true
-    logPath: "/var/log/kunlun/audit"
+    logPath: "/var/log/Taiji/audit"
     retentionDays: 365
     # 同步到外部日志系统
     externalLogging:
@@ -219,7 +219,7 @@ logger:
   output: "file"  # 生产环境写入文件
   
   file:
-    path: "/var/log/kunlun"
+    path: "/var/log/Taiji"
     maxSize: "100m"
     maxFiles: 30
     compress: true
@@ -251,7 +251,7 @@ cache:
     port: 6379
     password: "${REDIS_PASSWORD}"
     db: 0
-    keyPrefix: "kunlun:"
+    keyPrefix: "Taiji:"
     # 连接池配置
     pool:
       min: 10
@@ -279,7 +279,7 @@ cache:
 # ============================================
 extensions:
   enableExtensionPoints: true
-  directory: "/var/kunlun/extensions"
+  directory: "/var/Taiji/extensions"
   autoLoad: false  # 生产环境手动加载
   preloaded:
     - "logging-extension"
@@ -311,7 +311,7 @@ monitoring:
   
   tracing:
     enable: true
-    serviceName: "kunlun-framework"
+    serviceName: "open-taiji"
     # OpenTelemetry配置
     otlp:
       endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}"

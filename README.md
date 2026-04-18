@@ -1,9 +1,9 @@
-# 昆仑框架 (Kunlun Framework)
+# OpenTaiji
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg)](https://www.typescriptlang.org/)
-[![GitHub Stars](https://img.shields.io/github/stars/xiejianjun000/kunlun-framework?style=social)](https://github.com/xiejianjun000/kunlun-framework/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/xiejianjun000/kunlun-framework?style=social)](https://github.com/xiejianjun000/kunlun-framework/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/xiejianjun000/open-taiji?style=social)](https://github.com/xiejianjun000/open-taiji/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/xiejianjun000/open-taiji?style=social)](https://github.com/xiejianjun000/open-taiji/network/members)
 
 > **开源多智能体框架** - 整合 OpenCLAW v2026.4.15 + Hermes v0.9.0 + Claude Code
 >
@@ -13,7 +13,7 @@
 
 ## 🎯 核心定位
 
-**昆仑框架 = 能力基座 + 接口定义 + 扩展点 + 适配器**
+**OpenTaiji = 能力基座 + 接口定义 + 扩展点 + 适配器**
 
 - ✅ **框架提供能力**：接口定义、扩展点、适配器、插件系统
 - ✅ **项目定义业务**：具体业务逻辑、技能包、知识库
@@ -51,7 +51,7 @@ L5 数据层 → PostgreSQL + Qdrant + Redis + Kafka + Neo4j
 
 ### 技能生态兼容
 ```
-UnifiedSkill = ClawHub + Hermes + Kunlun
+UnifiedSkill = ClawHub + Hermes + Taiji
 ```
 
 ### 自我修改能力
@@ -61,7 +61,7 @@ UnifiedSkill = ClawHub + Hermes + Kunlun
 
 ### 💓 心跳自检系统
 
-昆仑框架内置心跳功能，提供周期性健康检查和实时自检能力。
+OpenTaiji内置心跳功能，提供周期性健康检查和实时自检能力。
 
 #### 三道防线
 
@@ -128,7 +128,7 @@ src/core/heartbeat/
 ## 📦 安装
 
 ```bash
-npm install kunlun-framework
+npm install open-taiji
 ```
 
 ---
@@ -138,9 +138,9 @@ npm install kunlun-framework
 ### 1. 创建框架实例
 
 ```typescript
-import { KunlunFramework } from 'kunlun-framework';
+import { TaijiFramework } from 'open-taiji';
 
-const kunlun = new KunlunFramework({
+const Taiji = new TaijiFramework({
   // 多租户配置
   multiTenant: {
     enabled: true,
@@ -183,17 +183,17 @@ const kunlun = new KunlunFramework({
 ### 2. 初始化框架
 
 ```typescript
-await kunlun.initialize(); // 心跳系统自动启动
+await Taiji.initialize(); // 心跳系统自动启动
 ```
 
 ### 3. 使用心跳功能
 
 ```typescript
 // 手动触发检查
-const results = await kunlun.triggerHeartbeatCheck();
+const results = await Taiji.triggerHeartbeatCheck();
 
 // 添加自定义检查项
-kunlun.addHeartbeatCheckItem({
+Taiji.addHeartbeatCheckItem({
   id: 'my_check',
   name: '自定义检查',
   description: '检查自定义业务逻辑',
@@ -210,7 +210,7 @@ kunlun.addHeartbeatCheckItem({
 });
 
 // 获取心跳状态
-const status = kunlun.getHeartbeatStatus();
+const status = Taiji.getHeartbeatStatus();
 console.log('心跳运行状态:', status.isRunning);
 ```
 
@@ -222,39 +222,39 @@ console.log('心跳运行状态:', status.isRunning);
 
 ```typescript
 // 本地存储
-import { LocalStorageAdapter } from 'kunlun-framework/adapters/storage/local';
+import { LocalStorageAdapter } from 'open-taiji/adapters/storage/local';
 
 // AWS S3
-import { S3StorageAdapter } from 'kunlun-framework/adapters/storage/s3';
+import { S3StorageAdapter } from 'open-taiji/adapters/storage/s3';
 
 // MinIO
-import { MinioStorageAdapter } from 'kunlun-framework/adapters/storage/minio';
+import { MinioStorageAdapter } from 'open-taiji/adapters/storage/minio';
 ```
 
 ### 消息适配器
 
 ```typescript
 // 微信
-import { WeChatAdapter } from 'kunlun-framework/adapters/messaging/wechat';
+import { WeChatAdapter } from 'open-taiji/adapters/messaging/wechat';
 
 // 企业微信
-import { WeComAdapter } from 'kunlun-framework/adapters/messaging/wecom';
+import { WeComAdapter } from 'open-taiji/adapters/messaging/wecom';
 
 // 飞书
-import { FeishuAdapter } from 'kunlun-framework/adapters/messaging/feishu';
+import { FeishuAdapter } from 'open-taiji/adapters/messaging/feishu';
 ```
 
 ### LLM适配器
 
 ```typescript
 // OpenAI
-import { OpenAIAdapter } from 'kunlun-framework/adapters/llm/openai';
+import { OpenAIAdapter } from 'open-taiji/adapters/llm/openai';
 
 // DeepSeek
-import { DeepSeekAdapter } from 'kunlun-framework/adapters/llm/deepseek';
+import { DeepSeekAdapter } from 'open-taiji/adapters/llm/deepseek';
 
 // 本地模型
-import { LocalModelAdapter } from 'kunlun-framework/adapters/llm/local';
+import { LocalModelAdapter } from 'open-taiji/adapters/llm/local';
 ```
 
 ---
@@ -264,7 +264,7 @@ import { LocalModelAdapter } from 'kunlun-framework/adapters/llm/local';
 ### 注册扩展点
 
 ```typescript
-kunlun.registerExtension(
+Taiji.registerExtension(
   ExtensionPoint.SKILL_INSTALL,
   async (context) => {
     console.log('技能已安装:', context.skillId);
@@ -296,14 +296,14 @@ const plugin = {
   ]
 };
 
-await kunlun.installPlugin(plugin);
+await Taiji.installPlugin(plugin);
 ```
 
 ---
 
 ## 📊 可扩展性
 
-**昆仑框架支持任意规模（1-N人）**
+**OpenTaiji支持任意规模（1-N人）**
 
 ```
 1人使用 → 单租户模式，资源最小化
@@ -356,7 +356,7 @@ Apache 2.0 - 详见 [LICENSE](./LICENSE)
 
 ## 🙏 致谢
 
-昆仑框架整合了以下优秀开源项目的核心能力：
+OpenTaiji整合了以下优秀开源项目的核心能力：
 
 - [OpenCLAW](https://github.com/clawdotnet/openclaw) - 多平台消息网关
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent) - 自我学习与记忆系统
@@ -364,6 +364,6 @@ Apache 2.0 - 详见 [LICENSE](./LICENSE)
 
 ---
 
-**昆仑框架团队**  
-📧 contact@kunlun-framework.dev  
-🌐 https://kunlun-framework.dev
+**OpenTaiji团队**  
+📧 contact@open-taiji.dev  
+🌐 https://open-taiji.dev

@@ -1,5 +1,5 @@
-# 昆仑框架 - 开发环境配置
-# Kunlun Framework Development Configuration
+# OpenTaiji - 开发环境配置
+# OpenTaiji Development Configuration
 #
 # 本配置适用于本地开发环境
 # 特点：宽松的安全设置，方便调试
@@ -8,7 +8,7 @@
 # 应用配置
 # ============================================
 app:
-  name: "Kunlun Framework (Dev)"
+  name: "OpenTaiji (Dev)"
   version: "1.0.0"
   env: "development"
   port: 3000

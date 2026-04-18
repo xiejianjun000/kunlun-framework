@@ -2,7 +2,7 @@
  * PersonalityValidator.ts
  * 人格一致性验证器
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

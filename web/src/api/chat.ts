@@ -14,7 +14,7 @@ const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // 添加用户认证 token
-    const token = localStorage.getItem('kunlun_token')
+    const token = localStorage.getItem('Taiji_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

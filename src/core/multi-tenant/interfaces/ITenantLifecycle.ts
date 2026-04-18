@@ -2,7 +2,7 @@
  * 租户生命周期管理器接口
  * Tenant Lifecycle Manager Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {

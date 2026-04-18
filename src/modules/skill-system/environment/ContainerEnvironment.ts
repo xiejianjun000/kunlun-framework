@@ -60,7 +60,7 @@ export class ContainerEnvironment extends SkillEnvironment {
     super();
     this.config = {
       image: config.image,
-      prefix: config.prefix ?? 'kunlun_skill',
+      prefix: config.prefix ?? 'Taiji_skill',
       networkMode: config.networkMode ?? 'none',
       memoryLimit: config.memoryLimit ?? '512m',
       cpuLimit: config.cpuLimit ?? '1',

@@ -4,7 +4,7 @@
  * 
  * 管理注册会话、激活令牌和注册流程状态
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

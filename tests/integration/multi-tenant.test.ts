@@ -1,6 +1,6 @@
 /**
  * 多租户隔离集成测试
- * Kunlun Framework Multi-Tenant Integration Tests
+ * OpenTaiji Multi-Tenant Integration Tests
  */
 
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';

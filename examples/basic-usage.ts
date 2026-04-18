@@ -1,15 +1,15 @@
 /**
- * 昆仑框架基础使用示例
- * Kunlun Framework Basic Usage Example
+ * OpenTaiji基础使用示例
+ * OpenTaiji Basic Usage Example
  * 
- * 本示例演示昆仑框架的基本使用方法，包括：
+ * 本示例演示OpenTaiji的基本使用方法，包括：
  * 1. 创建框架实例
  * 2. 初始化各个子系统
  * 3. 基本的用户注册和技能管理
  * 4. 记忆存储和检索
  */
 
-import { KunlunFramework, KunlunFrameworkConfig } from '../src/core/KunlunFramework';
+import { TaijiFramework, TaijiFrameworkConfig } from '../src/core/TaijiFramework';
 import { SkillSystem, SkillSystemConfig } from '../src/modules/skill-system/SkillSystem';
 import { MemorySystem } from '../src/modules/memory-system/MemorySystem';
 import { PersonalitySystem } from '../src/modules/personality-system/PersonalitySystem';
@@ -18,7 +18,7 @@ import { MemoryTier, MemoryType } from '../src/modules/memory-system/interfaces'
 
 // ============== 示例配置 ==============
 
-const FRAMEWORK_CONFIG: KunlunFrameworkConfig = {
+const FRAMEWORK_CONFIG: TaijiFrameworkConfig = {
   multiTenant: {
     enabled: true,
     isolationLevel: 'standard'
@@ -60,26 +60,26 @@ async function example1_createAndInitialize() {
   console.log('='.repeat(50));
 
   // 创建框架实例
-  const kunlun = new KunlunFramework(FRAMEWORK_CONFIG);
+  const Taiji = new TaijiFramework(FRAMEWORK_CONFIG);
   
-  console.log(`框架名称: ${kunlun.name}`);
-  console.log(`框架版本: ${kunlun.version}`);
-  console.log(`是否就绪: ${kunlun.isReady()}`);
+  console.log(`框架名称: ${Taiji.name}`);
+  console.log(`框架版本: ${Taiji.version}`);
+  console.log(`是否就绪: ${Taiji.isReady()}`);
 
   // 初始化框架
-  await kunlun.initialize();
+  await Taiji.initialize();
   
-  console.log(`初始化后是否就绪: ${kunlun.isReady()}`);
-  console.log(`心跳状态: ${JSON.stringify(kunlun.getHeartbeatStatus())}`);
+  console.log(`初始化后是否就绪: ${Taiji.isReady()}`);
+  console.log(`心跳状态: ${JSON.stringify(Taiji.getHeartbeatStatus())}`);
   
   // 获取配置
-  const config = kunlun.getConfig();
+  const config = Taiji.getConfig();
   console.log(`多租户启用: ${config.multiTenant.enabled}`);
   console.log(`安全级别: ${config.security.level}`);
   
   console.log('\n✅ 示例1完成\n');
   
-  return kunlun;
+  return Taiji;
 }
 
 /**
@@ -111,7 +111,7 @@ async function example2_skillManagement() {
     name: '天气查询',
     description: '查询指定城市的天气信息',
     version: '1.0.0',
-    author: 'Kunlun Team',
+    author: 'Taiji Team',
     tags: ['utility', 'weather', 'api']
   }, userId);
   
@@ -393,7 +393,7 @@ async function example6_heartbeatSystem() {
   console.log('示例6: 心跳系统');
   console.log('='.repeat(50));
 
-  const kunlun = new KunlunFramework({
+  const Taiji = new TaijiFramework({
     heartbeat: {
       interval: 60000, // 1分钟
       enableBuiltinCheckers: true,
@@ -401,15 +401,15 @@ async function example6_heartbeatSystem() {
     }
   });
 
-  await kunlun.initialize();
+  await Taiji.initialize();
 
   // 获取心跳状态
-  const status = kunlun.getHeartbeatStatus();
+  const status = Taiji.getHeartbeatStatus();
   console.log(`心跳系统运行状态: ${status.isRunning ? '运行中' : '已停止'}`);
   console.log(`检查项数量: ${status.checkItems?.length || 0}`);
 
   // 手动触发检查
-  const results = await kunlun.triggerHeartbeatCheck();
+  const results = await Taiji.triggerHeartbeatCheck();
   console.log(`\n执行检查项: ${results.length}`);
   
   for (const result of results) {
@@ -418,7 +418,7 @@ async function example6_heartbeatSystem() {
   }
 
   // 添加自定义检查项
-  kunlun.addHeartbeatCheckItem({
+  Taiji.addHeartbeatCheckItem({
     id: 'custom-check',
     name: '自定义业务检查',
     description: '检查自定义业务逻辑',
@@ -509,7 +509,7 @@ async function example7_completeUserLifecycle() {
 
 async function main() {
   console.log('\n' + '='.repeat(60));
-  console.log('🧭 昆仑框架 (Kunlun Framework) 基础使用示例');
+  console.log('🧭 OpenTaiji (OpenTaiji) 基础使用示例');
   console.log('='.repeat(60) + '\n');
 
   try {

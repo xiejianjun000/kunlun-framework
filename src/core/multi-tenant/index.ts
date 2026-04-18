@@ -2,7 +2,7 @@
  * 多租户管理模块 - 模块索引
  * Multi-Tenant Module Index
  * 
- * @module Kunlun.MultiTenant
+ * @module Taiji.MultiTenant
  */
 
 // ============== 类型导出 ==============
@@ -18,9 +18,9 @@ export { TenantConfigManager } from './core/TenantConfigManager';
 
 // ============== 资源隔离导出 ==============
 export { ResourceIsolator } from './isolation/ResourceIsolator';
-export { StorageIsolator, KunlunStorageIsolatorConfig } from './isolation/StorageIsolator';
-export { VectorDbIsolator, KunlunVectorDbIsolatorConfig } from './isolation/VectorDbIsolator';
-export { NetworkIsolator, KunlunNetworkIsolatorConfig } from './isolation/NetworkIsolator';
+export { StorageIsolator, TaijiStorageIsolatorConfig } from './isolation/StorageIsolator';
+export { VectorDbIsolator, TaijiVectorDbIsolatorConfig } from './isolation/VectorDbIsolator';
+export { NetworkIsolator, TaijiNetworkIsolatorConfig } from './isolation/NetworkIsolator';
 
 // ============== 配额管理导出 ==============
 export { QuotaManager } from './quota/QuotaManager';

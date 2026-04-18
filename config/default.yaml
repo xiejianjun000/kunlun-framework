@@ -1,5 +1,5 @@
-# 昆仑框架 - 默认配置
-# Kunlun Framework Default Configuration
+# OpenTaiji - 默认配置
+# OpenTaiji Default Configuration
 #
 # 本配置适用于开发、测试环境
 # 生产环境请使用 production.yaml
@@ -8,7 +8,7 @@
 # 应用配置
 # ============================================
 app:
-  name: "Kunlun Framework"
+  name: "OpenTaiji"
   version: "1.0.0"
   env: "development"
   port: 3000
@@ -81,7 +81,7 @@ memorySystem:
     # Qdrant配置（使用Qdrant时）
     qdrant:
       url: "localhost:6333"
-      collectionName: "kunlun-memories"
+      collectionName: "Taiji-memories"
       vectorSize: 1536
     
     # Chroma配置（使用Chroma时）
@@ -319,7 +319,7 @@ cache:
     port: 6379
     password: ""
     db: 0
-    keyPrefix: "kunlun:"
+    keyPrefix: "Taiji:"
   
   # 内存缓存配置
   memory:
@@ -378,7 +378,7 @@ monitoring:
   # 追踪
   tracing:
     enable: false
-    serviceName: "kunlun-framework"
+    serviceName: "open-taiji"
     exporterEndpoint: ""
 
 # ============================================

@@ -1,6 +1,6 @@
 /**
- * 昆仑框架主类
- * Kunlun Framework - Main Class
+ * OpenTaiji主类
+ * OpenTaiji - Main Class
  */
 
 import * as path from 'path';
@@ -14,7 +14,7 @@ import {
 
 // ============== 配置类型 ==============
 
-export interface KunlunFrameworkConfig {
+export interface TaijiFrameworkConfig {
   /** 多租户配置 */
   multiTenant?: {
     enabled: boolean;
@@ -56,16 +56,16 @@ export interface KunlunFrameworkConfig {
 
 // ============== 框架主类 ==============
 
-export class KunlunFramework {
+export class TaijiFramework {
   public readonly version: string = '1.0.0';
-  public readonly name: string = 'Kunlun Framework';
+  public readonly name: string = 'OpenTaiji';
 
-  private config: Required<KunlunFrameworkConfig>;
+  private config: Required<TaijiFrameworkConfig>;
   private heartbeatManager: HeartbeatManager | null = null;
   private isInitialized: boolean = false;
   private logger: (level: string, msg: string) => void;
 
-  constructor(config: KunlunFrameworkConfig = {}) {
+  constructor(config: TaijiFrameworkConfig = {}) {
     // 合并配置
     this.config = {
       multiTenant: {
@@ -113,13 +113,13 @@ export class KunlunFramework {
       return;
     }
 
-    this.logger('info', '正在初始化昆仑框架...');
+    this.logger('info', '正在初始化OpenTaiji...');
 
     // 初始化心跳系统
     await this.initializeHeartbeat();
 
     this.isInitialized = true;
-    this.logger('info', '昆仑框架初始化完成');
+    this.logger('info', 'OpenTaiji初始化完成');
   }
 
   /**
@@ -297,7 +297,7 @@ export class KunlunFramework {
   /**
    * 获取配置
    */
-  getConfig(): Readonly<Required<KunlunFrameworkConfig>> {
+  getConfig(): Readonly<Required<TaijiFrameworkConfig>> {
     return { ...this.config };
   }
 
@@ -312,12 +312,12 @@ export class KunlunFramework {
 // ============== 工厂函数 ==============
 
 /**
- * 创建昆仑框架实例
+ * 创建OpenTaiji实例
  */
-export function createKunlunFramework(config?: KunlunFrameworkConfig): KunlunFramework {
-  return new KunlunFramework(config);
+export function createTaijiFramework(config?: TaijiFrameworkConfig): TaijiFramework {
+  return new TaijiFramework(config);
 }
 
 // ============== 默认导出 ==============
 
-export default KunlunFramework;
+export default TaijiFramework;

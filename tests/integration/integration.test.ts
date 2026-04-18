@@ -1,6 +1,6 @@
 /**
- * 昆仑框架集成测试
- * Kunlun Framework Integration Tests
+ * OpenTaiji集成测试
+ * OpenTaiji Integration Tests
  * 
  * 测试场景：
  * 1. 新用户注册 → 自动初始化 → 技能安装 → 记忆存储 → 人格蒸馏 → 进化触发
@@ -10,7 +10,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from '@jest/globals';
-import { KunlunFramework, KunlunFrameworkConfig } from '../../src/core/KunlunFramework';
+import { TaijiFramework, TaijiFrameworkConfig } from '../../src/core/TaijiFramework';
 import { SkillSystem, SkillSystemConfig } from '../../src/modules/skill-system/SkillSystem';
 import { MemorySystem, MemorySystemOptions } from '../../src/modules/memory-system/MemorySystem';
 import { PersonalitySystem, PersonalitySystemConfig } from '../../src/modules/personality-system/PersonalitySystem';
@@ -20,7 +20,7 @@ import { TraitType } from '../../src/core/interfaces/IPersonalitySystem';
 
 // ============== 测试配置 ==============
 
-const testConfig: KunlunFrameworkConfig = {
+const testConfig: TaijiFrameworkConfig = {
   multiTenant: {
     enabled: true,
     isolationLevel: 'standard'
@@ -76,7 +76,7 @@ const testUsers: TestUser[] = [
 
 // ============== 框架实例 ==============
 
-let framework: KunlunFramework;
+let framework: TaijiFramework;
 let skillSystem: SkillSystem;
 let memorySystem: MemorySystem;
 let personalitySystem: PersonalitySystem;
@@ -84,20 +84,20 @@ let evolutionSystem: EvolutionSystem;
 
 // ============== 生命周期测试套件 ==============
 
-describe('昆仑框架 - 集成测试套件', () => {
+describe('OpenTaiji - 集成测试套件', () => {
   
   // ============== 初始化阶段 ==============
   
   describe('Phase 1: 框架初始化', () => {
     it('应该成功创建框架实例', () => {
-      framework = new KunlunFramework(testConfig);
+      framework = new TaijiFramework(testConfig);
       expect(framework).toBeDefined();
-      expect(framework.name).toBe('Kunlun Framework');
+      expect(framework.name).toBe('OpenTaiji');
       expect(framework.version).toBe('1.0.0');
     });
 
     it('应该使用默认配置创建实例', () => {
-      const defaultFramework = new KunlunFramework({});
+      const defaultFramework = new TaijiFramework({});
       expect(defaultFramework).toBeDefined();
       expect(defaultFramework.isReady()).toBe(false);
     });
@@ -210,7 +210,7 @@ describe('昆仑框架 - 集成测试套件', () => {
         name: '基础测试技能',
         description: '用于集成测试的基础技能',
         version: '1.0.0',
-        author: 'Kunlun Team',
+        author: 'Taiji Team',
         tags: ['test', 'basic']
       }, testUsers[0].id);
       
@@ -657,7 +657,7 @@ describe('测试报告生成', () => {
     const report = {
       timestamp: new Date().toISOString(),
       framework: {
-        name: 'Kunlun Framework',
+        name: 'OpenTaiji',
         version: '1.0.0'
       },
       modules: [

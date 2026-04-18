@@ -2,7 +2,7 @@
  * 租户管理器单元测试
  * TenantManager Unit Tests
  * 
- * @module Kunlun.MultiTenant.Tests
+ * @module Taiji.MultiTenant.Tests
  */
 
 import { TenantManager } from '../../src/core/multi-tenant';

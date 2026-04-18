@@ -1,7 +1,7 @@
 {
-  "name": "kunlun-framework",
+  "name": "open-taiji",
   "version": "1.0.0",
-  "description": "昆仑框架 - 开源多智能体框架（OpenCLAW + Hermes + Claude Code整合）",
+  "description": "OpenTaiji - 开源多智能体框架（OpenCLAW + Hermes + Claude Code整合）",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "kunlun",
+    "Taiji",
     "multi-agent",
     "openclaw",
     "hermes",
@@ -25,7 +25,7 @@
     "skill-system",
     "memory-system"
   ],
-  "author": "昆仑框架团队",
+  "author": "OpenTaiji团队",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/jest": "^30.0.0",
@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kunlun-framework/kunlun-framework.git"
+    "url": "https://github.com/open-taiji/open-taiji.git"
   },
   "bugs": {
-    "url": "https://github.com/kunlun-framework/kunlun-framework/issues"
+    "url": "https://github.com/xiejianjun000/open-taiji/issues"
   },
-  "homepage": "https://kunlun-framework.dev"
+  "homepage": "https://open-taiji.dev"
 }

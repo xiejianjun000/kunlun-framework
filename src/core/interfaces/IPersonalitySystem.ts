@@ -2,7 +2,7 @@
  * IPersonalitySystem.ts
  * 人格系统核心接口定义
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

@@ -2,7 +2,7 @@
  * PersonalityUpdater.ts
  * 人格更新器 - 渐进式更新人格数据
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

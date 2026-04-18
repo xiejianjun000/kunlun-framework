@@ -4,7 +4,7 @@
  * 
  * 实现邮箱注册和邮箱验证功能
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
@@ -116,7 +116,7 @@ export class EmailChannel extends RegistrationChannel {
         from: process.env.SMTP_FROM || 'noreply@example.com',
       },
       fromAddress: config?.fromAddress || process.env.SMTP_FROM || 'noreply@example.com',
-      fromName: config?.fromName || 'Kunlun Framework',
+      fromName: config?.fromName || 'OpenTaiji',
     };
 
     this.pendingRegistrations = new Map();
@@ -422,10 +422,10 @@ export class EmailChannel extends RegistrationChannel {
     const expiresDate = expiresAt.toLocaleString();
     
     return {
-      subject: 'Verify your email address - Kunlun Framework',
+      subject: 'Verify your email address - OpenTaiji',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2>Welcome to Kunlun Framework</h2>
+          <h2>Welcome to OpenTaiji</h2>
           <p>Please click the button below to verify your email address:</p>
           <p>
             <a href="${verificationLink}" 
@@ -443,7 +443,7 @@ export class EmailChannel extends RegistrationChannel {
         </div>
       `,
       text: `
-Welcome to Kunlun Framework
+Welcome to OpenTaiji
 
 Please click the link below to verify your email address:
 ${verificationLink}

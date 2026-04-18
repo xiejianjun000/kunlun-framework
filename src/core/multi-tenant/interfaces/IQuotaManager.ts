@@ -2,7 +2,7 @@
  * 配额管理器接口
  * Quota Manager Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {

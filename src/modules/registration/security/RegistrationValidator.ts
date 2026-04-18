@@ -4,11 +4,11 @@
  * 
  * 负责验证注册表单数据的合法性
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
-import { PasswordPolicy } from '../../core/config/KunlunConfig';
+import { PasswordPolicy } from '../../core/config/TaijiConfig';
 
 /**
  * 验证结果
@@ -46,7 +46,7 @@ const DEFAULT_USERNAME_RULES: UsernameValidationRule = {
   reservedUsernames: [
     'admin', 'root', 'system', 'administrator',
     'super', 'superuser', 'test', 'testuser',
-    'kunlun', 'framework', 'api', 'support',
+    'Taiji', 'framework', 'api', 'support',
   ],
 };
 

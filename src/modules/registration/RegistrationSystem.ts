@@ -4,12 +4,12 @@
  * 
  * 实现IRegistrationSystem接口，提供完整的用户注册功能
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
 import { EventEmitter } from 'events';
-import { ConfigManager, getConfig, RegistrationConfig } from '../../core/config/KunlunConfig';
+import { ConfigManager, getConfig, RegistrationConfig } from '../../core/config/TaijiConfig';
 import {
   User,
   RegistrationChannelType,

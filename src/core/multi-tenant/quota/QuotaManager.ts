@@ -2,7 +2,7 @@
  * 配额管理器
  * Quota Manager - 资源配额管理
  * 
- * @module Kunlun.MultiTenant.Quota
+ * @module Taiji.MultiTenant.Quota
  */
 
 import { EventEmitter } from 'events';

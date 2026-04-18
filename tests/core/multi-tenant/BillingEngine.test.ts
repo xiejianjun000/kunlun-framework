@@ -2,7 +2,7 @@
  * 计费引擎单元测试
  * BillingEngine Unit Tests
  * 
- * @module Kunlun.MultiTenant.Tests
+ * @module Taiji.MultiTenant.Tests
  */
 
 import { BillingEngine, UsageTracker, InvoiceGenerator } from '../../src/core/multi-tenant';

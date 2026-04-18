@@ -375,7 +375,7 @@ export const useChatStore = create<ChatState & ChatActions>()(
       },
     }),
     {
-      name: 'kunlun-chat-storage',
+      name: 'Taiji-chat-storage',
       partialize: (state) => ({
         conversations: state.conversations,
         currentAgent: state.currentAgent,

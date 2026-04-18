@@ -513,7 +513,7 @@ export class SkillValidator {
     warnings: SkillValidationWarning[]
   ): Promise<void> {
     // 检查是否有配置文件定义权限
-    const configFiles = ['kunlun.config.json', 'skill.config.json'];
+    const configFiles = ['Taiji.config.json', 'skill.config.json'];
 
     for (const configFile of configFiles) {
       const configPath = path.join(skillPath, configFile);
@@ -593,7 +593,7 @@ export class SkillValidator {
    * 计算签名
    */
   private calculateSignature(data: string): string {
-    return crypto.createHmac('sha256', 'kunlun-skill-secret').update(data).digest('hex');
+    return crypto.createHmac('sha256', 'Taiji-skill-secret').update(data).digest('hex');
   }
 
   /**

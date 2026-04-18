@@ -2,7 +2,7 @@
  * 资源隔离器基类
  * Resource Isolator Base Class
  * 
- * @module Kunlun.MultiTenant.Isolation
+ * @module Taiji.MultiTenant.Isolation
  */
 
 import {

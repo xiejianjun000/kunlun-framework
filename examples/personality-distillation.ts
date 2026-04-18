@@ -1,6 +1,6 @@
 /**
  * 人格蒸馏示例
- * Kunlun Framework Personality Distillation Example
+ * OpenTaiji Personality Distillation Example
  * 
  * 本示例演示如何进行人格蒸馏，包括：
  * 1. 创建人格档案
@@ -446,7 +446,7 @@ async function example8_personalityEvolution(personalitySystem: PersonalitySyste
 
 async function main() {
   console.log('\n' + '='.repeat(60));
-  console.log('🧠 昆仑框架人格蒸馏示例');
+  console.log('🧠 OpenTaiji人格蒸馏示例');
   console.log('='.repeat(60) + '\n');
 
   try {

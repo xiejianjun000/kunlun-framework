@@ -1,15 +1,15 @@
 /**
  * 多租户使用示例
- * Kunlun Framework Multi-Tenant Usage Example
+ * OpenTaiji Multi-Tenant Usage Example
  * 
- * 本示例演示如何在昆仑框架中实现多租户隔离，包括：
+ * 本示例演示如何在OpenTaiji中实现多租户隔离，包括：
  * 1. 创建租户和用户
  * 2. 租户资源隔离
  * 3. 租户配额管理
  * 4. 跨租户操作限制
  */
 
-import { KunlunFramework, KunlunFrameworkConfig } from '../src/core/KunlunFramework';
+import { TaijiFramework, TaijiFrameworkConfig } from '../src/core/TaijiFramework';
 import { SkillSystem } from '../src/modules/skill-system/SkillSystem';
 import { MemorySystem } from '../src/modules/memory-system/MemorySystem';
 import { PersonalitySystem } from '../src/modules/personality-system/PersonalitySystem';
@@ -69,7 +69,7 @@ async function example1_tenantManagement() {
   console.log('示例1: 创建和管理租户');
   console.log('='.repeat(50));
 
-  const framework = new KunlunFramework({
+  const framework = new TaijiFramework({
     multiTenant: {
       enabled: true,
       isolationLevel: 'standard'
@@ -429,7 +429,7 @@ async function example7_crossTenantRestrictions() {
 
 async function main() {
   console.log('\n' + '='.repeat(60));
-  console.log('🏢 昆仑框架多租户使用示例');
+  console.log('🏢 OpenTaiji多租户使用示例');
   console.log('='.repeat(60) + '\n');
 
   try {

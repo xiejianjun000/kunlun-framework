@@ -2,7 +2,7 @@
  * RegistrationSystem.test.ts
  * 注册系统单元测试
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

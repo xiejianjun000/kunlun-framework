@@ -2,7 +2,7 @@
  * 网络隔离器
  * Network Isolator - Kubernetes namespace级别隔离
  * 
- * @module Kunlun.MultiTenant.Isolation
+ * @module Taiji.MultiTenant.Isolation
  */
 
 import {
@@ -21,7 +21,7 @@ import { ResourceIsolator } from './ResourceIsolator';
 /**
  * 网络隔离器配置
  */
-export interface KunlunNetworkIsolatorConfig extends NetworkIsolatorConfig {
+export interface TaijiNetworkIsolatorConfig extends NetworkIsolatorConfig {
   /** Kubernetes API Server URL */
   kubeApiServer?: string;
   /** Kubernetes命名空间前缀 */
@@ -40,7 +40,7 @@ export interface KunlunNetworkIsolatorConfig extends NetworkIsolatorConfig {
  * ```typescript
  * const isolator = new NetworkIsolator({
  *   isolationLevel: 'standard',
- *   namespacePrefix: 'kunlun-tenant-',
+ *   namespacePrefix: 'Taiji-tenant-',
  *   networkPolicyEnabled: true,
  * });
  * 
@@ -56,16 +56,16 @@ export interface KunlunNetworkIsolatorConfig extends NetworkIsolatorConfig {
  * ```
  */
 export class NetworkIsolator extends ResourceIsolator implements INetworkIsolator {
-  private config: KunlunNetworkIsolatorConfig;
+  private config: TaijiNetworkIsolatorConfig;
   private namespaces: Set<string> = new Set();
   private networkPolicies: Map<string, NetworkPolicy> = new Map();
   private namespacePrefix: string;
   private redisPrefix: string;
 
-  constructor(config: KunlunNetworkIsolatorConfig) {
+  constructor(config: TaijiNetworkIsolatorConfig) {
     super(config.isolationLevel ?? IsolationLevel.STANDARD);
-    this.namespacePrefix = config.namespacePrefix ?? 'kunlun-tenant-';
-    this.redisPrefix = config.redisPrefix ?? 'kunlun:tenant:';
+    this.namespacePrefix = config.namespacePrefix ?? 'Taiji-tenant-';
+    this.redisPrefix = config.redisPrefix ?? 'Taiji:tenant:';
     this.config = {
       kubeApiServer: config.kubeApiServer ?? 'https://kubernetes.default.svc',
       networkPolicyEnabled: config.networkPolicyEnabled ?? true,

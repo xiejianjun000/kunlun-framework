@@ -4,7 +4,7 @@
  * 
  * 实现手机号注册和短信验证码功能
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
@@ -102,19 +102,19 @@ export class PhoneChannel extends RegistrationChannel {
       aliyun: config?.aliyun || {
         accessKeyId: process.env.ALIYUN_ACCESS_KEY_ID || '',
         accessKeySecret: process.env.ALIYUN_ACCESS_KEY_SECRET || '',
-        signName: process.env.ALIYUN_SIGN_NAME || '昆仑框架',
+        signName: process.env.ALIYUN_SIGN_NAME || 'OpenTaiji',
         templateCode: process.env.ALIYUN_TEMPLATE_CODE || 'SMS_123456789',
       },
       tencent: config?.tencent || {
         secretId: process.env.TENCENT_SECRET_ID || '',
         secretKey: process.env.TENCENT_SECRET_KEY || '',
         sdkAppId: process.env.TENCENT_SDK_APP_ID || '',
-        signName: process.env.TENCENT_SIGN_NAME || '昆仑框架',
+        signName: process.env.TENCENT_SIGN_NAME || 'OpenTaiji',
         templateId: parseInt(process.env.TENCENT_TEMPLATE_ID || '1234567'),
       },
       template: config?.template || {
         verificationCode: '您的验证码是：${code}，有效期5分钟，请勿泄露',
-        welcome: '欢迎注册昆仑框架，您的手机号已成功注册',
+        welcome: '欢迎注册OpenTaiji，您的手机号已成功注册',
       },
     };
 

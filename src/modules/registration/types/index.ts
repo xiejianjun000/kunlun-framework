@@ -2,7 +2,7 @@
  * types/index.ts
  * 注册系统类型定义
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

@@ -2,7 +2,7 @@
  * 租户管理器接口
  * Tenant Manager Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {

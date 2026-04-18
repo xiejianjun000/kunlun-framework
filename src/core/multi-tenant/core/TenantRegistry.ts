@@ -2,7 +2,7 @@
  * 租户注册表
  * Tenant Registry - 租户的注册、存储和检索
  * 
- * @module Kunlun.MultiTenant.Core
+ * @module Taiji.MultiTenant.Core
  */
 
 import { EventEmitter } from 'events';

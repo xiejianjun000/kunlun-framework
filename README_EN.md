@@ -1,4 +1,4 @@
-# Kunlun Framework
+# OpenTaiji
 
 > **Open-source Multi-Agent Collaboration Framework**
 > 
@@ -8,11 +8,11 @@
 
 ---
 
-## 🎯 What is Kunlun?
+## 🎯 What is Taiji?
 
-**Kunlun is not just another AI agent. It's a framework for agents to work together.**
+**Taiji is not just another AI agent. It's a framework for agents to work together.**
 
-While other frameworks focus on a single agent helping one user, Kunlun enables **multiple specialized agents to collaborate on complex tasks**. Think of it as building a team of AI experts, each with their own personality and skills, working together seamlessly.
+While other frameworks focus on a single agent helping one user, Taiji enables **multiple specialized agents to collaborate on complex tasks**. Think of it as building a team of AI experts, each with their own personality and skills, working together seamlessly.
 
 ### The Difference
 
@@ -20,7 +20,7 @@ While other frameworks focus on a single agent helping one user, Kunlun enables 
 |-----------|-------|----------|
 | OpenClaw | Personal AI assistant | Individual users, local-first |
 | Hermes | Self-improving agent | Users who want agents that learn |
-| **Kunlun** | Multi-agent collaboration | Teams, enterprises, complex workflows |
+| **Taiji** | Multi-agent collaboration | Teams, enterprises, complex workflows |
 
 ---
 
@@ -28,7 +28,7 @@ While other frameworks focus on a single agent helping one user, Kunlun enables 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Kunlun Framework                        │
+│                      OpenTaiji                        │
 ├─────────────────────────────────────────────────────────────┤
 │  L1 Integration    →  WeChat/Feishu/DingTalk/20+ platforms  │
 │  L2 Gateway        →  Auth + Routing + Rate Limiting         │
@@ -44,7 +44,7 @@ While other frameworks focus on a single agent helping one user, Kunlun enables 
 
 ### 🎭 Personality Distillation System
 
-Every agent in Kunlun has a unique personality:
+Every agent in Taiji has a unique personality:
 
 ```typescript
 interface IPersonalitySystem {
@@ -58,7 +58,7 @@ interface IPersonalitySystem {
 }
 ```
 
-**Why it matters**: An environmental review agent (仓颉) should be rigorous and compliance-focused. A creative assistant should be imaginative. Kunlun lets you define and distill these personalities.
+**Why it matters**: An environmental review agent (仓颉) should be rigorous and compliance-focused. A creative assistant should be imaginative. Taiji lets you define and distill these personalities.
 
 ### 🤝 Multi-Agent Collaboration
 
@@ -75,20 +75,20 @@ const task = {
 };
 
 // Agents coordinate, share context, and deliver unified results
-await kunlun.executeCollaborativeTask(task);
+await Taiji.executeCollaborativeTask(task);
 ```
 
 ### 🔧 Skill Ecosystem Compatibility
 
-Kunlun unifies skill formats from major frameworks:
+Taiji unifies skill formats from major frameworks:
 
 ```
-UnifiedSkill = ClawHub + Hermes + Kunlun
+UnifiedSkill = ClawHub + Hermes + Taiji
 ```
 
 - Import skills from ClawHub marketplace
-- Convert Hermes skills to Kunlun format
-- Create new Kunlun-native skills
+- Convert Hermes skills to Taiji format
+- Create new Taiji-native skills
 
 ### 💓 Heartbeat Self-Check System
 
@@ -130,15 +130,15 @@ Three lines of defense to keep agents on track:
 ### Installation
 
 ```bash
-npm install kunlun-framework
+npm install open-taiji
 ```
 
 ### Create a Framework Instance
 
 ```typescript
-import { KunlunFramework } from 'kunlun-framework';
+import { TaijiFramework } from 'open-taiji';
 
-const kunlun = new KunlunFramework({
+const Taiji = new TaijiFramework({
   // Multi-tenant configuration
   multiTenant: {
     enabled: true,
@@ -180,13 +180,13 @@ const kunlun = new KunlunFramework({
 ### Initialize and Run
 
 ```typescript
-await kunlun.initialize(); // Heartbeat starts automatically
+await Taiji.initialize(); // Heartbeat starts automatically
 
 // Manual heartbeat check
-const results = await kunlun.triggerHeartbeatCheck();
+const results = await Taiji.triggerHeartbeatCheck();
 
 // Add custom check item
-kunlun.addHeartbeatCheckItem({
+Taiji.addHeartbeatCheckItem({
   id: 'custom_check',
   name: 'Custom Check',
   severity: 'medium',
@@ -205,25 +205,25 @@ kunlun.addHeartbeatCheckItem({
 ### Storage Adapters
 
 ```typescript
-import { LocalStorageAdapter } from 'kunlun-framework/adapters/storage/local';
-import { S3StorageAdapter } from 'kunlun-framework/adapters/storage/s3';
-import { MinioStorageAdapter } from 'kunlun-framework/adapters/storage/minio';
+import { LocalStorageAdapter } from 'open-taiji/adapters/storage/local';
+import { S3StorageAdapter } from 'open-taiji/adapters/storage/s3';
+import { MinioStorageAdapter } from 'open-taiji/adapters/storage/minio';
 ```
 
 ### Messaging Adapters
 
 ```typescript
-import { WeChatAdapter } from 'kunlun-framework/adapters/messaging/wechat';
-import { WeComAdapter } from 'kunlun-framework/adapters/messaging/wecom';
-import { FeishuAdapter } from 'kunlun-framework/adapters/messaging/feishu';
+import { WeChatAdapter } from 'open-taiji/adapters/messaging/wechat';
+import { WeComAdapter } from 'open-taiji/adapters/messaging/wecom';
+import { FeishuAdapter } from 'open-taiji/adapters/messaging/feishu';
 ```
 
 ### LLM Adapters
 
 ```typescript
-import { OpenAIAdapter } from 'kunlun-framework/adapters/llm/openai';
-import { DeepSeekAdapter } from 'kunlun-framework/adapters/llm/deepseek';
-import { LocalModelAdapter } from 'kunlun-framework/adapters/llm/local';
+import { OpenAIAdapter } from 'open-taiji/adapters/llm/openai';
+import { DeepSeekAdapter } from 'open-taiji/adapters/llm/deepseek';
+import { LocalModelAdapter } from 'open-taiji/adapters/llm/local';
 ```
 
 ---
@@ -264,7 +264,7 @@ Apache 2.0 — See [LICENSE](./LICENSE)
 
 ## 🙏 Acknowledgments
 
-Kunlun integrates core capabilities from these excellent open-source projects:
+Taiji integrates core capabilities from these excellent open-source projects:
 
 - [OpenCLAW](https://github.com/openclaw/openclaw) — Multi-platform messaging gateway
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent) — Self-learning & memory system
@@ -272,22 +272,22 @@ Kunlun integrates core capabilities from these excellent open-source projects:
 
 ---
 
-## 🌟 Why Choose Kunlun?
+## 🌟 Why Choose Taiji?
 
-**You need Kunlun if:**
+**You need Taiji if:**
 
 - ✅ You want multiple agents to work together (not just one)
 - ✅ You need each agent to have a distinct personality
 - ✅ You're building for teams or enterprises, not just individuals
-- ✅ You want to leverage skills from ClawHub, Hermes, and Kunlun ecosystems
+- ✅ You want to leverage skills from ClawHub, Hermes, and Taiji ecosystems
 - ✅ You need enterprise-grade security and audit capabilities
 
-**Kunlun Philosophy:**
+**Taiji Philosophy:**
 
 > "Good architecture lets business happen naturally. Good incentives let ecosystems self-drive."
 
 ---
 
-**Kunlun Framework Team**  
-📧 contact@kunlun-framework.dev  
-🌐 https://kunlun-framework.dev
+**OpenTaiji Team**  
+📧 contact@open-taiji.dev  
+🌐 https://open-taiji.dev

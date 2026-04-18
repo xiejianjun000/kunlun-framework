@@ -2,7 +2,7 @@
  * 多租户管理模块 - 接口索引
  * Multi-Tenant Module Interfaces Index
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 export * from './ITenantManager';

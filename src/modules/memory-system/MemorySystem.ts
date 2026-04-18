@@ -792,7 +792,7 @@ export class MemorySystem extends EventEmitter implements IMemorySystem {
         this.vectorAdapter = new QdrantAdapter({
           url: config.url ?? 'http://localhost:6333',
           apiKey: config.apiKey,
-          collectionPrefix: config.collectionPrefix ?? 'kunlun_',
+          collectionPrefix: config.collectionPrefix ?? 'Taiji_',
         });
         break;
       case 'local':
@@ -801,7 +801,7 @@ export class MemorySystem extends EventEmitter implements IMemorySystem {
         this.vectorAdapter = new QdrantAdapter({
           url: config.url ?? 'http://localhost:6333',
           apiKey: config.apiKey,
-          collectionPrefix: config.collectionPrefix ?? 'kunlun_',
+          collectionPrefix: config.collectionPrefix ?? 'Taiji_',
         });
         break;
     }
@@ -813,7 +813,7 @@ export class MemorySystem extends EventEmitter implements IMemorySystem {
    * 获取Collection名称
    */
   private getCollectionName(userId: string): string {
-    const prefix = this.config.vectorStoreConfig?.collectionPrefix ?? 'kunlun_';
+    const prefix = this.config.vectorStoreConfig?.collectionPrefix ?? 'Taiji_';
     return `${prefix}memories_${userId}`;
   }
 

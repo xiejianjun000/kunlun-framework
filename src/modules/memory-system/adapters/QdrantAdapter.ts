@@ -25,7 +25,7 @@ export interface QdrantConfig {
 }
 
 const DEFAULT_CONFIG: Partial<QdrantConfig> = {
-  collectionPrefix: 'kunlun_',
+  collectionPrefix: 'Taiji_',
   defaultDimension: 1536,
   timeout: 30000,
 };
@@ -414,7 +414,7 @@ export class QdrantAdapter implements VectorStoreAdapter {
    * 获取完整的Collection名称
    */
   private getFullCollectionName(name: string): string {
-    return `${this.config.collectionPrefix ?? 'kunlun_'}${name}`;
+    return `${this.config.collectionPrefix ?? 'Taiji_'}${name}`;
   }
 
   /**

@@ -1,15 +1,15 @@
 /**
- * KunlunConfig.ts
- * 昆仑框架配置管理
+ * TaijiConfig.ts
+ * OpenTaiji配置管理
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
 /**
  * 框架配置接口
  */
-export interface KunlunConfig {
+export interface TaijiConfig {
   /** 框架基础配置 */
   framework: FrameworkConfig;
   
@@ -289,9 +289,9 @@ export interface OAuthProviderConfig {
 /**
  * 默认配置
  */
-export const DEFAULT_CONFIG: KunlunConfig = {
+export const DEFAULT_CONFIG: TaijiConfig = {
   framework: {
-    name: 'Kunlun Framework',
+    name: 'OpenTaiji',
     version: '1.0.0',
     mode: 'development',
     logging: {
@@ -391,7 +391,7 @@ export const DEFAULT_CONFIG: KunlunConfig = {
  */
 export class ConfigManager {
   private static instance: ConfigManager;
-  private config: KunlunConfig;
+  private config: TaijiConfig;
 
   private constructor() {
     this.config = { ...DEFAULT_CONFIG };
@@ -410,21 +410,21 @@ export class ConfigManager {
   /**
    * 获取配置
    */
-  public getConfig(): KunlunConfig {
+  public getConfig(): TaijiConfig {
     return { ...this.config };
   }
 
   /**
    * 获取特定配置
    */
-  public get<K extends keyof KunlunConfig>(key: K): KunlunConfig[K] {
+  public get<K extends keyof TaijiConfig>(key: K): TaijiConfig[K] {
     return this.config[key];
   }
 
   /**
    * 更新配置
    */
-  public setConfig(config: Partial<KunlunConfig>): void {
+  public setConfig(config: Partial<TaijiConfig>): void {
     this.config = this.deepMerge(this.config, config);
   }
 
@@ -499,13 +499,13 @@ export class ConfigManager {
 /**
  * 便捷的全局配置获取函数
  */
-export function getConfig(): KunlunConfig {
+export function getConfig(): TaijiConfig {
   return ConfigManager.getInstance().getConfig();
 }
 
 /**
  * 便捷的全局配置获取函数（泛型版本）
  */
-export function getConfigValue<K extends keyof KunlunConfig>(key: K): KunlunConfig[K] {
+export function getConfigValue<K extends keyof TaijiConfig>(key: K): TaijiConfig[K] {
   return ConfigManager.getInstance().get(key);
 }

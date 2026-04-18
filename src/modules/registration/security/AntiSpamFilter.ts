@@ -4,11 +4,11 @@
  * 
  * 防止机器人和恶意注册行为
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 
-import { AntiSpamConfig } from '../../core/config/KunlunConfig';
+import { AntiSpamConfig } from '../../core/config/TaijiConfig';
 import { ClientInfo } from '../types';
 
 /**

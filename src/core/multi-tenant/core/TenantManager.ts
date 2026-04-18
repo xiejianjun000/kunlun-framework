@@ -2,7 +2,7 @@
  * 租户管理器
  * Tenant Manager - 租户管理的核心类
  * 
- * @module Kunlun.MultiTenant.Core
+ * @module Taiji.MultiTenant.Core
  */
 
 import { EventEmitter } from 'events';

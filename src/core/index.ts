@@ -4,10 +4,10 @@
  */
 
 export {
-  KunlunFramework,
-  createKunlunFramework,
-  type KunlunFrameworkConfig,
-} from './KunlunFramework';
+  TaijiFramework,
+  createTaijiFramework,
+  type TaijiFrameworkConfig,
+} from './TaijiFramework';
 
 // 心跳模块
 export {

@@ -2,7 +2,7 @@
  * 多租户管理模块 - 类型定义
  * Multi-Tenant Module Type Definitions
  * 
- * @module Kunlun.MultiTenant.Types
+ * @module Taiji.MultiTenant.Types
  */
 
 import { EventEmitter } from 'events';

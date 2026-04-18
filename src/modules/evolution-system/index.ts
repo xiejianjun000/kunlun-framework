@@ -104,4 +104,4 @@ export * from './interfaces';
 
 // 版本信息
 export const EVOLUTION_SYSTEM_VERSION = '1.0.0';
-export const EVOLUTION_SYSTEM_NAME = 'Kunlun Evolution System';
+export const EVOLUTION_SYSTEM_NAME = 'Taiji Evolution System';

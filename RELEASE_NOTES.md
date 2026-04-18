@@ -1,4 +1,4 @@
-# 昆仑（Kunlun）- 多智能体开源框架
+# 昆仑（Taiji）- 多智能体开源框架
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
@@ -41,10 +41,10 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/kunlun-ai/kunlun-framework.git
+git clone https://github.com/Taiji-ai/open-taiji.git
 
 # 安装依赖
-cd kunlun-framework
+cd open-taiji
 npm install
 
 # 运行示例
@@ -52,10 +52,10 @@ npm run example:basic
 ```
 
 ```typescript
-import { KunlunFramework } from 'kunlun-framework';
+import { TaijiFramework } from 'open-taiji';
 
 // 创建框架实例
-const framework = new KunlunFramework({
+const framework = new TaijiFramework({
   multiTenant: true,
   heartbeat: { interval: 1800000 } // 30分钟
 });
@@ -84,7 +84,7 @@ await framework.memory.store(user.id, {
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    昆仑框架架构                          │
+│                    OpenTaiji架构                          │
 ├─────────────────────────────────────────────────────────┤
 │  L1 接入层    │ 前端UI + 消息网关（微信/飞书/邮件等）      │
 │  L2 网关层    │ API Gateway + Message Router             │
@@ -145,6 +145,6 @@ git push origin feature/my-feature
 
 **技术哲学**：*"好的架构让商业自然发生，好的激励让生态自驱动。"*
 
-**官网**：https://kunlun.ai  
-**社区**：https://github.com/kunlun-ai/kunlun-framework/discussions  
-**邮箱**：contact@kunlun.ai
+**官网**：https://Taiji.ai  
+**社区**：https://github.com/Taiji-ai/open-taiji/discussions  
+**邮箱**：contact@Taiji.ai

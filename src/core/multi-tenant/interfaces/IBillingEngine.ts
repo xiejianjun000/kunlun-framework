@@ -2,7 +2,7 @@
  * 计费引擎接口
  * Billing Engine Interface
  * 
- * @module Kunlun.MultiTenant.Interfaces
+ * @module Taiji.MultiTenant.Interfaces
  */
 
 import {

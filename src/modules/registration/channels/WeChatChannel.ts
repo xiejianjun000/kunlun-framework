@@ -4,7 +4,7 @@
  * 
  * 实现微信扫码登录/注册功能
  * 
- * @author 昆仑框架团队
+ * @author OpenTaiji团队
  * @version 1.0.0
  */
 

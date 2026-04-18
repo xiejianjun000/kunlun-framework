@@ -474,10 +474,10 @@ export class SkillExecutor
     const env = {
       ...process.env,
       ...context.envVars,
-      KUNLUN_EXECUTION_ID: executionId,
-      KUNLUN_SKILL_ID: context.skillId,
-      KUNLUN_USER_ID: context.userId,
-      KUNLUN_TENANT_ID: context.tenantId,
+      Taiji_EXECUTION_ID: executionId,
+      Taiji_SKILL_ID: context.skillId,
+      Taiji_USER_ID: context.userId,
+      Taiji_TENANT_ID: context.tenantId,
     };
 
     // 创建执行Promise

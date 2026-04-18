@@ -2,7 +2,7 @@
  * 租户配置管理器
  * Tenant Configuration Manager - 配置验证和配额计划管理
  * 
- * @module Kunlun.MultiTenant.Core
+ * @module Taiji.MultiTenant.Core
  */
 
 import {

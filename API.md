@@ -1,4 +1,4 @@
-# 昆仑框架 API 参考文档
+# OpenTaiji API 参考文档
 
 > **版本**: 1.0.0
 > **更新日期**: 2026年4月18日
@@ -21,28 +21,28 @@
 
 ## 1. 框架主类
 
-### KunlunFramework
+### TaijiFramework
 
 框架主类，整合所有子系统，提供统一的API入口。
 
 #### 构造函数
 
 ```typescript
-new KunlunFramework(config?: KunlunFrameworkConfig)
+new TaijiFramework(config?: TaijiFrameworkConfig)
 ```
 
 **参数**:
 
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| config | KunlunFrameworkConfig | 否 | 框架配置 |
+| config | TaijiFrameworkConfig | 否 | 框架配置 |
 
 **示例**:
 
 ```typescript
-import { KunlunFramework } from 'kunlun-framework';
+import { TaijiFramework } from 'open-taiji';
 
-const framework = new KunlunFramework({
+const framework = new TaijiFramework({
   multiTenant: {
     enabled: true,
     isolationLevel: 'standard'
@@ -170,7 +170,7 @@ getHeartbeatStatus(): HeartbeatStatus
 获取框架配置。
 
 ```typescript
-getConfig(): Readonly<Required<KunlunFrameworkConfig>>
+getConfig(): Readonly<Required<TaijiFrameworkConfig>>
 ```
 
 ##### isReady()
@@ -229,7 +229,7 @@ const skill = await skillSystem.registerSkill({
   name: '天气查询',
   description: '查询城市天气',
   version: '1.0.0',
-  author: 'Kunlun Team',
+  author: 'Taiji Team',
   tags: ['weather', 'utility']
 }, 'user-001');
 ```
@@ -908,22 +908,22 @@ enum CheckStatus {
 
 ```typescript
 // 常见错误类型
-class KunlunError extends Error {
+class TaijiError extends Error {
   code: string;
   details?: Record<string, any>;
 }
 
-class NotFoundError extends KunlunError {
+class NotFoundError extends TaijiError {
   resourceType: string;
   resourceId: string;
 }
 
-class PermissionError extends KunlunError {
+class PermissionError extends TaijiError {
   requiredPermission: string;
   userId: string;
 }
 
-class QuotaExceededError extends KunlunError {
+class QuotaExceededError extends TaijiError {
   quotaType: string;
   current: number;
   limit: number;
@@ -958,7 +958,7 @@ framework.initialize().then(() => {
 ```typescript
 // 推荐：使用 try/finally 确保资源释放
 async function useFramework() {
-  const framework = new KunlunFramework();
+  const framework = new TaijiFramework();
   
   try {
     await framework.initialize();
@@ -998,6 +998,6 @@ try {
 
 ## 贡献者
 
-本API文档由昆仑框架团队维护。
+本API文档由OpenTaiji团队维护。
 
-如有问题，请提交 [Issue](https://github.com/kunlun-framework/kunlun-framework/issues)。
+如有问题，请提交 [Issue](https://github.com/open-taiji/open-taiji/issues)。
