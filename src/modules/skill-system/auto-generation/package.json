@@ -1,0 +1,30 @@
+{
+  "name": "@open-taiji/skill-auto-generation",
+  "version": "1.0.0",
+  "description": "自动技能生成系统 - 实现任务完成到技能沉淀的闭环",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "open-taiji",
+    "skill-generation",
+    "agent",
+    "automation"
+  ],
+  "author": "OpenTaiji Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "vitest": "^1.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

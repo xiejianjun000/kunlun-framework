@@ -17,4 +17,14 @@ module.exports = {
   coverageReporters: ['text', 'lcov', 'html'],
   verbose: true,
   testTimeout: 10000,
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        esModuleInterop: true,
+      },
+    },
+  },
+  moduleNameMapper: {
+    '^uuid$': '<rootDir>/tests/__mocks__/uuid.ts',
+  },
 };
