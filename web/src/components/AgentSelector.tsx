@@ -55,7 +55,7 @@ export default function AgentSelector() {
               strokeLinejoin="round"
             />
           </svg>
-          <span>十三神</span>
+          <span>智能体</span>
         </div>
         <span className={styles.version}>v1.0</span>
       </div>
