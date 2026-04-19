@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "skills": {
+    "web-search": {
+      "version": "1.0.0",
+      "installedAt": 1772440175432
+    },
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772440193937
+    },
+    "bluebubbles": {
+      "version": "1.0.0",
+      "installedAt": 1772440205954
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1772440213641
+    },
+    "notion": {
+      "version": "1.0.0",
+      "installedAt": 1772440234121
+    },
+    "slack": {
+      "version": "1.0.0",
+      "installedAt": 1772440240388
+    },
+    "image-vision": {
+      "version": "1.0.0",
+      "installedAt": 1775412955539
+    },
+    "clawhub-wrapper": {
+      "version": "1.0.1",
+      "installedAt": 1775477030608
+    },
+    "feishu-bridge": {
+      "version": "1.0.0",
+      "installedAt": 1775483379232
+    },
+    "feishu-enhanced": {
+      "version": "1.0.0",
+      "installedAt": 1775483387323
+    },
+    "feishu-document-reader": {
+      "version": "0.1.2",
+      "installedAt": 1775491368839
+    },
+    "feishu-doc": {
+      "version": "1.2.7",
+      "installedAt": 1775498777081
+    },
+    "feishu-common": {
+      "version": "1.0.1",
+      "installedAt": 1775498788273
+    },
+    "veadk-skills": {
+      "version": "1.0.0",
+      "installedAt": 1776038978263
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "name": "open-taiji",
+  "version": "1.0.0",
+  "description": "OpenTaiji - 开源多智能体框架（OpenCLAW + Hermes + Claude Code整合）",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest --config tests/integration/jest.config.js",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "docs": "typedoc src/index.ts --out docs",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "Taiji",
+    "multi-agent",
+    "openclaw",
+    "hermes",
+    "claude-code",
+    "ai-framework",
+    "multi-tenant",
+    "skill-system",
+    "memory-system"
+  ],
+  "author": "OpenTaiji团队",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-taiji/open-taiji.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xiejianjun000/open-taiji/issues"
+  },
+  "homepage": "https://open-taiji.dev",
+  "dependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/uuid": "^10.0.0",
+    "better-sqlite3": "^12.9.0",
+    "openai": "^6.34.0",
+    "uuid": "^13.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.9",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/tests"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts",
+      "!src/**/index.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "verbose": true,
+    "testTimeout": 10000,
+    "moduleNameMapper": {
+      "^uuid$": "<rootDir>/tests/__mocks__/uuid.ts"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "./tsconfig.test.json"
+      }
+    }
+  }
+}

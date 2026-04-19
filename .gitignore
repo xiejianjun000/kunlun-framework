@@ -1,0 +1,67 @@
+# 依赖
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 构建产物
+dist/
+build/
+*.tsbuildinfo
+
+# 日志
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 测试
+coverage/
+.nyc_output/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 临时文件
+tmp/
+temp/
+.tmp/
+.temp/
+
+# 缓存
+.cache/
+.parcel-cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# 测试快照
+**/__snapshots__/
+
+# 源码学习目录
+source-study/
+
+# 构建产物
+dist/
+*.tsbuildinfo
+
+# 其他学习源码
+code-review-graph-src/
+
+# 开发临时目录
+data/
+source-study/

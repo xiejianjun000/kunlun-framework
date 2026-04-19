@@ -1,0 +1,277 @@
+# OpenTaiji - 开发环境配置
+# OpenTaiji Development Configuration
+#
+# 本配置适用于本地开发环境
+# 特点：宽松的安全设置，方便调试
+
+# ============================================
+# 应用配置
+# ============================================
+app:
+  name: "OpenTaiji (Dev)"
+  version: "1.0.0"
+  env: "development"
+  port: 3000
+  host: "127.0.0.1"
+
+# ============================================
+# 多租户配置
+# ============================================
+multiTenant:
+  enabled: true
+  isolationLevel: "standard"
+  defaultQuota:
+    maxUsers: 10
+    maxSkillsPerUser: 20
+    maxMemoryStorage: 5000
+    maxApiCalls: 500
+
+# ============================================
+# 技能系统配置
+# ============================================
+skillSystem:
+  skillsRoot: "./dev-data/skills"
+  registryPath: "./dev-data/skill-registry.json"
+  tempDir: "./dev-data/temp"
+  isolationType: "process"
+  
+  # 开发环境禁用签名验证
+  enableSignatureVerification: false
+  
+  enableQuotaManagement: true
+  defaultQuotaLimits:
+    maxSkills: 20
+    maxConcurrentExecutions: 5
+    maxDailyExecutions: 500
+  
+  execution:
+    defaultTimeout: 60000  # 开发环境超时更长
+    defaultMemoryLimit: 1024
+    maxRetries: 5
+
+# ============================================
+# 记忆系统配置
+# ============================================
+memorySystem:
+  vectorDb:
+    adapter: "local"
+    local:
+      path: "./dev-data/vectors"
+  
+  store:
+    dbType: "sqlite"
+    connectionString: "./dev-data/memory.db"
+    pool:
+      min: 1
+      max: 5
+      idleTimeout: 60000
+  
+  tiers:
+    hot:
+      ttl: 43200    # 12小时（开发环境更长）
+      maxSize: 500
+    warm:
+      ttl: 259200   # 3天
+      maxSize: 2000
+    cold:
+      ttl: -1
+      maxSize: -1
+  
+  importanceScoring:
+    enable: true
+    decayFactor: 0.98  # 开发环境衰减更慢
+    baseThreshold: 0.2
+
+# ============================================
+# 人格系统配置
+# ============================================
+personalitySystem:
+  confidenceThreshold: 0.6   # 开发环境阈值更低
+  maxEvidenceCount: 50
+  updateFrequencyLimit: 1800000  # 30分钟
+  
+  enableSnapshot: true
+  snapshotRetentionDays: 7  # 开发环境保留更短
+  
+  privacy:
+    distillLevel: "relaxed"
+    noDistillTopics: []
+
+# ============================================
+# 进化系统配置
+# ============================================
+evolutionSystem:
+  enabled: true
+  scheduler:
+    interval: 3600000  # 1小时（开发环境更频繁）
+    autoSchedule: true
+  
+  strategies:
+    genetic:
+      populationSize: 20   # 开发环境种群更小
+      mutationRate: 0.2
+      crossoverRate: 0.8
+      eliteRatio: 0.2
+    
+    gradient:
+      learningRate: 0.05
+      batchSize: 16
+    
+    reinforcement:
+      gamma: 0.95
+      epsilon: 0.2
+  
+  fitness:
+    targetFitness: 0.8  # 开发环境目标更低
+    minImprovement: 0.02
+  
+  history:
+    maxRecords: 100
+    retentionDays: 7
+
+# ============================================
+# 心跳系统配置
+# ============================================
+heartbeat:
+  enabled: true
+  interval: 60000  # 1分钟（开发环境更频繁）
+  failureThreshold: 5
+  enableBuiltinCheckers: true
+  builtinCheckers:
+    - system_health
+  
+  notifications:
+    enable: true
+    channels:
+      - console
+
+# ============================================
+# 安全配置 - 开发环境宽松设置
+# ============================================
+security:
+  level: "developer"  # 开发模式
+  
+  approvalRequired:
+    - system_modifications
+  
+  dangerousCommands:
+    patterns:
+      - "^sudo"  # 仅警告，不阻止
+      - "^rm\\s+-rf\\s+/"
+  
+  sensitivePaths:
+    - "/etc/shadow"
+    - "/etc/sudoers"
+  
+  audit:
+    enable: true
+    logPath: "./dev-data/logs/audit"
+    retentionDays: 7
+
+# ============================================
+# 日志配置 - 详细日志
+# ============================================
+logger:
+  level: "debug"  # 最详细日志
+  output: "console"
+  
+  file:
+    path: "./dev-data/logs"
+    maxSize: "5m"
+    maxFiles: 3
+    compress: false
+  
+  format: "pretty"  # 人类可读格式
+  
+  categories:
+    - name: "skill"
+      level: "debug"
+    - name: "memory"
+      level: "debug"
+    - name: "personality"
+      level: "debug"
+    - name: "evolution"
+      level: "debug"
+    - name: "security"
+      level: "warn"
+    - name: "heartbeat"
+      level: "info"
+
+# ============================================
+# 缓存配置
+# ============================================
+cache:
+  type: "memory"
+  
+  memory:
+    maxSize: 500
+    ttl: 1800
+  
+  policies:
+    - name: "skill-metadata"
+      ttl: 600
+      maxSize: 100
+    - name: "user-profile"
+      ttl: 300
+      maxSize: 200
+    - name: "memory-index"
+      ttl: 60
+      maxSize: 500
+
+# ============================================
+# 扩展点配置
+# ============================================
+extensions:
+  enableExtensionPoints: true
+  directory: "./dev-extensions"
+  autoLoad: true
+  preloaded: []
+
+# ============================================
+# 监控配置
+# ============================================
+monitoring:
+  enable: true
+  
+  metrics:
+    enable: true
+    port: 9090
+    path: "/metrics"
+  
+  health:
+    enable: true
+    port: 8080
+    path: "/health"
+  
+  tracing:
+    enable: false
+
+# ============================================
+# 开发工具配置 - 启用所有调试功能
+# ============================================
+devTools:
+  hotReload:
+    enable: true
+    watchPaths:
+      - "./src"
+      - "./skills"
+      - "./dev-data"
+  
+  debug:
+    enable: true
+    port: 9229
+  
+  mock:
+    enable: true
+    fixturesPath: "./tests/fixtures"
+  
+  # 开发工具额外配置
+  extra:
+    # 显示详细错误信息
+    showDetailedErrors: true
+    # 记录所有SQL查询
+    logSqlQueries: true
+    # 记录所有API调用
+    logApiCalls: true
+    # 启用性能分析
+    enableProfiling: true

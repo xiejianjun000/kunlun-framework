@@ -1,0 +1,365 @@
+# OpenTaiji - 生产环境配置
+# OpenTaiji Production Configuration
+#
+# 本配置适用于生产环境
+# 特点：严格的安全设置，高性能优化
+
+# ============================================
+# 应用配置
+# ============================================
+app:
+  name: "OpenTaiji"
+  version: "1.0.0"
+  env: "production"
+  port: 8080
+  host: "0.0.0.0"
+
+# ============================================
+# 多租户配置
+# ============================================
+multiTenant:
+  enabled: true
+  isolationLevel: "strict"  # 生产环境必须严格隔离
+  defaultQuota:
+    maxUsers: 1000
+    maxSkillsPerUser: 100
+    maxMemoryStorage: 50000
+    maxApiCalls: 10000
+
+# ============================================
+# 技能系统配置
+# ============================================
+skillSystem:
+  skillsRoot: "/var/Taiji/skills"
+  registryPath: "/var/Taiji/data/skill-registry.json"
+  tempDir: "/tmp/Taiji"
+  isolationType: "container"  # 生产环境使用容器隔离
+  
+  # 生产环境必须启用签名验证
+  enableSignatureVerification: true
+  
+  enableQuotaManagement: true
+  defaultQuotaLimits:
+    maxSkills: 100
+    maxConcurrentExecutions: 20
+    maxDailyExecutions: 5000
+  
+  execution:
+    defaultTimeout: 30000
+    defaultMemoryLimit: 512
+    maxRetries: 2
+
+# ============================================
+# 记忆系统配置
+# ============================================
+memorySystem:
+  vectorDb:
+    adapter: "qdrant"
+    qdrant:
+      url: "${QDRANT_URL}"  # 从环境变量读取
+      collectionName: "Taiji-memories"
+      vectorSize: 1536
+      # 生产配置
+      waitTimeout: 5000
+      maxRetries: 3
+  
+  store:
+    dbType: "postgres"
+    connectionString: "${DATABASE_URL}"
+    pool:
+      min: 10
+      max: 50
+      idleTimeout: 30000
+      connectionTimeout: 5000
+  
+  tiers:
+    hot:
+      ttl: 86400
+      maxSize: 5000
+    warm:
+      ttl: 604800
+      maxSize: 20000
+    cold:
+      ttl: -1
+      maxSize: -1
+  
+  importanceScoring:
+    enable: true
+    decayFactor: 0.9
+    baseThreshold: 0.4
+
+# ============================================
+# 人格系统配置
+# ============================================
+personalitySystem:
+  confidenceThreshold: 0.8  # 高阈值确保质量
+  maxEvidenceCount: 200
+  updateFrequencyLimit: 7200000  # 2小时
+  
+  enableSnapshot: true
+  snapshotRetentionDays: 180  # 半年的快照保留
+  
+  privacy:
+    distillLevel: "strict"
+    noDistillTopics:
+      - personal_financial
+      - medical_info
+      - auth_credentials
+      - personal_identity
+
+# ============================================
+# 进化系统配置
+# ============================================
+evolutionSystem:
+  enabled: true
+  scheduler:
+    interval: 86400000  # 24小时
+    autoSchedule: true
+  
+  strategies:
+    genetic:
+      populationSize: 100
+      mutationRate: 0.05
+      crossoverRate: 0.8
+      eliteRatio: 0.1
+    
+    gradient:
+      learningRate: 0.001
+      batchSize: 64
+    
+    reinforcement:
+      gamma: 0.99
+      epsilon: 0.05
+  
+  fitness:
+    targetFitness: 0.95
+    minImprovement: 0.005
+  
+  history:
+    maxRecords: 10000
+    retentionDays: 365
+
+# ============================================
+# 心跳系统配置
+# ============================================
+heartbeat:
+  enabled: true
+  interval: 1800000  # 30分钟
+  failureThreshold: 3
+  enableBuiltinCheckers: true
+  builtinCheckers:
+    - persona_compliance
+    - tool_call
+    - memory_pollution
+    - task_completion
+    - system_health
+  
+  notifications:
+    enable: true
+    channels:
+      - console
+      - webhook
+    webhook:
+      url: "${ALERT_WEBHOOK_URL}"
+    thresholds:
+      high: 1
+      medium: 3
+      low: 5
+
+# ============================================
+# 安全配置 - 严格模式
+# ============================================
+security:
+  level: "enterprise"  # 企业级安全
+  
+  # 所有敏感操作都需要审批
+  approvalRequired:
+    - dangerous_commands
+    - sensitive_files
+    - system_modifications
+    - network_access
+    - data_export
+  
+  dangerousCommands:
+    patterns:
+      - "^sudo"
+      - "^rm\\s+-rf"
+      - "^curl\\s+\\|\\s*bash"
+      - "^chmod\\s+777"
+      - "^dd\\s+if="
+  
+  sensitivePaths:
+    - "~/.ssh"
+    - "~/.aws"
+    - "~/.gnupg"
+    - "/etc"
+    - ".env"
+    - "credentials"
+    - "*.key"
+    - "*.pem"
+  
+  audit:
+    enable: true
+    logPath: "/var/log/Taiji/audit"
+    retentionDays: 365
+    # 同步到外部日志系统
+    externalLogging:
+      enable: true
+      syslog:
+        enable: true
+        host: "${SYSLOG_HOST}"
+        port: 514
+        protocol: "tls"
+
+# ============================================
+# 日志配置 - 生产优化
+# ============================================
+logger:
+  level: "info"  # 只记录重要信息
+  output: "file"  # 生产环境写入文件
+  
+  file:
+    path: "/var/log/Taiji"
+    maxSize: "100m"
+    maxFiles: 30
+    compress: true
+  
+  format: "json"  # 结构化日志
+  
+  categories:
+    - name: "skill"
+      level: "info"
+    - name: "memory"
+      level: "info"
+    - name: "personality"
+      level: "info"
+    - name: "evolution"
+      level: "info"
+    - name: "security"
+      level: "warn"
+    - name: "heartbeat"
+      level: "info"
+
+# ============================================
+# 缓存配置
+# ============================================
+cache:
+  type: "redis"
+  
+  redis:
+    host: "${REDIS_HOST}"
+    port: 6379
+    password: "${REDIS_PASSWORD}"
+    db: 0
+    keyPrefix: "Taiji:"
+    # 连接池配置
+    pool:
+      min: 10
+      max: 50
+      acquireTimeout: 3000
+      idleTimeout: 30000
+  
+  memory:
+    maxSize: 10000
+    ttl: 7200
+  
+  policies:
+    - name: "skill-metadata"
+      ttl: 3600
+      maxSize: 2000
+    - name: "user-profile"
+      ttl: 1800
+      maxSize: 5000
+    - name: "memory-index"
+      ttl: 300
+      maxSize: 10000
+
+# ============================================
+# 扩展点配置
+# ============================================
+extensions:
+  enableExtensionPoints: true
+  directory: "/var/Taiji/extensions"
+  autoLoad: false  # 生产环境手动加载
+  preloaded:
+    - "logging-extension"
+    - "metrics-extension"
+
+# ============================================
+# 监控配置 - 完整监控
+# ============================================
+monitoring:
+  enable: true
+  
+  metrics:
+    enable: true
+    port: 9090
+    path: "/metrics"
+    # Prometheus格式
+    format: "prometheus"
+  
+  health:
+    enable: true
+    port: 8080
+    path: "/health"
+    # 详细健康检查
+    checks:
+      - database
+      - redis
+      - qdrant
+      - memory
+  
+  tracing:
+    enable: true
+    serviceName: "open-taiji"
+    # OpenTelemetry配置
+    otlp:
+      endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}"
+      insecure: false
+
+# ============================================
+# 性能优化配置
+# ============================================
+performance:
+  # 请求限流
+  rateLimit:
+    enable: true
+    windowMs: 60000
+    maxRequests: 1000
+  
+  # 连接池优化
+  connectionPool:
+    database:
+      min: 10
+      max: 50
+    redis:
+      min: 10
+      max: 50
+  
+  # 压缩配置
+  compression:
+    enable: true
+    level: 6
+  
+  # HTTP/2配置
+  http2:
+    enable: true
+    maxConcurrentStreams: 100
+
+# ============================================
+# 高可用配置
+# ============================================
+highAvailability:
+  # 启用高可用模式
+  enabled: true
+  
+  # 健康检查
+  healthCheck:
+    interval: 30000
+    timeout: 5000
+    maxFailures: 3
+  
+  # 优雅关闭
+  gracefulShutdown:
+    timeout: 30000
+    enableDrain: true

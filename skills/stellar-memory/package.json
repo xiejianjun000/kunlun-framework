@@ -1,0 +1,34 @@
+{
+  "name": "stellar-memory",
+  "version": "2.0.0",
+  "description": "Five-layer stellar memory system with automatic dream consolidation and personality evolution. Zero dependencies, 100% local, AI that grows with you.",
+  "main": "lib/core.js",
+  "bin": {
+    "stellar-init": "bin/stellar-init.js",
+    "stellar-store": "bin/stellar-store.js",
+    "stellar-search": "bin/stellar-search.js",
+    "stellar-dream": "bin/stellar-dream.js",
+    "stellar-stats": "bin/stellar-stats.js",
+    "stellar-export": "bin/stellar-export.js",
+    "stellar-inspect": "bin/stellar-inspect.js"
+  },
+  "keywords": [
+    "memory",
+    "ai-agent",
+    "long-term-memory",
+    "local-memory",
+    "personality",
+    "evolution",
+    "dream-consolidation",
+    "zero-dependency",
+    "offline",
+    "openclaw",
+    "skill"
+  ],
+  "author": "OpenClaw Community",
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

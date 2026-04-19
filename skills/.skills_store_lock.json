@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "image-vision": {
+      "name": "Image Vision",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=image-vision",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "clawhub-wrapper": {
+      "name": "clawhub",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=clawhub-wrapper",
+      "source": "skillhub",
+      "version": "1.0.1"
+    },
+    "feishu-bridge": {
+      "name": "Feishu Bridge",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=feishu-bridge",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "feishu-enhanced": {
+      "name": "飞书增强套件",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=feishu-enhanced",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "feishu-document-reader": {
+      "name": "Feishu Doc Reader",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=feishu-document-reader",
+      "source": "skillhub",
+      "version": "0.1.2"
+    },
+    "feishu-doc": {
+      "name": "Feishu Doc",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=feishu-doc",
+      "source": "skillhub",
+      "version": "1.2.7"
+    },
+    "feishu-common": {
+      "name": "Feishu Common",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=feishu-common",
+      "source": "skillhub",
+      "version": "1.0.1"
+    },
+    "veadk-skills": {
+      "name": "Volcengine VeADK Skills",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=veadk-skills",
+      "source": "skillhub",
+      "version": "1.0.0"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "date": "2026-04-08",
+  "memories": [
+    {
+      "id": "mnq3n5n0u11g6pdsqsq",
+      "type": "preference",
+      "content": "用户喜欢简洁回答，不喜欢啰嗦冗长，说话要直接明了",
+      "importance": 0.95,
+      "tags": [
+        "communication",
+        "style"
+      ],
+      "context": null,
+      "relatedTo": [],
+      "timestamp": "2026-04-08T13:44:03.660Z",
+      "occurrences": 1
+    },
+    {
+      "id": "mnq3o74wne7zjz3v2mg",
+      "type": "preference",
+      "content": "用户喜欢简洁回答，不喜欢啰嗦冗长，说话要直接明了",
+      "importance": 0.95,
+      "tags": [
+        "communication",
+        "style"
+      ],
+      "context": null,
+      "relatedTo": [],
+      "timestamp": "2026-04-08T13:44:52.256Z",
+      "occurrences": 1
+    },
+    {
+      "id": "mnq3q8mact9ei47x9o7",
+      "type": "preference",
+      "content": "用户说话喜欢直接，不要拐弯抹角",
+      "importance": 0.9,
+      "tags": [
+        "communication",
+        "style"
+      ],
+      "context": null,
+      "relatedTo": [],
+      "timestamp": "2026-04-08T13:46:27.491Z",
+      "occurrences": 1
+    },
+    {
+      "id": "mnq3qd1sohx76wkclym",
+      "type": "preference",
+      "content": "回答问题要简洁明了，不要说一大堆废话",
+      "importance": 0.9,
+      "tags": [
+        "communication",
+        "style"
+      ],
+      "context": null,
+      "relatedTo": [],
+      "timestamp": "2026-04-08T13:46:33.232Z",
+      "occurrences": 1
+    },
+    {
+      "id": "mnq3rwfa0hva6wxq9odl",
+      "type": "preference",
+      "content": "回答一定要简洁，不要说太多废话",
+      "importance": 0.9,
+      "tags": [
+        "communication"
+      ],
+      "context": null,
+      "relatedTo": [],
+      "timestamp": "2026-04-08T13:47:44.998Z",
+      "occurrences": 1
+    }
+  ]
+}

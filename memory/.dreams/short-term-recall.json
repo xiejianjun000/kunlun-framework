@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-07T17:26:13.919Z",
+  "entries": {
+    "memory:memory/2026-04-07.md:1:24": {
+      "key": "memory:memory/2026-04-07.md:1:24",
+      "path": "memory/2026-04-07.md",
+      "startLine": 1,
+      "endLine": 24,
+      "source": "memory",
+      "snippet": "# 2026-04-07 记忆记录 ## 番茄写作项目进度检查任务 - 时间：2026-04-07 07:20 (Asia/Shanghai) - 任务类型：cron定期检查 - 任务ID：4e5955e3-f634-4aca-9836-d37388c4c479 ### 任务要求 1. 查看投稿记录文档，确认第1部是否已投稿 2. 如果已投稿，检查是否有责编回复 3. 统计当前进度，更新进度跟踪文档 4. 如果有重要进展（如过稿、签约），及时通知用户 ### 文档链接 - 投稿记录：https://www.feishu.cn/docx/CXEqdXF9VoteFAxaKuncxFN8njd - 进度跟踪：https://www.feishu.cn/docx/DEuNdM7quoIDDixueaHcj4RTnkc ### 当前状态 由于无法直接访问飞书文档（需要API权限或登录），无法获取最新投稿状态。 ### 建议 1. 需要配置飞书API权限或使用已登录的飞书账户访问文档 2. 或者手动检查文档后更新进度 3. 考虑设置飞书文档访问权限或使用其他文档共享方式",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "totalScore": 0.0000013749981093775994,
+      "maxScore": 0.0000013749981093775994,
+      "firstRecalledAt": "2026-04-07T17:26:13.919Z",
+      "lastRecalledAt": "2026-04-07T17:26:13.919Z",
+      "queryHashes": [
+        "1bd451601758"
+      ],
+      "recallDays": [
+        "2026-04-08"
+      ],
+      "conceptTags": [
+        "asia/shanghai",
+        "记忆",
+        "记录",
+        "番茄",
+        "写作",
+        "项目",
+        "进度",
+        "检查"
+      ]
+    }
+  }
+}
