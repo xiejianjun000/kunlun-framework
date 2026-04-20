@@ -1,0 +1,453 @@
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m23[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'SparkAdapter'.
+
+    [7m23[0m       expect(adapter.name).toBe('SparkAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m24[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'SparkAdapter'.
+
+    [7m24[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m46[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'SparkAdapter'.
+
+    [7m46[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m55[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'SparkAdapter'.
+
+    [7m55[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m64[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'SparkAdapter'.
+
+    [7m64[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m69[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'SparkAdapter'. Did you mean 'resetUsage'?
+
+    [7m69[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m70[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'SparkAdapter'.
+
+    [7m70[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m76[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m76[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m81[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m81[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/index.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/index.test.ts[0m:[93m10[0m:[93m3[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/index"' has no exported member 'QwenDefaultPricing'.
+
+    [7m10[0m   QwenDefaultPricing
+    [7m  [0m [91m  ~~~~~~~~~~~~~~~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m25[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'WenxinAdapter'.
+
+    [7m25[0m       expect(adapter.name).toBe('WenxinAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m26[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'WenxinAdapter'.
+
+    [7m26[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m48[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'WenxinAdapter'.
+
+    [7m48[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m57[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'WenxinAdapter'.
+
+    [7m57[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m66[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'WenxinAdapter'.
+
+    [7m66[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m71[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'WenxinAdapter'. Did you mean 'resetUsage'?
+
+    [7m71[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m72[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'WenxinAdapter'.
+
+    [7m72[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m78[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m78[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m83[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m83[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m1[0m:[93m23[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/QwenAdapter"' has no exported member 'QwenDefaultPricing'.
+
+    [7m1[0m import { QwenAdapter, QwenDefaultPricing } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/QwenAdapter';
+    [7m [0m [91m                      ~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m27[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'QwenAdapter'.
+
+    [7m27[0m       expect(adapter.name).toBe('QwenAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m28[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'QwenAdapter'.
+
+    [7m28[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m67[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m67[0m       const result = await adapter.complete(testMessages);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m82[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m82[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m92[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m92[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m106[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m106[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m   [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m118[0m:[93m38[0m - [91merror[0m[90m TS2339: [0mProperty 'completeStream' does not exist on type 'QwenAdapter'.
+
+    [7m118[0m       const generator = emptyAdapter.completeStream([
+    [7m   [0m [91m                                     ~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m127[0m:[93m33[0m - [91merror[0m[90m TS2339: [0mProperty 'completeStream' does not exist on type 'QwenAdapter'.
+
+    [7m127[0m       const generator = adapter.completeStream([{ role: 'user', content: '测试' }]);
+    [7m   [0m [91m                                ~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m144[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m144[0m       const usage = adapter.getTokenUsage();
+    [7m   [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m152[0m:[93m21[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m152[0m       await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m   [0m [91m                    ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m154[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m154[0m       const usage = adapter.getTokenUsage();
+    [7m   [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m162[0m:[93m21[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m162[0m       await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m   [0m [91m                    ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m163[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m163[0m       expect(adapter.getTokenUsage().totalTokens).toBe(30);
+    [7m   [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m165[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'QwenAdapter'. Did you mean 'resetUsage'?
+
+    [7m165[0m       adapter.resetTokenUsage();
+    [7m   [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m167[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m167[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m   [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m173[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m173[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m   [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m178[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m178[0m       const cost = adapter.calculateCost(0, 0);
+    [7m   [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m23[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'KimiAdapter'.
+
+    [7m23[0m       expect(adapter.name).toBe('KimiAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m24[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'KimiAdapter'.
+
+    [7m24[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m46[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'KimiAdapter'.
+
+    [7m46[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m55[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'KimiAdapter'.
+
+    [7m55[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m64[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'KimiAdapter'.
+
+    [7m64[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m69[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'KimiAdapter'. Did you mean 'resetUsage'?
+
+    [7m69[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m70[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'KimiAdapter'.
+
+    [7m70[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m76[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m76[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m81[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m81[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m23[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'HunyuanAdapter'.
+
+    [7m23[0m       expect(adapter.name).toBe('HunyuanAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m24[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'HunyuanAdapter'.
+
+    [7m24[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m46[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'HunyuanAdapter'.
+
+    [7m46[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m55[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'HunyuanAdapter'.
+
+    [7m55[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m64[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'HunyuanAdapter'.
+
+    [7m64[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m69[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'HunyuanAdapter'. Did you mean 'resetUsage'?
+
+    [7m69[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m70[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'HunyuanAdapter'.
+
+    [7m70[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m76[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m76[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m81[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m81[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m23[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'GLMAdapter'.
+
+    [7m23[0m       expect(adapter.name).toBe('GLMAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m24[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'GLMAdapter'.
+
+    [7m24[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m46[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'GLMAdapter'.
+
+    [7m46[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m55[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'GLMAdapter'.
+
+    [7m55[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m64[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'GLMAdapter'.
+
+    [7m64[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m69[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'GLMAdapter'. Did you mean 'resetUsage'?
+
+    [7m69[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m70[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'GLMAdapter'.
+
+    [7m70[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m76[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m76[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m81[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m81[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m23[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'DoubaoAdapter'.
+
+    [7m23[0m       expect(adapter.name).toBe('DoubaoAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m24[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'DoubaoAdapter'.
+
+    [7m24[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m46[0m:[93m41[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'DoubaoAdapter'.
+
+    [7m46[0m       const result = await emptyAdapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                        ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m55[0m:[93m36[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'DoubaoAdapter'.
+
+    [7m55[0m       const result = await adapter.complete([{ role: 'user', content: '测试' }]);
+    [7m  [0m [91m                                   ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m64[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'DoubaoAdapter'.
+
+    [7m64[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m69[0m:[93m15[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'DoubaoAdapter'. Did you mean 'resetUsage'?
+
+    [7m69[0m       adapter.resetTokenUsage();
+    [7m  [0m [91m              ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m70[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'DoubaoAdapter'.
+
+    [7m70[0m       expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                     ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m76[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m76[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m81[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m81[0m       const cost = adapter.calculateCost(0, 0);
+    [7m  [0m [91m                                            ~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m33[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'QwenAdapter'.
+
+    [7m33[0m       expect(adapter.name).toBe('QwenAdapter');
+    [7m  [0m [91m                     ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m34[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'version' does not exist on type 'QwenAdapter'.
+
+    [7m34[0m       expect(adapter.version).toBe('1.0.0');
+    [7m  [0m [91m                     ~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m63[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m63[0m       const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                            ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m83[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'complete' does not exist on type 'QwenAdapter'.
+
+    [7m83[0m       return adapter.complete([{ role: 'user', content: '测试' }]).then(() => {
+    [7m  [0m [91m                     ~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m84[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m84[0m         expect(adapter.getTokenUsage().totalTokens).toBe(150);
+    [7m  [0m [91m                       ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m86[0m:[93m17[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'QwenAdapter'. Did you mean 'resetUsage'?
+
+    [7m86[0m         adapter.resetTokenUsage();
+    [7m  [0m [91m                ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m88[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m88[0m         expect(adapter.getTokenUsage().totalTokens).toBe(0);
+    [7m  [0m [91m                       ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m89[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m89[0m         expect(adapter.getTokenUsage().totalPromptTokens).toBe(0);
+    [7m  [0m [91m                       ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m90[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m90[0m         expect(adapter.getTokenUsage().totalCompletionTokens).toBe(0);
+    [7m  [0m [91m                       ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m97[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m97[0m       const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                               ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m102[0m:[93m45[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m102[0m       const cost = adapter.calculateCost(0, 0);
+    [7m   [0m [91m                                            ~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m107[0m:[93m47[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m107[0m       const cost = adapter.calculateCost(500, 200);
+    [7m   [0m [91m                                              ~~~[0m
+
+Test Suites: 9 failed, 9 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        4.163 s
+Ran all test suites matching tests/unit/adapters/llm/.

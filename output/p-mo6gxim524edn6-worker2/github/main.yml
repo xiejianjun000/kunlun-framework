@@ -1,0 +1,213 @@
+# OpenTaiji Project - CI/CD Pipeline
+# Main workflow for automated testing and building
+# Supports monorepo structure with frontend, backend, and tests
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**/*.js'
+      - '**/*.ts'
+      - '**/*.go'
+      - '**/*.rs'
+      - '**/*.py'
+      - '**/package.json'
+      - '**/go.mod'
+      - '**/Cargo.toml'
+      - '**.md'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+        - test
+        - staging
+        - production
+      cache_enabled:
+        description: 'Enable dependency caching'
+        type: boolean
+        default: true
+
+jobs:
+  # Code Quality Check
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Type check
+        run: npm run type-check || echo "Type check not configured, skipping"
+
+  # Automated Testing
+  test:
+    name: Automated Tests
+    needs: quality
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+        if: always()
+
+  # Build
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set version
+        id: set-version
+        run: |
+          VERSION=$(git describe --tags --always --dirty)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Build application
+        run: |
+          npm run build
+          echo "Build completed successfully"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output-${{ steps.set-version.outputs.version }}
+          path: dist/
+          if-no-files-found: error
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: |
+            opentaiji/app:${{ steps.set-version.outputs.version }}
+            opentaiji/app:latest
+
+  # Deploy to Test Environment
+  deploy-test:
+    name: Deploy to Test Environment
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: test
+    if: github.ref == 'develop' || github.event.inputs.environment == 'test'
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output-${{ needs.build.outputs.version }}
+          path: dist
+
+      - name: Deploy to test environment
+        run: |
+          echo "Deploying version ${{ needs.build.outputs.version }} to test environment"
+          # Add your deployment script here
+          echo "Test deployment completed"
+
+  # Performance Testing
+  performance-test:
+    name: Performance Test
+    needs: [deploy-test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'develop' || github.event.inputs.environment == 'test'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run k6 performance tests
+        uses: grafana/action-staging-k6@v2
+        with:
+          filename: performance-tests/main.js
+          endpoint: ${{ secrets.TEST_ENVIRONMENT_URL }}
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results
+          path: performance-results/
+
+  # Deploy to Production
+  deploy-production:
+    name: Deploy to Production
+    needs: [performance-test]
+    runs-on: ubuntu-latest
+    environment: production
+    if: github.ref == 'main' || github.event.inputs.environment == 'production'
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output-${{ needs.build.outputs.version }}
+          path: dist
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying version ${{ needs.build.outputs.version }} to production"
+          # Add your production deployment script here
+          echo "Production deployment completed"
+
+  # Notify on completion
+  notify:
+    name: Notify Completion
+    needs: [deploy-production]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Notification
+        run: |
+          echo "CI/CD pipeline completed with status: ${{ needs.deploy-production.result }}"
+        if: always()

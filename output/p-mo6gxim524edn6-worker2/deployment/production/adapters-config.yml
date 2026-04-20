@@ -1,0 +1,193 @@
+# =========================================
+# OpenTaiji 四大消息平台适配器配置
+# =========================================
+
+adapters:
+  # =========================================
+  # 飞书 Feishu
+  # =========================================
+  feishu:
+    enabled: ${FEISHU_ENABLED:-true}
+    name: "飞书"
+    platform: feishu
+    version: v1
+    
+    connection:
+      app_id: ${FEISHU_APP_ID}
+      app_secret: ${FEISHU_APP_SECRET}
+      verification_token: ${FEISHU_VERIFICATION_TOKEN}
+      encrypt_key: ${FEISHU_ENCRYPT_KEY}
+    
+    webhook:
+      host: 0.0.0.0
+      port: ${FEISHU_WEBHOOK_PORT:-3001}
+      path: /webhook/feishu
+    
+    features:
+      message: true
+      interactive: true
+      card: true
+      upload: true
+      download: true
+    
+    rate_limit:
+      max_requests: 100
+      window_seconds: 60
+    
+    retry:
+      max_attempts: 3
+      delay_ms: 1000
+      backoff_multiplier: 2
+
+  # =========================================
+  # 微信 WeChat
+  # =========================================
+  wechat:
+    enabled: ${WECHAT_ENABLED:-true}
+    name: "微信公众号"
+    platform: wechat
+    version: v1
+    
+    connection:
+      app_id: ${WECHAT_APP_ID}
+      app_secret: ${WECHAT_APP_SECRET}
+      token: ${WECHAT_TOKEN}
+      encoding_aes_key: ${WECHAT_ENCODING_AES_KEY}
+    
+    webhook:
+      host: 0.0.0.0
+      port: ${WECHAT_WEBHOOK_PORT:-3002}
+      path: /webhook/wechat
+    
+    features:
+      message: true
+      interactive: true
+      menu: true
+      customer_service: true
+    
+    rate_limit:
+      max_requests: 200
+      window_seconds: 60
+    
+    retry:
+      max_attempts: 3
+      delay_ms: 1000
+      backoff_multiplier: 2
+
+  # =========================================
+  # 企业微信 WeCom
+  # =========================================
+  wecom:
+    enabled: ${WECOM_ENABLED:-true}
+    name: "企业微信"
+    platform: wecom
+    version: v1
+    
+    connection:
+      corp_id: ${WECOM_CORP_ID}
+      agent_id: ${WECOM_AGENT_ID}
+      secret: ${WECOM_SECRET}
+      token: ${WECOM_TOKEN}
+      encoding_aes_key: ${WECOM_ENCODING_AES_KEY}
+    
+    webhook:
+      host: 0.0.0.0
+      port: ${WECOM_WEBHOOK_PORT:-3003}
+      path: /webhook/wecom
+    
+    features:
+      message: true
+      interactive: true
+      card: true
+      file_upload: true
+      webhook: true
+    
+    rate_limit:
+      max_requests: 300
+      window_seconds: 60
+    
+    retry:
+      max_attempts: 3
+      delay_ms: 1000
+      backoff_multiplier: 2
+
+  # =========================================
+  # 钉钉 DingTalk
+  # =========================================
+  dingtalk:
+    enabled: ${DINGTALK_ENABLED:-true}
+    name: "钉钉"
+    platform: dingtalk
+    version: v1
+    
+    connection:
+      app_key: ${DINGTALK_APP_KEY}
+      app_secret: ${DINGTALK_APP_SECRET}
+      token: ${DINGTALK_TOKEN}
+      encoding_aes_key: ${DINGTALK_ENCODING_AES_KEY}
+    
+    webhook:
+      host: 0.0.0.0
+      port: ${DINGTALK_WEBHOOK_PORT:-3004}
+      path: /webhook/dingtalk
+    
+    features:
+      message: true
+      interactive: true
+      card: true
+      robot: true
+      group_bot: true
+    
+    rate_limit:
+      max_requests: 500
+      window_seconds: 60
+    
+    retry:
+      max_attempts: 3
+      delay_ms: 1000
+      backoff_multiplier: 2
+
+# =========================================
+# LLM 适配器配置
+# =========================================
+llm_adapters:
+  default: openai-compatible
+  
+  adapters:
+    openai-compatible:
+      name: "通用 OpenAI 兼容接口"
+      base_url: ${LLM_BASE_URL:-http://your-llm-gateway-url:port/v1}
+      api_key: ${LLM_API_KEY:-your-llm-api-key-here}
+      model: ${DEFAULT_LLM_MODEL:-gpt-3.5-turbo}
+      
+      features:
+        chat: true
+        stream: true
+        function_calling: true
+        embedding: true
+      
+      timeout: ${LLM_TIMEOUT:-60000}
+      max_retries: 3
+      
+      rate_limit:
+        requests_per_minute: 1000
+        tokens_per_minute: 1000000
+
+# =========================================
+# 通用配置
+# =========================================
+common:
+  log_level: info
+  metrics_enabled: true
+  health_check_enabled: true
+  
+  circuit_breaker:
+    enabled: true
+    failure_threshold: 5
+    reset_timeout_ms: 30000
+    half_open_max_calls: 10
+  
+  connection_pool:
+    max_size: 100
+    min_size: 10
+    idle_timeout_ms: 60000

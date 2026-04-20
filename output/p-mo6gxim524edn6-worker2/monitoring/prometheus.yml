@@ -1,0 +1,62 @@
+# OpenTaiji Project - Prometheus Configuration
+# Global Prometheus settings
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alert configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# Scrape configurations
+scrape_configs:
+
+  # Prometheus self-monitoring
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Node exporter (host metrics)
+  - job_name: "node"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+
+  # CI/CD Runner monitoring
+  - job_name: "cicd-runner"
+    static_configs:
+      - targets: ["cicd-runner:9252"]
+    scrape_interval: 30s
+
+  # Test environment application metrics
+  - job_name: "opentaiji-test"
+    static_configs:
+      - targets: ["test-environment:8080"]
+    scrape_interval: 10s
+
+  # Performance test results
+  - job_name: "k6"
+    static_configs:
+      - targets: ["perf-test:6563"]
+    scrape_interval: 5s
+
+  # Grafana
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["grafana:3000"]
+    metrics_path: "/metrics"
+    scrape_interval: 30s
+
+  # cAdvisor container metrics
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
+    scrape_interval: 15s

@@ -1,0 +1,22 @@
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts (9.791 s)
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts (10.464 s)
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts (8.695 s)
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts (19.196 s)
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/index.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts (9.273 s)
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts (8.735 s)
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
+Jest: Coverage data for output/p-mo6gxim524edn6-worker3/src/adapters/llm/**/*.ts was not found.
+
+Test Suites: 9 passed, 9 total
+Tests:       61 passed, 61 total
+Snapshots:   0 total
+Time:        28.271 s
+Ran all test suites matching tests/unit/adapters/llm/.
