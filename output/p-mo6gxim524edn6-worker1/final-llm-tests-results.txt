@@ -1,0 +1,183 @@
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/WenxinAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'WenxinAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('WenxinAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/index.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/index.test.ts[0m:[93m10[0m:[93m3[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/index"' has no exported member 'QwenDefaultPricing'.
+
+    [7m10[0m   QwenDefaultPricing
+    [7m  [0m [91m  ~~~~~~~~~~~~~~~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m19[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'QwenDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m19[0m     expect(llmAdapters.QwenDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m20[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'WenxinDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m20[0m     expect(llmAdapters.WenxinDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m21[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'HunyuanDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m21[0m     expect(llmAdapters.HunyuanDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m22[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'DoubaoDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m22[0m     expect(llmAdapters.DoubaoDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m23[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'GLMDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m23[0m     expect(llmAdapters.GLMDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m24[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'KimiDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m24[0m     expect(llmAdapters.KimiDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/llm.index.test.ts[0m:[93m25[0m:[93m24[0m - [91merror[0m[90m TS2339: [0mProperty 'SparkDefaultPricing' does not exist on type 'typeof import("/root/.openclaw/.arkclaw-team/projects/p-mo6gxim524edn6/output/p-mo6gxim524edn6-worker3/src/adapters/llm/index")'.
+
+    [7m25[0m     expect(llmAdapters.SparkDefaultPricing).toBeDefined();
+    [7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/SparkAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'SparkAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('SparkAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/KimiAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'KimiAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('KimiAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/HunyuanAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'HunyuanAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('HunyuanAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'QwenAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('QwenAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m34[0m:[93m27[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m34[0m     const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                          ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m41[0m:[93m13[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'QwenAdapter'. Did you mean 'resetUsage'?
+
+    [7m41[0m     adapter.resetTokenUsage();
+    [7m  [0m [91m            ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/QwenAdapter.test.ts[0m:[93m42[0m:[93m27[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'QwenAdapter'.
+
+    [7m42[0m     const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                          ~~~~~~~~~~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/GLMAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'GLMAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('GLMAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/DoubaoAdapter.test.ts[0m:[93m13[0m:[93m20[0m - [91merror[0m[90m TS2339: [0mProperty 'name' does not exist on type 'DoubaoAdapter'.
+
+    [7m13[0m     expect(adapter.name).toBe('DoubaoAdapter');
+    [7m  [0m [91m                   ~~~~[0m
+
+FAIL output/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts
+  ● Test suite failed to run
+
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m2[0m:[93m15[0m - [91merror[0m[90m TS2305: [0mModule '"../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter"' has no exported member 'BaseLLMAdapterConfig'.
+
+    [7m2[0m import type { BaseLLMAdapterConfig } from '../../../../../../output/p-mo6gxim524edn6-worker3/src/adapters/llm/interfaces/ILLMAdapter';
+    [7m [0m [91m              ~~~~~~~~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m5[0m:[93m7[0m - [91merror[0m[90m TS2654: [0mNon-abstract class 'TestAdapter' is missing implementations for the following members of 'BaseLLMAdapter': 'provider', 'createChatCompletion', 'createChatCompletionStream'.
+
+    [7m5[0m class TestAdapter extends BaseLLMAdapter {
+    [7m [0m [91m      ~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m8[0m:[93m19[0m - [91merror[0m[90m TS2610: [0m'model' is defined as an accessor in class 'BaseLLMAdapter', but is overridden here in 'TestAdapter' as an instance property.
+
+    [7m8[0m   public readonly model = 'test';
+    [7m [0m [91m                  ~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m41[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+    [7m41[0m     const cost = adapter.calculateCost(1000, 1000);
+    [7m  [0m [91m                                             ~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m51[0m:[93m27[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'TestAdapter'.
+
+    [7m51[0m     const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                          ~~~~~~~~~~~~~[0m
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m60[0m:[93m13[0m - [91merror[0m[90m TS2551: [0mProperty 'resetTokenUsage' does not exist on type 'TestAdapter'. Did you mean 'resetUsage'?
+
+    [7m60[0m     adapter.resetTokenUsage();
+    [7m  [0m [91m            ~~~~~~~~~~~~~~~[0m
+
+      [96moutput/p-mo6gxim524edn6-worker3/src/adapters/llm/BaseLLMAdapter.ts[0m:[93m102[0m:[93m3[0m
+        [7m102[0m   resetUsage(): void {
+        [7m   [0m [96m  ~~~~~~~~~~[0m
+        'resetUsage' is declared here.
+    [96moutput/p-mo6gxim524edn6-worker1/tests/unit/adapters/llm/BaseLLMAdapter.test.ts[0m:[93m61[0m:[93m27[0m - [91merror[0m[90m TS2339: [0mProperty 'getTokenUsage' does not exist on type 'TestAdapter'.
+
+    [7m61[0m     const usage = adapter.getTokenUsage();
+    [7m  [0m [91m                          ~~~~~~~~~~~~~[0m
+
+Test Suites: 10 failed, 10 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        5.098 s
+Ran all test suites matching tests/unit/adapters/llm/.

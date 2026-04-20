@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "types": ["jest", "node"]
+  },
+  "include": [
+    "output/p-mo6gxim524edn6-worker3/src/**/*",
+    "output/p-mo6gxim524edn6-worker1/tests/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

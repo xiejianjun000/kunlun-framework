@@ -1,0 +1,18 @@
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/DeterminismSystem.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/SourceTracer.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/SelfConsistencyChecker.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/HallucinationDetector.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/index.test.ts
+PASS output/p-mo6gxim524edn6-worker1/tests/unit/modules/determinism/WFGYVerifier.test.ts
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
+Jest: Coverage data for output/p-mo6gxim524edn6-worker3/src/modules/determinism/**/*.ts was not found.
+
+Test Suites: 6 passed, 6 total
+Tests:       103 passed, 103 total
+Snapshots:   0 total
+Time:        2.706 s, estimated 4 s
+Ran all test suites matching tests/unit/modules/determinism/.

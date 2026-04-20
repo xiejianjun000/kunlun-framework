@@ -1,0 +1,15 @@
+PASS tests/unit/adapters/llm/BaseLLMAdapter.test.ts
+PASS tests/unit/adapters/llm/HunyuanAdapter.test.ts
+PASS tests/unit/adapters/llm/WenxinAdapter.test.ts
+PASS tests/unit/adapters/llm/DoubaoAdapter.test.ts
+PASS tests/unit/adapters/llm/llm.index.test.ts
+PASS tests/unit/adapters/llm/KimiAdapter.test.ts
+PASS tests/unit/adapters/llm/QwenAdapter.test.ts
+PASS tests/unit/adapters/llm/SparkAdapter.test.ts
+PASS tests/unit/adapters/llm/GLMAdapter.test.ts
+
+Test Suites: 9 passed, 9 total
+Tests:       33 passed, 33 total
+Snapshots:   0 total
+Time:        4.265 s
+Ran all test suites matching /tests\/unit\/adapters\/llm\//i.
