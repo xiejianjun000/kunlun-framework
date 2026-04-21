@@ -66,11 +66,23 @@ export class HallucinationDetector implements IDeterminismSystem {
     this.enableWFGY = config?.enableWFGY ?? true;
     this.enableConsistency = config?.enableConsistency ?? true;
     this.enableSourceTrace = config?.enableSourceTrace ?? true;
-    this.weights = {
-      wfgy: config?.weights?.wfgy ?? 0.4,
-      consistency: config?.weights?.consistency ?? 0.3,
-      sourceTrace: config?.weights?.sourceTrace ?? 0.3
-    };
+
+    // 计算权重总和并归一化，确保权重和为 1
+    const rawWfgy = config?.weights?.wfgy ?? 0.4;
+    const rawConsistency = config?.weights?.consistency ?? 0.3;
+    const rawSourceTrace = config?.weights?.sourceTrace ?? 0.3;
+    const totalRawWeight = rawWfgy + rawConsistency + rawSourceTrace;
+
+    if (totalRawWeight > 0) {
+      this.weights = {
+        wfgy: rawWfgy / totalRawWeight,
+        consistency: rawConsistency / totalRawWeight,
+        sourceTrace: rawSourceTrace / totalRawWeight
+      };
+    } else {
+      // 权重总和为 0 时使用默认权重
+      this.weights = { wfgy: 0.4, consistency: 0.3, sourceTrace: 0.3 };
+    }
   }
 
   /**

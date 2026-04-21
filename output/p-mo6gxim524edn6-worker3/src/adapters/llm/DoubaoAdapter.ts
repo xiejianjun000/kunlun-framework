@@ -8,12 +8,15 @@ import {
   LLMBaseError,
   APIResponse
 } from './interfaces/ILLMAdapter';
+import { Logger } from '../../utils/logger';
 
 export class DoubaoAdapter extends BaseLLMAdapter {
   public readonly provider = 'doubao';
+  protected readonly logger: Logger;
 
   constructor(config?: LLMConfig) {
     super(config);
+    this.logger = new Logger('DoubaoAdapter');
   }
 
   initialize(config: LLMConfig): void {
@@ -129,7 +132,8 @@ export class DoubaoAdapter extends BaseLLMAdapter {
               data.usage.completion_tokens
             );
           }
-        } catch {
+        } catch (parseError) {
+          this.logger.debug(`Failed to parse SSE chunk: ${dataStr}`, parseError);
         }
       }
     }

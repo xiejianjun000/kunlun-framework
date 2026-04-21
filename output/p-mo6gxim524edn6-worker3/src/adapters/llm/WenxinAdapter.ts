@@ -7,6 +7,7 @@ import {
   LLMStreamChunk,
   LLMBaseError
 } from './interfaces/ILLMAdapter';
+import { Logger } from '../../utils/logger';
 
 export interface WenxinConfig extends LLMConfig {
   clientId?: string;
@@ -28,6 +29,17 @@ interface WenxinResponse {
   };
   error_code?: number;
   error_msg?: string;
+  is_end?: boolean;
+}
+
+/**
+ * 文心一言 Token 响应类型
+ */
+interface WenxinTokenResponse {
+  access_token: string;
+  expires_in: number;
+  error?: string;
+  error_description?: string;
 }
 
 export class WenxinAdapter extends BaseLLMAdapter {
@@ -35,9 +47,11 @@ export class WenxinAdapter extends BaseLLMAdapter {
 
   private accessToken: string | null = null;
   private tokenExpiresAt: number = 0;
+  protected readonly logger: Logger;
 
   constructor(config?: WenxinConfig) {
     super(config);
+    this.logger = new Logger('WenxinAdapter');
   }
 
   initialize(config: WenxinConfig): void {
@@ -72,7 +86,7 @@ export class WenxinAdapter extends BaseLLMAdapter {
       throw new LLMBaseError(`Failed to get access token: HTTP ${response.status}`, 'TOKEN_ERROR');
     }
 
-    const data: any = await response.json();
+    const data = (await response.json()) as WenxinTokenResponse;
 
     if (data.error) {
       throw new LLMBaseError(`Token error: ${data.error_description || data.error}`, 'TOKEN_ERROR');
@@ -134,7 +148,7 @@ export class WenxinAdapter extends BaseLLMAdapter {
     });
 
     if (!response.ok) {
-      const data: any = await response.json();
+      const data = (await response.json()) as WenxinResponse;
       this.handleApiError(response, data);
     }
 
@@ -165,7 +179,7 @@ export class WenxinAdapter extends BaseLLMAdapter {
         if (dataStr === '[DONE]') break;
 
         try {
-          const data: any = JSON.parse(dataStr);
+          const data = JSON.parse(dataStr) as WenxinResponse;
 
           if (data.usage) {
             promptTokens = data.usage.prompt_tokens || 0;
@@ -188,7 +202,8 @@ export class WenxinAdapter extends BaseLLMAdapter {
               data.usage.completion_tokens || 0
             );
           }
-        } catch {
+        } catch (parseError) {
+          this.logger.debug(`Failed to parse SSE chunk: ${dataStr}`, parseError);
         }
       }
     }

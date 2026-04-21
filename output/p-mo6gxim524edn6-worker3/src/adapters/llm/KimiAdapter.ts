@@ -8,12 +8,15 @@ import {
   LLMBaseError,
   APIResponse
 } from './interfaces/ILLMAdapter';
+import { Logger } from '../../utils/logger';
 
 export class KimiAdapter extends BaseLLMAdapter {
   public readonly provider = 'kimi';
+  protected readonly logger: Logger;
 
   constructor(config?: LLMConfig) {
     super(config);
+    this.logger = new Logger('KimiAdapter');
   }
 
   initialize(config: LLMConfig): void {
@@ -128,7 +131,8 @@ export class KimiAdapter extends BaseLLMAdapter {
               data.usage.completion_tokens
             );
           }
-        } catch {
+        } catch (parseError) {
+          this.logger.debug(`Failed to parse SSE chunk: ${dataStr}`, parseError);
         }
       }
     }

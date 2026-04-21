@@ -14,6 +14,8 @@ import {
   LLMBaseError,
   APIResponse
 } from './interfaces/ILLMAdapter';
+import { Logger } from '../../utils/logger';
+import { createLLMConfigValidator, assertValidConfig } from '../../utils/validation';
 
 export type ErrorHandler = (error: unknown) => LLMResponse;
 
@@ -28,8 +30,10 @@ export abstract class BaseLLMAdapter implements ILLMAdapter {
     totalTokens: 0
   };
   protected _totalCost: number = 0;
+  protected readonly logger: Logger;
 
   constructor(config?: LLMConfig) {
+    this.logger = new Logger('BaseLLMAdapter');
     if (config) {
       this.initialize(config);
     }
@@ -44,16 +48,32 @@ export abstract class BaseLLMAdapter implements ILLMAdapter {
   }
 
   initialize(config: LLMConfig): void {
-    this._config = {
+    // 合并默认值
+    const mergedConfig: LLMConfig = {
       timeoutMs: 30000,
       maxRetries: 3,
       costPer1kPrompt: 0.001,
       costPer1kCompletion: 0.002,
       ...config
     };
+
+    // 配置验证
+    const validator = createLLMConfigValidator<Record<string, unknown>>();
+    const validationResult = validator.validate(mergedConfig as unknown as Record<string, unknown>);
+    
+    // 警告仅记录日志，不阻止初始化
+    for (const warning of validationResult.warnings) {
+      this.logger.warn(`Config warning: ${warning}`);
+    }
+
+    // 错误阻止初始化
+    assertValidConfig(validationResult);
+
+    this._config = mergedConfig;
     this._isInitialized = true;
     this._totalUsage = { promptTokens: 0, completionTokens: 0, totalTokens: 0 };
     this._totalCost = 0;
+    this.logger.info(`Adapter initialized with model: ${mergedConfig.model}`);
   }
 
   isReady(): boolean {

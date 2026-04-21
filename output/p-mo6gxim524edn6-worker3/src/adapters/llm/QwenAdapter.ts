@@ -8,12 +8,15 @@ import {
   LLMBaseError,
   APIResponse
 } from './interfaces/ILLMAdapter';
+import { Logger } from '../../utils/logger';
 
 export class QwenAdapter extends BaseLLMAdapter {
   public readonly provider = 'qwen';
+  protected readonly logger: Logger;
 
   constructor(config?: LLMConfig) {
     super(config);
+    this.logger = new Logger('QwenAdapter');
   }
 
   initialize(config: LLMConfig): void {
@@ -131,7 +134,8 @@ export class QwenAdapter extends BaseLLMAdapter {
               data.usage.completion_tokens
             );
           }
-        } catch {
+        } catch (parseError) {
+          this.logger.debug(`Failed to parse SSE chunk: ${dataStr}`, parseError);
         }
       }
     }
