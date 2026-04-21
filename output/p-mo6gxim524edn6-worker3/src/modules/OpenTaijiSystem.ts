@@ -91,8 +91,9 @@ export class OpenTaijiSystem {
   async addConversationMemory(
     content: string,
     source?: {
-      type: string;
+      type: 'conversation' | 'document' | 'url' | 'user_input';
       id: string;
+      timestamp?: string;
     },
     metadata?: {
       role?: 'user' | 'assistant';
@@ -124,7 +125,7 @@ export class OpenTaijiSystem {
     const longTermCount = await this.memory.count(MemoryTier.LONG_TERM);
     if (this.dreaming.shouldTrigger(longTermCount)) {
       // 异步触发梦境，不阻塞当前调用
-      setImmediate(() => this.triggerDreaming());
+      setTimeout(() => this.triggerDreaming(), 0);
     }
 
     return {

@@ -288,7 +288,7 @@ export class Phase4Repair {
           id: `repair_verify_${Date.now()}_${repairs.length}`,
           type: 'verify',
           description: `建议验证低置信度洞见: ${insight.content.slice(0, 100)}`,
-          priority: contradiction.severity > 0.7 ? 'high' : contradiction.severity > 0.4 ? 'medium' : 'low',
+          priority: insight.confidence < 0.3 ? 'high' : insight.confidence < 0.5 ? 'medium' : 'low',
           reason: `洞见置信度较低 (${(insight.confidence * 100).toFixed(0)}%)，建议验证后再整合到知识库`
         });
       }

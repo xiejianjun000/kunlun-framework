@@ -149,7 +149,7 @@ export class WikiSystem implements IWikiSystem {
     this.entities.set(id, newEntity);
 
     // 更新倒排索引
-    this.updateInvertedIndex(newPage);
+    this.updateInvertedIndex(newEntity);
 
     // WFGY 集成
     if (this.wfgySystem) {
@@ -423,8 +423,9 @@ export class WikiSystem implements IWikiSystem {
     const topEntities = Array.from(this.entities.values())
       .sort((a, b) => b.relations.length - a.relations.length)
       .slice(0, 10)
+      .filter(e => e.id)
       .map(e => ({
-        id: e.id,
+        id: e.id!,
         title: e.title,
         relationCount: e.relations.length
       }));
@@ -632,7 +633,7 @@ export class WikiSystem implements IWikiSystem {
       visited.add(current.id);
 
       const entity = this.entities.get(current.id);
-      if (!entity) continue;
+      if (!entity || !entity.id) continue;
 
       // 添加节点
       nodes.set(entity.id, {
@@ -673,6 +674,8 @@ export class WikiSystem implements IWikiSystem {
   // ===== 私有方法 =====
 
   private updateInvertedIndex(page: WikiPageSummary): void {
+    if (!page.id) return;
+
     const keywords = this.extractKeywords(page.title);
     for (const claim of page.claims) {
       keywords.push(...this.extractKeywords(claim.text));
@@ -688,6 +691,8 @@ export class WikiSystem implements IWikiSystem {
   }
 
   private updateBacklinks(page: WikiPageSummary): void {
+    if (!page.id) return;
+
     for (const target of page.linkTargets) {
       const targetBacklinks = this.backlinks.get(target) || new Set();
       targetBacklinks.add(page.id);
@@ -772,6 +777,8 @@ export class WikiSystem implements IWikiSystem {
       for (let j = i + 1; j < entities.length; j++) {
         const entityA = entities[i];
         const entityB = entities[j];
+
+        if (!entityA.id || !entityB.id) continue;
 
         if (queryLower.includes(entityA.title.toLowerCase()) &&
             queryLower.includes(entityB.title.toLowerCase())) {

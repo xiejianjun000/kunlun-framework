@@ -111,7 +111,7 @@ export interface DreamContradiction {
   description: string;
   /** 冲突的记忆条目 */
   conflictingEntries: Array<{
-    memoryId: string;
+    memoryId?: string;
     content: string;
     claim?: string;
   }>;
@@ -154,7 +154,7 @@ export interface PhaseResult {
   /** 阶段耗时(ms) */
   latency: number;
   /** 阶段输出数据 */
-  data: unknown;
+  data?: unknown;
   /** 错误信息（如果失败） */
   error?: string;
 }
@@ -190,6 +190,29 @@ export interface DreamResult {
     newEntitiesCount: number;
     newRelationsCount: number;
     updatedEntries: string[];
+    claims: Array<{
+      id: string;
+      text: string;
+      confidence: number;
+      evidence: string[];
+      entities: string[];
+      source: string;
+    }>;
+    entities: Array<{
+      id: string;
+      name: string;
+      type: string;
+      sourceClusters: string[];
+      confidence: number;
+    }>;
+    relations: Array<{
+      id: string;
+      subject: string;
+      predicate: string;
+      object: string;
+      confidence: number;
+      sourceClusters: string[];
+    }>;
   };
 
   /** 各阶段执行结果 */

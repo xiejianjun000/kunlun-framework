@@ -29,7 +29,7 @@ export interface MemoryEntry {
   source?: {
     type: 'conversation' | 'document' | 'url' | 'user_input';
     id: string;
-    timestamp: string;
+    timestamp?: string;
   };
   /** 重要性评分 (0-1) */
   importance?: number;
