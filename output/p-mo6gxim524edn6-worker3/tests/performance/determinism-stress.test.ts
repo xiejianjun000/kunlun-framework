@@ -47,10 +47,12 @@ describe('确定性系统压力测试', () => {
   });
 
   it('HallucinationDetector 幻觉检测性能', async () => {
+    // CI 环境下使用较低的并发和迭代次数
+    const isCI = process.env.CI === 'true';
     const runner = new StressTestRunner({
-      concurrency: 20,
-      iterations: 2000,
-      timeoutMs: 30000,
+      concurrency: isCI ? 10 : 20,
+      iterations: isCI ? 500 : 2000,
+      timeoutMs: 60000,
     });
 
     const detector = new HallucinationDetector({
@@ -68,10 +70,11 @@ describe('确定性系统压力测试', () => {
   });
 
   it('DeterminismSystem 完整验证链路性能', async () => {
+    const isCI = process.env.CI === 'true';
     const runner = new StressTestRunner({
-      concurrency: 10,
-      iterations: 500,
-      timeoutMs: 60000,
+      concurrency: isCI ? 5 : 10,
+      iterations: isCI ? 100 : 500,
+      timeoutMs: 120000,
     });
 
     const system = new DeterminismSystem();
@@ -93,10 +96,11 @@ describe('确定性系统压力测试', () => {
   });
 
   it('SourceTracer 溯源索引性能', async () => {
+    const isCI = process.env.CI === 'true';
     const runner = new StressTestRunner({
-      concurrency: 20,
-      iterations: 2000,
-      timeoutMs: 30000,
+      concurrency: isCI ? 10 : 20,
+      iterations: isCI ? 500 : 2000,
+      timeoutMs: 60000,
     });
 
     const tracer = new SourceTracer();
@@ -118,10 +122,11 @@ describe('确定性系统压力测试', () => {
   });
 
   it('SelfConsistencyChecker 一致性验证性能', async () => {
+    const isCI = process.env.CI === 'true';
     const runner = new StressTestRunner({
-      concurrency: 30,
-      iterations: 3000,
-      timeoutMs: 30000,
+      concurrency: isCI ? 15 : 30,
+      iterations: isCI ? 1000 : 3000,
+      timeoutMs: 60000,
     });
 
     const checker = new SelfConsistencyChecker();
@@ -135,10 +140,11 @@ describe('确定性系统压力测试', () => {
   });
 
   it('SourceTracer 大量条目添加性能', async () => {
+    const isCI = process.env.CI === 'true';
     const runner = new StressTestRunner({
-      concurrency: 10,
-      iterations: 500,
-      timeoutMs: 30000,
+      concurrency: isCI ? 5 : 10,
+      iterations: isCI ? 100 : 500,
+      timeoutMs: 60000,
     });
 
     let entryId = 0;

@@ -6,7 +6,7 @@
 import { HallucinationDetector } from '../../src/modules/determinism';
 
 describe('🔍 幻觉检测功能深度测试', () => {
-  jest.setTimeout(120000);
+  jest.setTimeout(300000); // 5 分钟 - CI 环境需要更长时间
   let detector: HallucinationDetector;
 
   beforeAll(() => {

@@ -1,17 +1,98 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    // 目标 ECMAScript 版本
+    "target": "ES2022",
+    // 模块系统
     "module": "commonjs",
-    "lib": ["ES2020", "DOM"],
-    "types": ["node"],
+    // 包含的库文件
+    "lib": ["ES2022"],
+    // 输出目录
     "outDir": "./dist",
+    // 源码根目录
     "rootDir": "./src",
+    // 启用所有严格类型检查选项
     "strict": true,
-    "declaration": true,
+    // 启用 ES 模块互操作性
     "esModuleInterop": true,
+    // 跳过库文件类型检查（加快编译速度）
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    // 强制文件名大小写一致
+    "forceConsistentCasingInFileNames": true,
+    // 允许导入 JSON 模块
+    "resolveJsonModule": true,
+    // 生成声明文件 (.d.ts)
+    "declaration": true,
+    // 生成声明文件的 sourcemap
+    "declarationMap": true,
+    // 生成 sourcemap 文件
+    "sourceMap": true,
+    // 包含的类型定义
+    "types": ["jest", "node"],
+    // 模块解析策略
+    "moduleResolution": "node",
+    // 允许默认导入
+    "allowSyntheticDefaultImports": true,
+    // 启用装饰器支持
+    "experimentalDecorators": true,
+    // 为装饰器生成元数据
+    "emitDecoratorMetadata": true,
+    // 不允许隐式 any 类型
+    "noImplicitAny": true,
+    // 检查函数返回值
+    "noImplicitReturns": true,
+    // 检查 this 的类型
+    "noImplicitThis": true,
+    // 检查未使用的局部变量 - 开发模式下放宽
+    "noUnusedLocals": false,
+    // 检查未使用的函数参数 - 开发模式下放宽
+    "noUnusedParameters": false,
+    // 严格的 null 检查
+    "strictNullChecks": true,
+    // 严格的函数类型检查
+    "strictFunctionTypes": true,
+    // 严格的 bind/call/apply 检查
+    "strictBindCallApply": true,
+    // 严格的属性初始化检查
+    "strictPropertyInitialization": true,
+    // 检查 switch 语句的 fallthrough
+    "noFallthroughCasesInSwitch": true,
+    // 禁止未使用的导入
+    "noUncheckedSideEffectImports": true,
+    // 启用增量编译（加快开发速度）
+    "incremental": true,
+    // 增量编译信息文件
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    // 移除注释
+    "removeComments": true,
+    // 不生成输出文件（仅做类型检查）
+    "noEmit": false,
+    // 允许导入 .ts 文件时省略扩展名
+    "allowImportingTsExtensions": false,
+    // 启用 const 断言
+    "noErrorTruncation": true,
+    // 详细的诊断信息
+    "extendedDiagnostics": false,
+    // 列出编译的文件
+    "listFiles": false,
+    // 不报告超过指定数量的错误
+    "maxNodeModuleJsDepth": 2
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "tests"]
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

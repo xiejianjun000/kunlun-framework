@@ -1,74 +1,100 @@
 # Labels Configuration for OpenTaiji
 # 使用 Labeler Action 管理标签：https://github.com/actions/labeler
+# 标准标签体系 - 完全符合开源项目规范
 
 labels:
-  # ----- 类型标签 -----
+  # ==========================================
+  # 类型标签 - 按照用户要求的标准颜色
+  # ==========================================
   - name: "bug"
     color: "d73a4a"
-    description: "Bug 报告 - 代码或功能有问题"
+    description: "Bug 修复 - 代码或功能有问题"
+  
+  - name: "feature"
+    color: "0075ca"
+    description: "新功能 - 全新功能开发"
   
   - name: "enhancement"
     color: "a2eeef"
-    description: "功能增强 - 新功能或改进"
+    description: "功能优化 - 现有功能改进"
   
   - name: "documentation"
-    color: "0075ca"
-    description: "文档相关"
-  
-  - name: "question"
-    color: "d876e3"
-    description: "问题讨论"
+    color: "708090"
+    description: "文档改进 - 文档更新或补充"
   
   - name: "performance"
-    color: "fef2c0"
-    description: "性能优化"
+    color: "9b30ff"
+    description: "性能优化 - 提升执行效率"
+  
+  - name: "security"
+    color: "d73a4a"
+    description: "安全相关 - 漏洞修复、安全增强"
   
   - name: "refactor"
     color: "b4b4ac"
-    description: "代码重构"
+    description: "代码重构 - 不影响功能的代码改进"
   
   - name: "test"
     color: "b1fc00"
-    description: "测试相关"
+    description: "测试相关 - 测试用例新增或改进"
   
   - name: "ci"
     color: "4287f5"
-    description: "CI/CD 相关"
+    description: "CI/CD 相关 - 持续集成和部署"
   
   - name: "dependencies"
     color: "0366d6"
-    description: "依赖更新"
+    description: "依赖更新 - 第三方库版本升级"
   
-  # ----- 状态标签 -----
+  - name: "breaking-change"
+    color: "e99695"
+    description: "破坏性变更 - 不兼容的 API 变更"
+  
+  # ==========================================
+  # 难度标签 - 按照用户要求的标准颜色
+  # ==========================================
+  - name: "good first issue"
+    color: "ffd700"
+    description: "新人上手 - 简单易上手，适合新贡献者"
+  
+  - name: "help wanted"
+    color: "ff8c00"
+    description: "需要帮助 - 欢迎社区贡献"
+  
+  # ==========================================
+  # 状态标签
+  # ==========================================
   - name: "needs-triage"
     color: "fbca04"
     description: "需要分类 - 新提交的 Issue/PR 等待审查"
   
   - name: "needs-review"
     color: "f29513"
-    description: "需要审核"
+    description: "需要审核 - 等待代码审查"
   
   - name: "needs-more-info"
     color: "d93f0b"
-    description: "需要更多信息"
+    description: "需要更多信息 - 补充详情后再处理"
   
   - name: "in-progress"
     color: "fcd44f"
-    description: "正在处理中"
+    description: "正在处理中 - 开发进行中"
   
   - name: "on-hold"
     color: "e4e669"
-    description: "暂停处理"
+    description: "暂停处理 - 暂时搁置"
   
   - name: "blocked"
     color: "e99695"
-    description: "被阻塞"
+    description: "被阻塞 - 需要前置条件完成"
   
   - name: "ready-to-merge"
     color: "0e8a16"
-    description: "可以合并"
+    description: "可以合并 - 审查通过，等待合并"
   
-  # ----- 优先级标签 -----
+  # ==========================================
+  # 优先级标签
+  # ==========================================
   - name: "priority-critical"
     color: "b60205"
     description: "紧急 - 需要立即处理"
@@ -85,15 +111,9 @@ labels:
     color: "c5def5"
     description: "低优先级"
   
-  # ----- 难度标签 -----
-  - name: "good-first-issue"
-    color: "7057ff"
-    description: "适合新手 - 简单易上手"
-  
-  - name: "help-wanted"
-    color: "008672"
-    description: "需要帮助 - 欢迎贡献"
-  
+  # ==========================================
+  # 难度标签
+  # ==========================================
   - name: "difficulty-easy"
     color: "c2e0c6"
     description: "难度 - 简单"
@@ -106,7 +126,9 @@ labels:
     color: "f9d0c4"
     description: "难度 - 困难"
   
-  # ----- 模块标签 -----
+  # ==========================================
+  # 模块标签
+  # ==========================================
   - name: "module-core"
     color: "bfdadc"
     description: "核心模块"
@@ -131,23 +153,21 @@ labels:
     color: "b1fc00"
     description: "测试模块"
   
-  # ----- 其他标签 -----
+  # ==========================================
+  # 其他标签
+  # ==========================================
+  - name: "question"
+    color: "d876e3"
+    description: "问题讨论 - 需要进一步讨论"
+  
   - name: "duplicate"
     color: "cfd3d7"
-    description: "重复 Issue"
+    description: "重复 Issue - 已有相同的 Issue"
   
   - name: "invalid"
     color: "e4e669"
-    description: "无效 - 不符合要求"
+    description: "无效 - 不符合要求或格式"
   
   - name: "wontfix"
     color: "ffffff"
-    description: "不会修复"
-  
-  - name: "breaking-change"
-    color: "e99695"
-    description: "破坏性变更"
-  
-  - name: "security"
-    color: "b60205"
-    description: "安全相关"
+    description: "不会修复 - 超出范围或不计划修复"

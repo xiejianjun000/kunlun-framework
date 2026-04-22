@@ -1,56 +1,199 @@
+# ==============================================
+# OpenTaiji - Git Ignore Rules
+# ==============================================
+
+# ==============================================
 # Dependencies
+# ==============================================
 node_modules/
 */node_modules/
 **/node_modules/
 .pnp/
 .pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
 
+# ==============================================
 # Build outputs
+# ==============================================
 dist/
 build/
 .output/
 .nuxt/
+.next/
 *.tar.gz
 *.zip
+*.tsbuildinfo
 
-# Large directories
+# ==============================================
+# TypeScript Build Info (Incremental Compilation)
+# ==============================================
+**/.tsbuildinfo
+**/dist/.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# ==============================================
+# Large directories - Workspaces & Agents
+# ==============================================
+workspaces/*/node_modules/
+workspaces/*/dist/
+workspaces/*/coverage/
+agents/*/node_modules/
+agents/*/dist/
+agents/*/coverage/
+output/*/node_modules/
+output/*/dist/
+output/*/coverage/
 taiji-website/node_modules/
 taiji-website/dist/
 taiji-website/.vite/
 taiji-website/.vscode/
 taiji-website/.DS_Store
 
-# Debug
+# ==============================================
+# Debug logs
+# ==============================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+*.log
 
+# ==============================================
 # Editor directories and files
+# ==============================================
 .vscode/*
 !.vscode/extensions.json
-.idea
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.iml
+*.iws
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*~
 
+# ==============================================
 # Environment variables
+# ==============================================
 .env
 .env.local
 .env.*.local
+.env.*.development
+.env.*.production
+.env.*.staging
 
-# Testing
+# ==============================================
+# Testing & Coverage
+# ==============================================
 coverage/
 *.lcov
+.nyc_output/
+junit.xml
+test-results/
+test-results-*.xml
+coverage-final.json
 
+# ==============================================
 # Misc
+# ==============================================
 .cache/
 .temp/
-*.log
+.tmp/
+tmp/
+temp/
+*.bak
+*.backup
+*.swp
+*.swo
 
+# ==============================================
+# OS generated files
+# ==============================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# ==============================================
 # Large backup directories
+# ==============================================
 project-unpacked/
 output.tar.gz
+*.tar
+*.gz
+*.zip
+*.7z
+*.rar
+
+# ==============================================
+# Optional npm cache directory
+# ==============================================
+.npm
+
+# ==============================================
+# Optional eslint cache
+# ==============================================
+.eslintcache
+
+# ==============================================
+# Optional stylelint cache
+# ==============================================
+.stylelintcache
+
+# ==============================================
+# Microbundle cache
+# ==============================================
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ==============================================
+# Lint Staged Cache
+# ==============================================
+.lintstagedrc.cache
+
+# ==============================================
+# Prettier Cache
+# ==============================================
+.prettiercache
+
+# ==============================================
+# Jest Cache
+# ==============================================
+.jest-cache/
+
+# ==============================================
+# Rollup Cache
+# ==============================================
+.rpt2_cache/
+
+# ==============================================
+# Package Manager Lock Files (Optional)
+# ==============================================
+# Uncomment if you want to ignore lock files
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ==============================================
+# Project Specific
+# ==============================================
+# OpenTaiji specific temporary files
+*.taiji-tmp
+heartbeat.json
+status.json
+lock.*
+*.lock

@@ -1,0 +1,66 @@
+# ============================================
+# OpenTaiji - 主 CI 工作流
+# 每次 push 和 PR 时自动运行
+# ============================================
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, master, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'taiji-website/**'
+  pull_request:
+    branches: [main, master, develop]
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'taiji-website/**'
+
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: TypeScript 类型检查
+        run: npx tsc --noEmit
+
+      - name: 运行 Jest 测试
+        run: npm test
+        env:
+          CI: true
+
+      - name: 生成测试覆盖率报告
+        run: npm run test:coverage
+        env:
+          CI: true
+
+      - name: 上传覆盖率报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14

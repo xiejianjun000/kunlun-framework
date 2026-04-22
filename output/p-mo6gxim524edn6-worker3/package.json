@@ -1,29 +1,42 @@
 {
-  "name": "opentaiji-wfgy-determinism",
-  "version": "1.0.0",
-  "description": "WFGY Anti-Hallucination Determinism System for OpenTaiji",
+  "name": "taiji-core",
+  "version": "1.0.0-beta",
+  "description": "OpenTaiji Core - 确定性系统、任务调度、LLM 适配器",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint src/**/*.ts tests/**/*.ts"
+    "test": "npx jest",
+    "test:unit": "npx jest --testPathPattern=\"tests/unit\"",
+    "test:performance": "npx jest --testPathPattern=\"tests/performance\" --maxWorkers=1",
+    "test:coverage": "npx jest --coverage",
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "lint": "npx tsc --noEmit",
+    "clean": "rm -rf dist coverage"
   },
   "keywords": [
-    "opentaiji",
-    "wfgy",
-    "anti-hallucination",
+    "ai",
+    "llm",
     "determinism",
-    "ai-safety"
+    "hallucination-detection",
+    "task-scheduler"
   ],
-  "author": "Charlie",
-  "license": "MIT",
+  "author": "OpenTaiji Team",
+  "license": "Apache-2.0",
   "devDependencies": {
-    "@types/jest": "^29.5.0",
-    "@types/node": "^20.0.0",
-    "jest": "^29.5.0",
-    "ts-jest": "^29.1.0",
-    "typescript": "^5.0.0"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.6.0",
+    "glob": "^13.0.6",
+    "jest": "^30.3.0",
+    "markdown-magic": "^4.8.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiejianjun000/open-taiji.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
