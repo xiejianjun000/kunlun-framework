@@ -101,7 +101,7 @@ export class WFGYVerifier implements IDeterminismSystem {
   constructor(config?: WFGYVerifierConfig) {
     this.rules = config?.rules || [];
     this.knowledgeBase = new Map();
-    
+
     if (config?.knowledgeBase) {
       for (const entry of config.knowledgeBase) {
         this.knowledgeBase.set(entry.symbol, entry);
@@ -110,7 +110,34 @@ export class WFGYVerifier implements IDeterminismSystem {
 
     this.minimumScore = config?.minimumScore ?? 0.7;
     this.symbolRegex = null;
+
+    // 归一化规则权重，确保总和为 1
+    this.normalizeWeights();
+
     this.ready = true;
+  }
+
+  /**
+   * 归一化所有规则的权重，确保权重总和为 1
+   * 如果没有规则或所有权重为 0，则每个规则的权重设置为 1/rules.length
+   */
+  private normalizeWeights(): void {
+    if (this.rules.length === 0) {
+      return;
+    }
+
+    const totalWeight = this.rules.reduce((sum, rule) => sum + (rule.weight ?? 1.0), 0);
+
+    if (totalWeight === 0) {
+      const equalWeight = 1.0 / this.rules.length;
+      for (const rule of this.rules) {
+        rule.weight = equalWeight;
+      }
+    } else if (Math.abs(totalWeight - 1.0) > 0.0001) {
+      for (const rule of this.rules) {
+        rule.weight = (rule.weight ?? 1.0) / totalWeight;
+      }
+    }
   }
 
   /**
@@ -119,6 +146,7 @@ export class WFGYVerifier implements IDeterminismSystem {
    */
   addRule(rule: WFGYRule): void {
     this.rules.push(rule);
+    this.normalizeWeights();
   }
 
   /**
@@ -128,7 +156,11 @@ export class WFGYVerifier implements IDeterminismSystem {
   removeRule(ruleId: string): boolean {
     const initialLength = this.rules.length;
     this.rules = this.rules.filter(r => r.id !== ruleId);
-    return this.rules.length < initialLength;
+    const removed = this.rules.length < initialLength;
+    if (removed) {
+      this.normalizeWeights();
+    }
+    return removed;
   }
 
   /**

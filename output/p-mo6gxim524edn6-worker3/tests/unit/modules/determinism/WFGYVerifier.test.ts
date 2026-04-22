@@ -231,4 +231,111 @@ describe('WFGYVerifier', () => {
       expect(verifier.getKnowledgeBaseSize()).toBe(0);
     });
   });
+
+  describe('weight normalization', () => {
+    it('should normalize weights to sum to 1 during initialization', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /test/, expected: true, weight: 2 },
+          { id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /content/, expected: true, weight: 2 }
+        ]
+      });
+
+      const rules = verifier.getRules();
+      const totalWeight = rules.reduce((sum, r) => sum + (r.weight ?? 0), 0);
+      expect(totalWeight).toBeCloseTo(1.0);
+      expect(rules[0].weight).toBeCloseTo(0.5);
+      expect(rules[1].weight).toBeCloseTo(0.5);
+    });
+
+    it('should normalize weights after adding a new rule', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /test/, expected: true, weight: 1 }
+        ]
+      });
+
+      expect(verifier.getRules()[0].weight).toBeCloseTo(1.0);
+
+      verifier.addRule({
+        id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /content/, expected: true, weight: 1
+      });
+
+      const rules = verifier.getRules();
+      const totalWeight = rules.reduce((sum, r) => sum + (r.weight ?? 0), 0);
+      expect(totalWeight).toBeCloseTo(1.0);
+      expect(rules[0].weight).toBeCloseTo(0.5);
+      expect(rules[1].weight).toBeCloseTo(0.5);
+    });
+
+    it('should renormalize after removing a rule', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /test/, expected: true, weight: 1 },
+          { id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /content/, expected: true, weight: 1 },
+          { id: 'rule3', name: 'Rule 3', description: 'Rule 3', pattern: /hello/, expected: true, weight: 2 }
+        ]
+      });
+
+      // Initial weights should be normalized: 0.25, 0.25, 0.5
+      let rules = verifier.getRules();
+      expect(rules[0].weight).toBeCloseTo(0.25);
+      expect(rules[1].weight).toBeCloseTo(0.25);
+      expect(rules[2].weight).toBeCloseTo(0.5);
+
+      // Remove rule3 (weight 2)
+      verifier.removeRule('rule3');
+
+      // Remaining rules should be renormalized to 0.5 each
+      rules = verifier.getRules();
+      const totalWeight = rules.reduce((sum, r) => sum + (r.weight ?? 0), 0);
+      expect(totalWeight).toBeCloseTo(1.0);
+      expect(rules[0].weight).toBeCloseTo(0.5);
+      expect(rules[1].weight).toBeCloseTo(0.5);
+    });
+
+    it('should handle zero weights by setting equal weights', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /test/, expected: true, weight: 0 },
+          { id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /content/, expected: true, weight: 0 }
+        ]
+      });
+
+      const rules = verifier.getRules();
+      const totalWeight = rules.reduce((sum, r) => sum + (r.weight ?? 0), 0);
+      expect(totalWeight).toBeCloseTo(1.0);
+      expect(rules[0].weight).toBeCloseTo(0.5);
+      expect(rules[1].weight).toBeCloseTo(0.5);
+    });
+
+    it('should not change already normalized weights', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /test/, expected: true, weight: 0.3 },
+          { id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /content/, expected: true, weight: 0.7 }
+        ]
+      });
+
+      const rules = verifier.getRules();
+      expect(rules[0].weight).toBeCloseTo(0.3);
+      expect(rules[1].weight).toBeCloseTo(0.7);
+    });
+
+    it('should preserve relative weight proportions after normalization', () => {
+      const verifier = new WFGYVerifier({
+        rules: [
+          { id: 'rule1', name: 'Rule 1', description: 'Rule 1', pattern: /a/, expected: true, weight: 10 },
+          { id: 'rule2', name: 'Rule 2', description: 'Rule 2', pattern: /b/, expected: true, weight: 20 },
+          { id: 'rule3', name: 'Rule 3', description: 'Rule 3', pattern: /c/, expected: true, weight: 30 }
+        ]
+      });
+
+      const rules = verifier.getRules();
+      // Original ratio 1:2:3 should be preserved as 1/6, 2/6, 3/6
+      expect(rules[0].weight).toBeCloseTo(1/6);
+      expect(rules[1].weight).toBeCloseTo(2/6);
+      expect(rules[2].weight).toBeCloseTo(3/6);
+    });
+  });
 });

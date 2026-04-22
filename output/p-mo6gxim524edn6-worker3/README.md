@@ -2,15 +2,17 @@
 
 <div align="center">
 
+⚠️ **开发中版本 v0.9.0-beta** - 本项目正在积极开发中，部分功能尚未完成。请谨慎用于生产环境。
+
 <!-- AUTO-GENERATED-START: PACKAGE_VERSION -->
-`1.0.0`
+`0.9.0-beta`
 <!-- AUTO-GENERATED-END -->
 
-**国产大模型适配器 &nbsp;|&nbsp; WFGY 确定性验证体系 &nbsp;|&nbsp; 可解释 · 可追踪 · 可复现
+**国产大模型适配器 &nbsp;|&nbsp; WFGY 确定性验证体系 &nbsp;|&nbsp; 可解释 · 可追踪 · 可复现**
 
-[![CI](.github/workflows/ci.yml)
-[![Code Quality](.github/workflows/code-quality.yml)
-[![Build Verification](.github/workflows/build.yml)
+[![CI](.github/workflows/ci.yml)]
+[![Code Quality](.github/workflows/code-quality.yml)]
+[![Build Verification](.github/workflows/build.yml)]
 
 </div>
 
@@ -40,7 +42,7 @@
 - **Y**ield - 最终产出的验证？（成果验证器）
 
 ### 🔌 **国产大模型适配器**
-支持 8+ 国产主流大模型，统一接口规范：
+支持 19 个国产主流大模型，统一接口规范：
 
 | 模型 | 厂商 | 状态 |
 |------|------|------|
@@ -51,6 +53,18 @@
 | 腾讯混元 | 腾讯 | ✅ 已集成 |
 | 字节豆包 | 字节跳动 | ✅ 已集成 |
 | Kimi | 月之暗面 | ✅ 已集成 |
+| 百川 | 百川智能 | ✅ 已集成 |
+| 零一万物 | 零一万物 | ✅ 已集成 |
+| 阶跃星辰 | 阶跃星辰 | ✅ 已集成 |
+| MiniMax | 稀宇科技 | ✅ 已集成 |
+| 360 智脑 | 三六零 | ✅ 已集成 |
+| **商汤日日新** | 商汤科技 | ✅ 已集成 |
+| **华为云盘古** | 华为云 | ✅ 已集成 |
+| **网易玉言** | 网易有道 | ✅ 已集成 |
+| **小米小爱** | 小米 | ✅ 已集成 |
+| **出门问问红杉** | 出门问问 | ✅ 已集成 |
+| **度小满轩辕** | 度小满 | ✅ 已集成 |
+| **昆仑万维天工** | 昆仑万维 | ✅ 已集成 |
 
 ### 🧠 **核心能力**
 - **混合记忆系统** - 向量 + 关键词混合检索
@@ -128,23 +142,35 @@ npm test
 创建 `.env` 文件：
 ```env
 # 大模型 API 密钥（按需配置）
-QWEN_API_KEY=your_qwen_key
-WENXIN_API_KEY=your_wenxin_key
-GLM_API_KEY=your_glm_key
-SPARK_API_KEY=your_spark_key
-HUNYUAN_API_KEY=your_hunyuan_key
-DOUBAO_API_KEY=your_doubao_key
-KIMI_API_KEY=your_kimi_key
+QWEN_API_KEY=***
+WENXIN_API_KEY=***
+GLM_API_KEY=***
+SPARK_API_KEY=***
+HUNYUAN_API_KEY=***
+DOUBAO_API_KEY=***
+KIMI_API_KEY=***
+BAICHUAN_API_KEY=***
+YI_API_KEY=***
+STEPFUN_API_KEY=***
+MINIMAX_API_KEY=***
+ZHINAO360_API_KEY=***
+SENSENOVA_API_KEY=***
+PANGU_API_KEY=***
+YUYAN_API_KEY=***
+XIAOAI_API_KEY=***
+HONGSHAN_API_KEY=***
+XUANYUAN_API_KEY=***
+TIANGONG_API_KEY=***
 ```
 
 ---
 
 ## 🧪 测试覆盖率
 
-> 运行 `npm run test:coverage` 生成最新覆盖率报告
+> ⚠️ 需要运行 `npm run test:coverage` 生成最新覆盖率报告。当前测试覆盖率约为 **50.77%**。
 
 <!-- AUTO-GENERATED-START: TEST_COVERAGE -->
-> ⚠️ 覆盖率报告尚未生成，请先运行 `npm run test:coverage`
+> 运行 `npm run test:coverage` 生成覆盖率报告
 <!-- AUTO-GENERATED-END -->
 
 ---
@@ -154,13 +180,16 @@ KIMI_API_KEY=your_kimi_key
 ### 核心模块
 
 <!-- AUTO-GENERATED-START: MODULE_LIST -->
-| 模块 | 路径 | 描述 |
-|------|------|------|
-| `determinism` | `src/modules/determinism/` | WFGY 确定性输出验证引擎，幻觉检测、自一致性检查、源追踪 |
-| `memory` | `src/modules/memory/` | 混合向量记忆系统，语义搜索、长期记忆管理 |
-| `outcome-scheduler` | `src/modules/outcome-scheduler/` | 成果调度器，定时任务、执行历史、模板引擎 |
-| `wiki` | `src/modules/wiki/` | 知识图谱与 Wiki 系统 |
-| `dreaming` | `src/modules/dreaming/` | 梦境整合系统，多阶段知识融合与修复 |
+| 模块 | 路径 | 描述 | 状态 |
+|------|------|------|------|
+| `determinism` | `src/modules/determinism/` | WFGY 确定性输出验证引擎，幻觉检测、自一致性检查、源追踪 | ✅ 已实现 |
+| `memory` | `src/modules/memory/` | 混合向量记忆系统，语义搜索、长期记忆管理 | ✅ 已实现 |
+| `outcome-scheduler` | `src/modules/outcome-scheduler/` | 成果调度器，定时任务、执行历史、模板引擎 | ✅ 已实现 |
+| `wiki` | `src/modules/wiki/` | 知识图谱与 Wiki 系统 | ✅ 已实现 |
+| `dreaming` | `src/modules/dreaming/` | 梦境整合系统，多阶段知识融合与修复 | ✅ 已实现 |
+| `朱雀 - 人格系统` | `规划中` | 人格与角色行为系统 | 📋 规划中 |
+| `白虎 - 进化系统` | `规划中` | 自适应规则学习与进化系统 | 📋 规划中 |
+| `青龙 - Actor 监督树` | `部分实现` | Actor 模型并发运行时 | 🚧 部分实现 |
 
 ### LLM 适配器
 
@@ -173,6 +202,11 @@ KIMI_API_KEY=your_kimi_key
 | `KimiAdapter` | `src/adapters/llm/KimiAdapter.ts` | ✅ 已实现 |
 | `QwenAdapter` | `src/adapters/llm/QwenAdapter.ts` | ✅ 已实现 |
 | `GLMAdapter` | `src/adapters/llm/GLMAdapter.ts` | ✅ 已实现 |
+| `BaichuanAdapter` | `src/adapters/llm/BaichuanAdapter.ts` | ✅ 已实现 |
+| `YiAdapter` | `src/adapters/llm/YiAdapter.ts` | ✅ 已实现 |
+| `StepFunAdapter` | `src/adapters/llm/StepFunAdapter.ts` | ✅ 已实现 |
+| `MiniMaxAdapter` | `src/adapters/llm/MiniMaxAdapter.ts` | ✅ 已实现 |
+| `ZhiNao360Adapter` | `src/adapters/llm/ZhiNao360Adapter.ts` | ✅ 已实现 |
 <!-- AUTO-GENERATED-END -->
 
 ### 目录结构

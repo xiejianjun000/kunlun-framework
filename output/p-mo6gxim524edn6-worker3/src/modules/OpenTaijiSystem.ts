@@ -52,7 +52,7 @@ export interface SystemStatus {
 
 export class OpenTaijiSystem {
   public readonly name: string = 'OpenTaiji';
-  public readonly version: string = '1.0.0-beta';
+  public readonly version: string = '0.9.0-beta';
 
   public readonly memory: MemorySystem;
   public readonly dreaming: DreamingSystem;

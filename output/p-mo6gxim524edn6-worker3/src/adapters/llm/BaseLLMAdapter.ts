@@ -87,7 +87,8 @@ export abstract class BaseLLMAdapter implements ILLMAdapter {
     try {
       await this.createChatCompletion([{ role: 'user', content: 'Hi' }], { maxTokens: 5 });
       return true;
-    } catch {
+    } catch (error) {
+      this.logger.debug('Availability check failed', error);
       return false;
     }
   }

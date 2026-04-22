@@ -1,0 +1,127 @@
+name: Webhook 通知
+run-name: ${{ github.event_name }} 事件触发通知
+
+on:
+  watch:
+    types: [started]
+  fork:
+  issues:
+    types: [opened, edited, closed, reopened]
+  pull_request:
+    types: [opened, edited, closed, reopened, review_requested]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 发送通知到 Webhook
+        uses: actions/github-script@v7
+        env:
+          WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+        with:
+          script: |
+            const eventName = context.eventName;
+            const payload = context.payload;
+            const repo = payload.repository;
+            
+            let title = '';
+            let content = '';
+            let url = '';
+            
+            switch (eventName) {
+              case 'watch':
+                title = '⭐ 有人点了 Star';
+                content = `${payload.sender.login} 点赞了项目\n当前 Star 数：${repo.stargazers_count}`;
+                url = repo.html_url;
+                break;
+                
+              case 'fork':
+                title = '🍴 有人 Fork 了项目';
+                content = `${payload.sender.login} Fork 了项目\n当前 Fork 数：${repo.forks_count}`;
+                url = `${repo.html_url}/forks`;
+                break;
+                
+              case 'issues':
+                const issueAction = {
+                  'opened': '创建了',
+                  'edited': '编辑了',
+                  'closed': '关闭了',
+                  'reopened': '重新打开了'
+                }[payload.action];
+                title = '📝 Issue ' + issueAction;
+                content = `${payload.sender.login} ${issueAction} Issue #${payload.issue.number}\n标题：${payload.issue.title}`;
+                url = payload.issue.html_url;
+                break;
+                
+              case 'pull_request':
+                const prAction = {
+                  'opened': '创建了',
+                  'edited': '编辑了',
+                  'closed': payload.pull_request.merged ? '合并了' : '关闭了',
+                  'reopened': '重新打开了',
+                  'review_requested': '请求评审了'
+                }[payload.action];
+                title = '🔀 PR ' + prAction;
+                content = `${payload.sender.login} ${prAction} PR #${payload.pull_request.number}\n标题：${payload.pull_request.title}`;
+                url = payload.pull_request.html_url;
+                break;
+            }
+            
+            const webhookUrl = process.env.WEBHOOK_URL;
+            if (!webhookUrl) {
+              console.log('⚠️  未配置 WEBHOOK_URL，跳过通知');
+              return;
+            }
+            
+            let body;
+            
+            // 飞书 Lark
+            if (webhookUrl.includes('feishu') || webhookUrl.includes('lark')) {
+              body = {
+                msg_type: 'interactive',
+                card: {
+                  header: {
+                    title: { tag: 'plain_text', content: title }
+                  },
+                  elements: [
+                    { tag: 'div', text: { tag: 'lark_md', content: content } },
+                    { tag: 'action', actions: [
+                      { tag: 'button', text: { tag: 'plain_text', content: '查看详情' }, url, type: 'primary' }
+                    ]}
+                  ]
+                }
+              };
+            }
+            // 企业微信
+            else if (webhookUrl.includes('weixin') || webhookUrl.includes('wechat')) {
+              body = {
+                msgtype: 'markdown',
+                markdown: {
+                  content: `### ${title}\n${content}\n\n[查看详情](${url})`
+                }
+              };
+            }
+            // 钉钉
+            else if (webhookUrl.includes('dingtalk')) {
+              body = {
+                msgtype: 'link',
+                link: {
+                  title,
+                  text: content,
+                  messageUrl: url
+                }
+              };
+            }
+            // 默认通用格式（如 Discord/Slack）
+            else {
+              body = { text: `**${title}**\n${content}\n${url}` };
+            }
+            
+            const response = await fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+            });
+            
+            console.log('通知发送状态:', response.status);
+            console.log('响应:', await response.text());
