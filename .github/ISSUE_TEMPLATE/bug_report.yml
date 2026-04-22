@@ -1,0 +1,121 @@
+name: Bug 报告
+description: 报告一个 Bug 帮助我们改进项目
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间报告 Bug！请尽可能详细填写以下信息，这将帮助我们更快地定位和修复问题。
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: 前置检查
+      options:
+        - label: 我已经搜索了现有的 [Issues](https://github.com/xiejianjun000/open-taiji/issues)，没有找到类似的问题
+          required: true
+        - label: 我已经确认这个问题在最新版本中仍然存在
+          required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug 描述
+      description: 清晰简洁地描述这个 Bug 是什么
+      placeholder: 例如，当我执行 X 操作时，应该发生 Y，但实际发生了 Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 复现步骤
+      description: 详细描述如何复现这个问题
+      placeholder: |
+        1. 前往 '...'
+        2. 点击 '....'
+        3. 滚动到 '....'
+        4. 看到错误
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 预期行为
+      description: 描述你期望发生的事情
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: 实际行为
+      description: 描述实际发生了什么
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 严重程度
+      description: 这个 Bug 对你的影响有多大
+      options:
+        - "严重 - 阻塞使用"
+        - "中等 - 影响部分功能"
+        - "轻微 - 不影响主要功能"
+        - "美观问题"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本信息
+      description: 你使用的 OpenTaiji 版本
+      placeholder: 例如 v1.0.0 或 git commit hash
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      options:
+        - "Linux"
+        - "macOS"
+        - "Windows"
+        - "Docker"
+        - "其他"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js 版本
+      description: node --version 的输出
+      placeholder: 例如 v20.10.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志
+      description: 粘贴任何相关的日志或错误信息
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 额外信息
+      description: 添加任何其他相关的上下文信息、截图或配置文件
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 贡献意愿
+      options:
+        - label: 我愿意提交 PR 修复这个问题

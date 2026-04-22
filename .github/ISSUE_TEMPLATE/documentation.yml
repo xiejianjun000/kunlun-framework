@@ -1,0 +1,53 @@
+name: 文档改进
+description: 报告文档问题或提出改进建议
+title: "[Docs] "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您帮助我们改进文档！
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: 文档类型
+      options:
+        - "README.md"
+        - "API 文档"
+        - "部署文档"
+        - "开发文档"
+        - "贡献指南"
+        - "其他"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: 问题描述
+      description: 描述文档中存在的问题或需要改进的地方
+      placeholder: 文档缺少... / 文档中的...部分不准确 / 建议添加...
+    validations:
+      required: true
+
+  - type: input
+    id: doc-location
+    attributes:
+      label: 文档位置
+      description: 文档的 URL 或文件路径
+      placeholder: 例如 https://github.com/xiejianjun000/open-taiji/blob/main/README.md#installation
+
+  - type: textarea
+    id: suggested-change
+    attributes:
+      label: 建议修改
+      description: 你建议如何修改？
+      placeholder: 我建议修改为...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 贡献意愿
+      options:
+        - label: 我愿意提交 PR 修复这个文档问题

@@ -1,0 +1,106 @@
+name: OpenTaiji CI
+
+on:
+  push:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '**.txt'
+  pull_request:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '**.txt'
+
+  # 允许手动触发
+  workflow_dispatch:
+    inputs:
+      skip_performance:
+        description: '跳过性能测试'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+        - 'true'
+        - 'false'
+
+jobs:
+  # 单元测试 - 快速反馈
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: 单元测试
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          
+      - name: 安装依赖
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npm ci
+        
+      - name: 运行单元测试
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npm test -- --testPathPattern="tests/unit" --maxWorkers=2
+        env:
+          CI: true
+
+  # 性能测试 - 单独运行，允许失败且超时更长
+  performance-tests:
+    runs-on: ubuntu-latest
+    name: 性能测试
+    needs: unit-tests
+    if: github.event.inputs.skip_performance != 'true'
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          
+      - name: 安装依赖
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npm ci
+        
+      - name: 运行性能测试
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npm test -- --testPathPattern="tests/performance" --maxWorkers=1
+        env:
+          CI: true
+          NODE_OPTIONS: --max-old-space-size=4096
+
+  # 代码质量检查
+  lint:
+    runs-on: ubuntu-latest
+    name: 代码质量检查
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: 安装依赖
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npm ci
+        
+      - name: TypeScript 类型检查
+        working-directory: ./output/p-mo6gxim524edn6-worker3
+        run: npx tsc --noEmit

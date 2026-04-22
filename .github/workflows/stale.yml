@@ -1,0 +1,70 @@
+# Stale Bot 配置 - 自动标记和关闭陈旧的 Issue/PR
+# 参考：https://github.com/actions/stale
+
+name: Stale Bot
+
+on:
+  schedule:
+    # 每天 UTC 00:00 运行
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+    # 允许手动触发
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark stale issues and PRs
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Issue 配置
+          stale-issue-message: |
+            这个 Issue 已经有 60 天没有活动了，将被标记为 stale。
+            如果在 7 天内没有活动，它将自动关闭。
+            感谢您的贡献！
+            
+          stale-pr-message: |
+            这个 PR 已经有 30 天没有活动了，将被标记为 stale。
+            如果在 7 天内没有活动，它将自动关闭。
+            感谢您的贡献！
+            
+          close-issue-message: |
+            这个 Issue 因为长时间没有活动已被自动关闭。
+            如果问题仍然存在，请重新打开或创建新的 Issue。
+            
+          close-pr-message: |
+            这个 PR 因为长时间没有活动已被自动关闭。
+            如果您想继续处理这个 PR，请重新打开或创建新的 PR。
+            
+          # 时间配置（天）
+          days-before-issue-stale: 60
+          days-before-issue-close: 7
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          
+          # 标签配置
+          stale-issue-label: "stale"
+          stale-pr-label: "stale"
+          
+          # 排除的标签
+          exempt-issue-labels: "priority-critical,priority-high,security,breaking-change,on-hold,help-wanted,good-first-issue"
+          exempt-pr-labels: "priority-critical,priority-high,security,breaking-change,on-hold,ready-to-merge"
+          
+          # 排除的里程碑
+          exempt-all-milestones: true
+          
+          # 排除已分配的 Issue/PR
+          exempt-all-assignees: true
+          
+          # 每次运行最多处理数量
+          operations-per-run: 30
+          
+          # 删除分支（仅对已合并的 PR）
+          delete-branch: true

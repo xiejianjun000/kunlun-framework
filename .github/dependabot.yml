@@ -1,0 +1,42 @@
+# Dependabot 自动更新配置
+# 参考：https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+
+version: 2
+updates:
+  # GitHub Actions 更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Shanghai"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "deps(github-actions)"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "xiejianjun000"
+
+  # npm 更新
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Shanghai"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps(npm)"
+    open-pull-requests-limit: 10
+    versioning-strategy: "widen"
+    reviewers:
+      - "xiejianjun000"
+    ignore:
+      # 忽略主要版本更新（破坏性变更）
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
