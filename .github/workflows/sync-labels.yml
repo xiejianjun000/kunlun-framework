@@ -15,7 +15,7 @@ jobs:
       issues: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Sync Labels from labels.yml
         uses: EndBug/label-sync@v2

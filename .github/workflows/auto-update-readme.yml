@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout 代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # 获取完整历史以支持 git 操作
           fetch-depth: 0
