@@ -59,7 +59,7 @@
     "prepare": "echo '✅ Pre-commit hooks ready'"
   },
   "dependencies": {
-    "agent-browser": "^0.13.0",
+    "agent-browser": "^0.26.0",
     "@askjo/camofox-browser": "^1.5.2"
   },
   "overrides": {
