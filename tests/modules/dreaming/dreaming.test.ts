@@ -5,19 +5,22 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as os from 'os';
+import { RecallTracker } from './RecallTracker';
+import { LightPhaseExecutor } from './LightPhaseExecutor';
+import { DeepPhaseRanker } from './DeepPhaseRanker';
+import { REMPhaseExtractor } from './REMPhaseExtractor';
+import { MemoryDreamingIntegration } from './MemoryDreamingIntegration';
 import {
-  RecallTracker,
-  LightPhaseExecutor,
-  DeepPhaseRanker,
-  REMPhaseExtractor,
-  MemoryDreamingIntegration,
-  DEFAULT_WEIGHTS,
-  PROMOTION_WEIGHTS
+  DEFAULT_PROMOTION_WEIGHTS as DEFAULT_WEIGHTS,
+  PromotionWeights
 } from '../../../src/modules/memory-system/dreaming';
+
+const PROMOTION_WEIGHTS: PromotionWeights = DEFAULT_WEIGHTS;
 
 // 测试辅助函数
 async function createTempWorkspace(): Promise<string> {
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'dreaming-test-'));
+  await fs.mkdir(path.join(tempDir, 'memory'), { recursive: true });
   await fs.mkdir(path.join(tempDir, 'memory', '.dreams'), { recursive: true });
   await fs.writeFile(path.join(tempDir, 'MEMORY.md'), '# MEMORY.md\n\n## 长期记忆\n\n', 'utf-8');
   return tempDir;
@@ -49,6 +52,7 @@ describe('RecallTracker', () => {
   test('应该创建新召回记录', async () => {
     await tracker.recordRecall({
       query: '环评报告审批',
+      signalType: 'recall',
       results: [{
         path: 'memory/2024-01-01.md',
         startLine: 10,
@@ -70,6 +74,7 @@ describe('RecallTracker', () => {
     // 第一次召回
     await tracker.recordRecall({
       query: '环评报告',
+      signalType: 'recall',
       results: [{
         path: 'memory/2024-01-01.md',
         startLine: 10,
@@ -83,6 +88,7 @@ describe('RecallTracker', () => {
     // 第二次召回（同一片段）
     await tracker.recordRecall({
       query: '项目审批',
+      signalType: 'recall',
       results: [{
         path: 'memory/2024-01-01.md',
         startLine: 10,
@@ -103,6 +109,7 @@ describe('RecallTracker', () => {
   test('应该正确统计数据', async () => {
     await tracker.recordRecall({
       query: '测试查询1',
+      signalType: 'recall',
       results: [{
         path: 'memory/2024-01-01.md',
         startLine: 10,
@@ -114,6 +121,7 @@ describe('RecallTracker', () => {
     });
 
     await tracker.recordRecall({
+      signalType: 'recall',
       query: '测试查询2',
       results: [{
         path: 'memory/2024-01-02.md',
@@ -163,7 +171,7 @@ describe('LightPhaseExecutor', () => {
     workspaceDir = await createTempWorkspace();
     tracker = new RecallTracker(workspaceDir);
     executor = new LightPhaseExecutor(workspaceDir, tracker, {
-      lookbackDays: 7,
+      lookbackDays: 30,
       limit: 50
     });
   });
@@ -173,8 +181,9 @@ describe('LightPhaseExecutor', () => {
   });
 
   test('应该从每日memory文件提取片段', async () => {
-    // 创建测试memory文件
-    const memoryContent = `# 2024-01-01 日记
+    // 创建测试memory文件 - 使用昨天日期（确保在cutoff内）
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    const memoryContent = `# ${yesterday} 日记
 
 ## 今日工作
 
@@ -186,7 +195,7 @@ describe('LightPhaseExecutor', () => {
 
 - 继续跟进审批进度
 `;
-    await fs.writeFile(path.join(workspaceDir, 'memory', '2024-01-01.md'), memoryContent, 'utf-8');
+    await fs.writeFile(path.join(workspaceDir, 'memory', `${yesterday}.md`), memoryContent, 'utf-8');
 
     const result = await executor.execute();
     expect(result.dailyEntriesProcessed).toBeGreaterThan(0);
