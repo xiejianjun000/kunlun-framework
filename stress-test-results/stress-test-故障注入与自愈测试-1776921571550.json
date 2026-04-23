@@ -1,0 +1,121 @@
+{
+  "name": "故障注入与自愈测试",
+  "startTime": "2026-04-23T05:19:19.630Z",
+  "status": "completed",
+  "snapshots": [
+    {
+      "timestamp": 1776921560520,
+      "step": 0,
+      "agentCount": 500,
+      "cpuUsage": 15.696915196347272,
+      "memoryUsageMB": 7.029945373535156,
+      "messageQueueLength": 84,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921561610,
+      "step": 1,
+      "agentCount": 500,
+      "cpuUsage": 1.1909191798864405,
+      "memoryUsageMB": 7.040374755859375,
+      "messageQueueLength": 48,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921563440,
+      "step": 2,
+      "agentCount": 500,
+      "cpuUsage": 26.29172444226461,
+      "memoryUsageMB": 7.050270080566406,
+      "messageQueueLength": 6,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921565184,
+      "step": 3,
+      "agentCount": 500,
+      "cpuUsage": 36.49397849314327,
+      "memoryUsageMB": 7.060302734375,
+      "messageQueueLength": 86,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921566559,
+      "step": 4,
+      "agentCount": 500,
+      "cpuUsage": 36.26773020851122,
+      "memoryUsageMB": 7.070198059082031,
+      "messageQueueLength": 28,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921567572,
+      "step": 5,
+      "agentCount": 500,
+      "cpuUsage": 25.11607219098071,
+      "memoryUsageMB": 7.080230712890625,
+      "messageQueueLength": 58,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921569285,
+      "step": 6,
+      "agentCount": 500,
+      "cpuUsage": 14.010821769417259,
+      "memoryUsageMB": 7.090126037597656,
+      "messageQueueLength": 54,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    },
+    {
+      "timestamp": 1776921571050,
+      "step": 7,
+      "agentCount": 500,
+      "cpuUsage": 15.796050318894672,
+      "memoryUsageMB": 7.10015869140625,
+      "messageQueueLength": 99,
+      "p50LatencyMs": 50,
+      "p95LatencyMs": 150,
+      "p99LatencyMs": 300,
+      "errorRate": 0.01,
+      "activeConnections": 480
+    }
+  ],
+  "metrics": {
+    "totalFaultsInjected": 8,
+    "successfulRecoveryCount": 8,
+    "recoverySuccessRatePercent": "100.00",
+    "averageRecoveryTimeMs": "989",
+    "maxRecoveryTimeMs": "1328",
+    "minRecoveryTimeMs": "512"
+  },
+  "passed": true,
+  "endTime": "2026-04-23T05:19:31.550Z"
+}

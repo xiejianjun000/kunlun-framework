@@ -1,0 +1,33 @@
+[
+  {
+    "module": "大规模并发测试",
+    "timestamp": 1776929129052,
+    "inflectionPoint": -1,
+    "maxStableAgents": 5000,
+    "performanceDecayRate": 0,
+    "totalUptimeHours": 0.011116666666666667
+  },
+  {
+    "module": "复杂场景测试",
+    "timestamp": "2026-04-23T07:25:39.476Z",
+    "schedulingSuccessRate": 1,
+    "fraudDetectionAccuracy": 0,
+    "overallComplexTaskSuccess": 0.5
+  },
+  {
+    "module": "韧性与自愈测试",
+    "timestamp": "2026-04-23T07:25:43.839Z",
+    "resilienceScore": 1.049177435897436,
+    "detectionRate": 0.98,
+    "healingRate": 1,
+    "systemDegradationBeforeHealing": 0.44000000000000006,
+    "systemDegradationAfterHealing": 0.20479999999999998
+  },
+  {
+    "module": "架构安全审计",
+    "timestamp": "2026-04-23T07:25:43.839Z",
+    "highRiskVulnerabilities": 0,
+    "architectureScore": 92,
+    "performanceRank": 2
+  }
+]
