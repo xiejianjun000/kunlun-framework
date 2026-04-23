@@ -15,6 +15,26 @@
 
 ---
 
+## 💡 两种使用方式
+
+三才提供两种完全独立的使用方式，适用于不同场景：
+
+### 🤖 方式一：代码引擎模式（开发者）
+
+集成到你的 Node.js / Python / Java 项目中，流式守护 LLM 输出，零 Token 消耗。
+
+**适用于**：Agent 系统、API 服务、自动化工作流
+
+### 📋 方式二：纯文本模式（所有人）
+
+不需要任何代码！直接复制 [`WFGY-2.0-CORE.txt`](WFGY-2.0-CORE.txt) 粘贴到任何 LLM 对话窗口，立刻获得防幻觉能力。
+
+**适用于**：网页版 ChatGPT、Claude、Gemini、日常写作、研究工作
+
+> 详细方法论文档：[`docs/WFGY-METHODOLOGY.md`](docs/WFGY-METHODOLOGY.md)
+
+---
+
 ## ✨ 核心特性
 
 | 特性 | 说明 |
