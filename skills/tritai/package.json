@@ -1,0 +1,44 @@
+{
+  "name": "tritai",
+  "version": "0.1.0-alpha",
+  "description": "TriTai 三才 - 可信 AI 基础设施 · 零 Token 幻觉守护引擎",
+  "main": "wfgy.js",
+  "types": "src/types.ts",
+  "files": [
+    "wfgy.js",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node tests/wfgy-test-suite.js ALL",
+    "test:p0": "node tests/wfgy-test-suite.js P0",
+    "test:p1": "node tests/wfgy-test-suite.js P1",
+    "test:quick": "node tests/quick-test.js",
+    "benchmark": "node -e \"const { ZeroTokenGuard } = require('./wfgy'); const g = new ZeroTokenGuard(); const s = Date.now(); for(let i=0;i<10000;i++) g.detectText('测试文本 GB-2025-003'); console.log('10k tests in', Date.now()-s, 'ms, avg', (Date.now()-s)/10000, 'ms/test')\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openclaw/tritai.git"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "hallucination",
+    "hallucination-detection",
+    "ai-safety",
+    "tritai",
+    "wfgy",
+    "openclaw",
+    "skill"
+  ],
+  "author": "TriTai Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/openclaw/tritai/issues"
+  },
+  "homepage": "https://github.com/openclaw/tritai#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
