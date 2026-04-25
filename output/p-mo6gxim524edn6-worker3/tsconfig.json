@@ -9,7 +9,7 @@
     // 输出目录
     "outDir": "./dist",
     // 源码根目录
-    "rootDir": "./src",
+    "rootDir": ".",
     // 启用所有严格类型检查选项
     "strict": true,
     // 启用 ES 模块互操作性
@@ -29,7 +29,8 @@
     // 包含的类型定义
     "types": ["jest", "node"],
     // 模块解析策略
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     // 允许默认导入
     "allowSyntheticDefaultImports": true,
     // 启用装饰器支持
