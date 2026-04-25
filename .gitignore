@@ -197,3 +197,11 @@ heartbeat.json
 status.json
 lock.*
 *.lock
+
+# Build outputs
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+output/*/node_modules/
+output/*/dist/
