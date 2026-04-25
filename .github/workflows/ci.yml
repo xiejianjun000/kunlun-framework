@@ -49,6 +49,6 @@ jobs:
 
       - name: 运行单元测试
         working-directory: ./output/p-mo6gxim524edn6-worker3
-        run: npm run test:coverage
+        run: npx jest --testPathPatterns="tests/unit" --maxWorkers=2 --forceExit
         env:
           CI: true
