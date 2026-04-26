@@ -48,15 +48,16 @@
     "postinstall": "echo '✅ OpenTaiji 项目初始化完成'",
     "dev": "cd output/p-mo6gxim524edn6-worker3 && npm run dev",
     "build": "cd output/p-mo6gxim524edn6-worker3 && npm run build",
-    "test": "cd output/p-mo6gxim524edn6-worker3 && npm test",
+    "test": "jest",
     "test:unit": "cd output/p-mo6gxim524edn6-worker3 && npm run test:unit",
     "test:performance": "cd output/p-mo6gxim524edn6-worker3 && npm run test:performance",
-    "test:coverage": "cd output/p-mo6gxim524edn6-worker3 && npm run test:coverage",
-    "lint": "cd output/p-mo6gxim524edn6-worker3 && npm run lint",
-    "lint:fix": "cd output/p-mo6gxim524edn6-worker3 && npm run lint:fix",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
     "docs:update": "cd output/p-mo6gxim524edn6-worker3 && npm run docs:update",
     "clean": "cd output/p-mo6gxim524edn6-worker3 && npm run clean",
-    "prepare": "echo '✅ Pre-commit hooks ready'"
+    "prepare": "echo '✅ Pre-commit hooks ready'",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "agent-browser": "^0.13.0",
@@ -68,5 +69,13 @@
   "workspaces": [
     "output/p-mo6gxim524edn6-worker3",
     "workspaces/*"
-  ]
+  ],
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0"
+  }
 }
