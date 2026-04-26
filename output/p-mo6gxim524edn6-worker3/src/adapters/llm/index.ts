@@ -1,7 +1,8 @@
 /**
  * LLM Adapter Collection
  *
- * Supported Providers (19 total):
+ * Supported Providers (20 total):
+ * - DeepSeek V4 (Flash/Pro) - DeepSeek AI (NEW) ⚡ 原生推理能力
  * - Qwen (Tongyi Qianwen) - Alibaba
  * - Wenxin (ERNIE) - Baidu
  * - Hunyuan - Tencent
@@ -14,18 +15,19 @@
  * - StepFun - StepFun AI
  * - MiniMax - MiniMax AI
  * - ZhiNao360 - 360 AI
- * - SenseNova - 商汤日日新 (NEW)
- * - Pangu - 华为云盘古 (NEW)
- * - Yuyan - 网易玉言 (NEW)
- * - Xiaoai - 小米小爱 (NEW)
- * - Hongshan - 出门问问红杉 (NEW)
- * - Xuanyuan - 度小满轩辕 (NEW)
- * - Tiangong - 昆仑万维天工 (NEW)
+ * - SenseNova - 商汤日日新
+ * - Pangu - 华为云盘古
+ * - Yuyan - 网易玉言
+ * - Xiaoai - 小米小爱
+ * - Hongshan - 出门问问红杉
+ * - Xuanyuan - 度小满轩辕
+ * - Tiangong - 昆仑万维天工
  */
 
 export * from './interfaces/ILLMAdapter';
 export { BaseLLMAdapter } from './BaseLLMAdapter';
 
+export { DeepSeekAdapter, DEEPSEEK_V4_MODELS } from './DeepSeekAdapter';
 export { QwenAdapter } from './QwenAdapter';
 export { WenxinAdapter, WenxinConfig } from './WenxinAdapter';
 export { HunyuanAdapter } from './HunyuanAdapter';
@@ -47,6 +49,7 @@ export { XuanyuanAdapter } from './XuanyuanAdapter';
 export { TiangongAdapter } from './TiangongAdapter';
 
 import { LLMConfig } from './interfaces/ILLMAdapter';
+import { DeepSeekAdapter } from './DeepSeekAdapter';
 import { QwenAdapter } from './QwenAdapter';
 import { WenxinAdapter, WenxinConfig } from './WenxinAdapter';
 import { HunyuanAdapter } from './HunyuanAdapter';
@@ -68,6 +71,7 @@ import { XuanyuanAdapter } from './XuanyuanAdapter';
 import { TiangongAdapter } from './TiangongAdapter';
 
 export type SupportedProvider =
+  | 'deepseek'
   | 'qwen'
   | 'wenxin'
   | 'hunyuan'
@@ -94,6 +98,7 @@ export type LLMAdapterConfig = LLMConfig | WenxinConfig | MiniMaxConfig | PanguC
  * LLM Adapter Factory - Creates appropriate adapter based on provider name
  */
 export class LLMAdapterFactory {
+  static create(provider: 'deepseek', config: LLMConfig): DeepSeekAdapter;
   static create(provider: 'qwen', config: LLMConfig): QwenAdapter;
   static create(provider: 'wenxin', config: WenxinConfig): WenxinAdapter;
   static create(provider: 'hunyuan', config: LLMConfig): HunyuanAdapter;
@@ -115,6 +120,8 @@ export class LLMAdapterFactory {
   static create(provider: 'tiangong', config: LLMConfig): TiangongAdapter;
   static create(provider: SupportedProvider, config: LLMAdapterConfig): any {
     switch (provider) {
+      case 'deepseek':
+        return new DeepSeekAdapter(config as LLMConfig);
       case 'qwen':
         return new QwenAdapter(config as LLMConfig);
       case 'wenxin':
@@ -163,6 +170,7 @@ export class LLMAdapterFactory {
  * Provider-to-model mapping
  */
 export const DEFAULT_MODELS: Record<SupportedProvider, string> = {
+  deepseek: 'deepseek-v4-pro',
   qwen: 'qwen-turbo',
   wenxin: 'ernie-3.5',
   hunyuan: 'hunyuan-lite',
@@ -187,6 +195,7 @@ export const DEFAULT_MODELS: Record<SupportedProvider, string> = {
 /**
  * Default pricing for each provider (cost per 1k tokens, CNY)
  */
+export const DeepSeekDefaultPricing = { prompt: 0.001, completion: 0.002 }; // V4 Pro
 export const QwenDefaultPricing = { prompt: 0.0008, completion: 0.0008 };
 export const WenxinDefaultPricing = { prompt: 0.0008, completion: 0.0016 };
 export const HunyuanDefaultPricing = { prompt: 0.0008, completion: 0.0008 };

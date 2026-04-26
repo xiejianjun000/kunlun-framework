@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-04-26
+
+### 🎉 DeepSeek V4 Support
+
+**New LLM Models Added**
+- ✅ `deepseek-v4-flash` - 快速响应，适合高并发场景
+- ✅ `deepseek-v4-pro` - 深度推理，适合复杂任务
+- ✅ 原生推理能力支持（reasoning_content）
+
+### 🔧 Improvements
+- LLM Adapter 支持 DeepSeek V4 系列模型
+- 新增推理令牌统计（reasoningTokens）
+- ChatCompletionResponse 支持 reasoningContent 字段
+
+### 📝 Notes
+- DeepSeek V4 系列于 2026年4月24日 发布，与 GPT-5.5 同日竞技
+- V4-Pro 在逻辑推理、数学竞赛等测试中表现优异
+- 成本优势依然显著（比 GPT-4 便宜 100倍+）
+
+---
+
 ## [1.0.0-beta] - 2026-04-20
 
 ### ✨ M3 Milestone - Perfect Grade Delivery
