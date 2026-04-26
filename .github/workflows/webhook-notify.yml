@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 发送通知到 Webhook
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
         with:
