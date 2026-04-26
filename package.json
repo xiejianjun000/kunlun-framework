@@ -1,6 +1,6 @@
 {
   "name": "opentaiji",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "OpenTaiji - 开源 AI 任务调度与确定性验证系统",
   "private": true,
   "author": "OpenTaiji Team",
